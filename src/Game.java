@@ -15,6 +15,7 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private JFrame frame;
+    private Keyboard key;
     private boolean running = false;
 
     private Screen screen;
@@ -29,6 +30,9 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height); //tworzymy obiekt screen którym będziemy zmieniac nasze piksele
 
         frame = new JFrame(); //stworzenie nowego obiektu okienka javy
+
+        key = new Keyboard();
+        addKeyListener(key);
     }
 
     public synchronized void start() {
