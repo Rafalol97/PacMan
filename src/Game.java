@@ -1,3 +1,5 @@
+import UI.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -7,9 +9,9 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable {
     //private  static final long serialVersionUID = 1L;
 
-    public static int width = 800;
+    public static int width = 1600;
     public static int height = width / 16 * 9;
-    public static int scale = 3;
+    public static int scale = 1;
     public static String title = "PacMan";
 
 
@@ -21,7 +23,7 @@ public class Game extends Canvas implements Runnable {
     private Screen screen;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
-    private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyrzej w tablice pixeli
+    private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale); //ustawienie wilkosci
@@ -61,13 +63,14 @@ public class Game extends Canvas implements Runnable {
 
         while (running) {
             long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
+            delta += (now - lastTime) *(60) /1000000000.0;
             lastTime = now;
 
             while (delta >= 1) { //timer upewniajacy sie ze robi update 60 razy na sek
                 update();
                 updates++; //ile updatow robimy na sek
                 delta--;
+
             }
 
             render();
@@ -87,7 +90,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    //RENDEROWANIE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //RENDEROWANIE !!!!!!!!!
     public void render() {
         BufferStrategy bs = getBufferStrategy(); //pobieramy ustawienia buffera z canvas'a
         if (bs == null) {
