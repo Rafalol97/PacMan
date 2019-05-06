@@ -1,11 +1,14 @@
 package Level;
 
-import Level.Tile;
-import Level.TileBrick;
-import Level.TileGrass;
+import UI.Entity;
 import UI.Sprite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
+    public List<Entity> ghosts = new ArrayList<Entity>();
+    public Entity Pacmann = new Entity();
     // Oznacznik klockow z ktorych sie sklada mapa - 0 droga 1 - sciana 2- podłoga z coinem
     private int tiles[][]={
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -60,6 +63,16 @@ public class Board {
 
             }
         }
+    }
+    public void renderTiles(){
+        for (int y=0;y<14;y++){
+            for(int x=0;x<20;x++){
+                if(tiles[y][x]==0)renderTile(Sprite.podloga,x,y);
+                else if(tiles[y][x]==1) renderTile(Sprite.podlogaCoin,x,y);
+                else if(tiles[y][x]==2)renderTile(Sprite.brick,x,y);
+            }
+        }
+
     }
 
 }
