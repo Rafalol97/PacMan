@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Random;
 
 
-public class Screen  extends JPanel {
+public class Screen   {
 
     private int width, height;
     public int[] pixels;
@@ -49,7 +49,6 @@ public class Screen  extends JPanel {
             for (int x = 0; x < width; x++) {
                 if (x < 1300 && x >= 300 && y < 800 && y >= 100) {
                     pixels[x + y * width] = plansza.getPixelsFromBoard(x - 300, y - 100);
-
                      }
                       else {
                        pixels[x+y*width] = tile.getRGB(x,y);
@@ -59,6 +58,7 @@ public class Screen  extends JPanel {
             }
         }
     }
+
 
 
 

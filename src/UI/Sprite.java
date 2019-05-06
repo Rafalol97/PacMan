@@ -11,15 +11,38 @@ public class Sprite {
     public static Sprite brick = new Sprite(50,0,0,SpriteSheet.tiles);
     public static Sprite podloga = new Sprite(50,0,1,SpriteSheet.tiles);
     public static Sprite podlogaCoin = new Sprite(50,1,0,SpriteSheet.tiles);
+    public static Sprite pacmann = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_2 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_3 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_4 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_5 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_6 = new Sprite(50,1,1,SpriteSheet.pacmann);
 
 
 
-    protected Sprite(SpriteSheet sheet, int width, int height) {
-        SIZE = (width == height) ? width : -1;
-        this.width = width;
-        this.height = height;
-        this.sheet = sheet;
-    }
+
+
+
+    public static Sprite ghost_1  =new Sprite(50,0,0,SpriteSheet.ghosts);
+    public static Sprite ghost_1_down = new Sprite (50,0,1,SpriteSheet.ghosts);
+    public static Sprite ghost_1_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
+    public static Sprite ghost_1_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
+
+    public static Sprite ghost_2  =new Sprite(50,0,0,SpriteSheet.ghosts);
+    public static Sprite ghost_2_down = new Sprite (50,0,1,SpriteSheet.ghosts);
+    public static Sprite ghost_2_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
+    public static Sprite ghost_2_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
+
+    public static Sprite ghost_3  =new Sprite(50,0,0,SpriteSheet.ghosts);
+    public static Sprite ghost_3_down = new Sprite (50,0,1,SpriteSheet.ghosts);
+    public static Sprite ghost_3_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
+    public static Sprite ghost_3_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
+
+    public static Sprite ghost_4  =new Sprite(50,0,0,SpriteSheet.ghosts);
+    public static Sprite ghost_4_down = new Sprite (50,0,1,SpriteSheet.ghosts);
+    public static Sprite ghost_4_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
+    public static Sprite ghost_4_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
+
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SIZE = size;
@@ -32,21 +55,6 @@ public class Sprite {
         load();
     }
 
-    public Sprite(int width, int height, int colour) {
-        SIZE = -1;
-        this.width = width;
-        this.height = height;
-        pixels = new int[width * height];
-        setColour(colour);
-    }
-
-    public Sprite(int size, int colour) {
-        SIZE = size;
-        this.width = size;
-        this.height = size;
-        pixels = new int[SIZE * SIZE];
-        setColour(colour);
-    }
 
     public Sprite(int[] pixels, int width, int height) {
         SIZE = (width == height) ? width : -1;
@@ -68,6 +76,9 @@ public class Sprite {
         for (int i = 0; i < width * height; i++) {
             pixels[i] = colour;
         }
+    }
+    public int getPixel(int x, int y){
+        return  pixels[x+y*this.SIZE];
     }
 
 }

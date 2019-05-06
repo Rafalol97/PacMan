@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private JFrame frame;
-    private Keyboard key;
+    private Keyboard key; 
     private boolean running = false;
 
     private Screen screen;
@@ -101,6 +101,8 @@ public class Game extends Canvas implements Runnable {
         screen.clear();
 
         screen.render();
+
+        leel
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
