@@ -1,4 +1,4 @@
-package UI;
+package Level;
 
 import Level.Board;
 
