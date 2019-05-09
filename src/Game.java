@@ -1,5 +1,6 @@
-import UI.Screen;
 
+import Events.Keyboard;
+import Level.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -17,10 +18,10 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private JFrame frame;
-    private Keyboard key; 
+    private Keyboard key;
     private boolean running = false;
 
-    private Screen screen;
+    public static Screen screen;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
@@ -102,7 +103,7 @@ public class Game extends Canvas implements Runnable {
 
         screen.render();
 
-        leel
+
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
@@ -133,4 +134,5 @@ public class Game extends Canvas implements Runnable {
         game.start();
 
     }
+
 }

@@ -1,5 +1,5 @@
 import Events.Event;
-import UI.Screen;
+import Screen;
 
 import java.util.EventListener;
 
