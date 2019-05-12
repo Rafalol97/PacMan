@@ -8,15 +8,23 @@ public class Sprite {
     public int [] pixels;
     public static Sprite brick = new Sprite(50,0,0,SpriteSheet.tiles);
     public static Sprite podloga = new Sprite(50,1,0,SpriteSheet.tiles);
-    public static Sprite pacmann = new Sprite(32,0,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_prawo_0 = new Sprite(50,0,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_prawo_1 = new Sprite(50,1,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_prawo_2 = new Sprite(50,2,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_prawo_3 = new Sprite(50,3,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_lewo_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_lewo_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_lewo_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_lewo_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
+
   /*
    // public static Sprite podlogaCoin = new Sprite(50,1,0,SpriteSheet.tiles);
-    public static Sprite pacmann = new Sprite(50,1,1,SpriteSheet.pacmann);
-  //  public static Sprite pacmann_2 = new Sprite(50,1,1,SpriteSheet.pacmann);
-   // public static Sprite pacmann_3 = new Sprite(50,1,1,SpriteSheet.pacmann);
-  //  public static Sprite pacmann_4 = new Sprite(50,1,1,SpriteSheet.pacmann);
-   // public static Sprite pacmann_5 = new Sprite(50,1,1,SpriteSheet.pacmann);
-  //  public static Sprite pacmann_6 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_prawo_0 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+  //  public static Sprite pacmann_2 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+   // public static Sprite pacmann_3 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+  //  public static Sprite pacmann_4 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+   // public static Sprite pacmann_5 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+  //  public static Sprite pacmann_6 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
 
 
 
@@ -70,11 +78,6 @@ public class Sprite {
             for (int x = 0; x < width; x++) {
                 pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SPRITE_WIDTH];
             }
-        }
-    }
-    private void setColour(int colour) {
-        for (int i = 0; i < width * height; i++) {
-            pixels[i] = colour;
         }
     }
     public int getPixel(int x, int y){

@@ -1,6 +1,7 @@
 package rafalwisnia.Entity;
 
 
+import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.UI.Sprite;
 import rafalwisnia.LevelUtilities.Screen;
@@ -22,7 +23,7 @@ public class Entity {
         this.y = y;
         this.sprite = sprite;
     }
-    public void update(){
+    public void update(Board board){
 
     }
     public void render(Screen screen){

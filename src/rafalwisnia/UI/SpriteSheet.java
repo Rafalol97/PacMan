@@ -12,7 +12,7 @@ public class SpriteSheet {
     private  int width, height;
     public int pixels[];
     public static SpriteSheet tiles = new SpriteSheet("resources/textures/Tiles/sheet.jpg",100);
-    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/postac.png", 32);
+    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/textury.png", 1000);
     //public static SpriteSheet ghosts = new SpriteSheet("/textures/sheets/player_sheet.png", 1000);
 
     public SpriteSheet(String path, int SIZE) {

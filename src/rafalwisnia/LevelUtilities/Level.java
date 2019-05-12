@@ -39,9 +39,7 @@ public class Level  {
         }
     }
     public void update() {
-        pacman.update();
-
-
+        pacman.update(board);
     }
     private void remove() {
       pacman.remove();

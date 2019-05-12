@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
         level = new Level();
         key = new Keyboard();
         addKeyListener(key);
-        level.add(new Pacmann(500,300,key));
+        level.add(new Pacmann(700,600,key));
 
     }
 
@@ -109,7 +109,6 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-
 
         level.render(screen);
 
