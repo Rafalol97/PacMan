@@ -6,31 +6,23 @@ import rafalwisnia.LevelUtilities.Screen;
 
 public abstract class Mob extends Entity {
     protected boolean moving = false;
-    protected boolean walking = false;
 
-    protected boolean live = false;
-
+    protected int klatka;
+    protected boolean kierunekKlatek;
+    protected int frameSpeed;
+    protected int frameWait;
     protected enum Directions {
         UP, DOWN, RIGHT, LEFT
     }
-
-    protected enum boolean2 {
-        true1, false1
-    }
-
     Directions direction;
-    double speed;
+    private double speed;
 
-    void changeDirection(Directions dir, Board board) {
-    }
 
     Mob() {
         this.speed =1 ;
     }
 
-    public abstract void render(Screen screen);
 
-    public abstract void update(Board board);
 
     protected boolean checkPossibleDirectionChange(Directions direction, Board board) {
         if (this.direction == Directions.UP && direction == Directions.DOWN) return true;
@@ -38,10 +30,11 @@ public abstract class Mob extends Entity {
         else if (this.direction == Directions.RIGHT && direction == Directions.LEFT) return true;
         else if (this.direction == Directions.LEFT && direction == Directions.RIGHT) return true;
         else if (checkNeighbour(board, direction) && this.x % 50 == 0 && this.y % 50 == 0) return true;
+        else if (this.direction==direction) return  true;
         else return false;
     }
 
-    private boolean checkNeighbour(Board board, Directions direction) {
+     boolean checkNeighbour(Board board, Directions direction) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
         if (direction == Directions.UP) {
 
@@ -78,6 +71,30 @@ public abstract class Mob extends Entity {
         }
         return false;
     }
+    public void move(){
+        if(direction==Directions.UP){
+            y-=speed;
+            changeFrame();
+        }
+        else  if(direction==Directions.DOWN){
+            y+=speed;
+            changeFrame();
+        }
+        else if(direction==Directions.RIGHT){
+            x+=speed;
+            changeFrame();
+        }
+        else if(direction==Directions.LEFT){
+            x-=speed;
+            changeFrame();
+        }
+        frameWait++;
+    }
+    public abstract void changeFrame();
+
+    public abstract void render(Screen screen);
+
+    public abstract void update(Board board);
 }
 
 

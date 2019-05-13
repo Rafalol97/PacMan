@@ -2,6 +2,7 @@ package rafalwisnia.LevelUtilities;
 
 
 import rafalwisnia.Entity.Entity;
+import rafalwisnia.Entity.Ghost1;
 import rafalwisnia.Entity.Pacmann;
 
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ public class Level  {
         public Level() {
             border = new Border();
             board = new Board(1000,700);
+            ghosts.add(new Ghost1(500,500));
+            ghosts.add(new Ghost1(500,500));
+            ghosts.add(new Ghost1(500,500));
+            ghosts.add(new Ghost1(500,500));
         }
 
     public void render(Screen screen){
@@ -40,9 +45,15 @@ public class Level  {
         }
     }
     public void update() {
-    for(int i=0;i<49;i++){
+    for(int i=0;i<4;i++){
         pacman.update(board);
 
+    }
+    for(int i=0;i<ghosts.size();i++){
+        ghosts.get(i).update(board);
+        ghosts.get(i).update(board);
+        ghosts.get(i).update(board);
+        ghosts.get(i).update(board);
     }
 
     }

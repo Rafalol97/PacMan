@@ -17,10 +17,7 @@ import static rafalwisnia.UI.Sprite.*;
 public class Pacmann extends  Mob implements EventListener {
     private Keyboard input;
     private Sprite sprite;
-    private int klatka;
-    private boolean kierunekKlatek;
-    private int frameSpeed;
-    private int frameWait;
+
     private Directions directionTemp;
     private int directionIter;
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
@@ -96,31 +93,8 @@ public class Pacmann extends  Mob implements EventListener {
                 directionIter =3;
             }
           klatka =0;
-
-
-
         }
 
-    }
-    public int calculateNextX(){
-        int temp = this.x;
-        if(this.direction==Directions.LEFT){
-            temp-=this.speed+1;
-        }
-        if(this.direction==Directions.RIGHT){
-            temp+=this.speed+50+1;
-        }
-        return temp;
-    }
-    public int calculateNextY(){
-        int temp = this.y;
-        if(this.direction==Directions.DOWN){
-            temp+=this.speed+50+1;
-        }
-        if(this.direction==Directions.UP){
-            temp-=this.speed-1;
-        }
-        return  temp;
     }
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
@@ -133,26 +107,8 @@ public class Pacmann extends  Mob implements EventListener {
         }
     }
 
-    public void move(){
-        if(direction==Directions.UP){
-            y-=speed;
-            changeFrame();
-        }
-        else  if(direction==Directions.DOWN){
-            y+=speed;
-            changeFrame();
-        }
-        else if(direction==Directions.RIGHT){
-            x+=speed;
-            changeFrame();
-        }
-        else if(direction==Directions.LEFT){
-           x-=speed;
-            changeFrame();
-        }
-        frameWait++;
-    }
-    private void changeFrame(){
+   @Override
+    public void changeFrame(){
         if(frameWait>=frameSpeed) {
             if (klatka >= 3) {
                 kierunekKlatek = false;
@@ -164,6 +120,7 @@ public class Pacmann extends  Mob implements EventListener {
             frameWait=0;
         }
     }
+
     public void render(Screen screen){
         int flip =0;
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
