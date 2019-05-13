@@ -17,6 +17,17 @@ public class Sprite {
     public static Sprite pacmann_lewo_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
     public static Sprite pacmann_lewo_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
 
+    public static Sprite pacmann_gora_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
+
+    public static Sprite pacmann_dol_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
+
+    public static Sprite coin = new Sprite(50,3,1,SpriteSheet.pacmann);
   /*
    // public static Sprite podlogaCoin = new Sprite(50,1,0,SpriteSheet.tiles);
     public static Sprite pacmann_prawo_0 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);

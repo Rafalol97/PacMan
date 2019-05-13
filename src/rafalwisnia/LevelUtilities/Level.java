@@ -27,6 +27,7 @@ public class Level  {
         pacman.render(screen);
 
 
+
     }
 
 
@@ -39,7 +40,11 @@ public class Level  {
         }
     }
     public void update() {
+    for(int i=0;i<49;i++){
         pacman.update(board);
+
+    }
+
     }
     private void remove() {
       pacman.remove();

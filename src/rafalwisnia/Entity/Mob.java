@@ -25,7 +25,7 @@ public abstract class Mob extends Entity {
     }
 
     Mob() {
-        this.speed = 2;
+        this.speed =1 ;
     }
 
     public abstract void render(Screen screen);
