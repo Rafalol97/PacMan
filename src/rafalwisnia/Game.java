@@ -1,5 +1,6 @@
 package rafalwisnia;
 
+import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.Entity.Pacmann;
 import rafalwisnia.Events.Keyboard;
 
@@ -28,7 +29,6 @@ public class Game extends Canvas implements Runnable {
 
     public static Screen screen;
     private Level level;
-
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
 
@@ -43,7 +43,6 @@ public class Game extends Canvas implements Runnable {
         key = new Keyboard();
         addKeyListener(key);
         level.add(new Pacmann(700,600,key));
-
     }
 
     public synchronized void start() {

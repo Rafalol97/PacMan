@@ -32,6 +32,10 @@ public class Board {
 
     }
 
+    public int[][] getTiles() {
+        return tiles;
+    }
+
     private void renderTile(Sprite sprite, int offsetX, int offsetY ){
         for(int j =0;j<sprite.SIZE;j++  ){
             for(int i=0;i<sprite.SIZE;j++ ){

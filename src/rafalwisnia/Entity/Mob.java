@@ -33,6 +33,11 @@ public abstract class Mob extends Entity {
         else if (this.direction==direction) return  true;
         else return false;
     }
+    boolean checkPossibleDirectionChangeGhost(Directions direction, Board board) {
+        if (checkNeighbour(board, direction) && this.x % 50 == 0 && this.y % 50 == 0) return true;
+        else if (this.direction==direction) return  true;
+        return false;
+    }
 
      boolean checkNeighbour(Board board, Directions direction) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
@@ -90,6 +95,7 @@ public abstract class Mob extends Entity {
         }
         frameWait++;
     }
+
     public abstract void changeFrame();
 
     public abstract void render(Screen screen);

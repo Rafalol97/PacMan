@@ -1,6 +1,7 @@
 package rafalwisnia.Entity;
 
 
+import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.UI.Sprite;
@@ -53,4 +54,6 @@ public class Entity {
         //this.level =level;
     }
 
+    public void update(Board board, PathFinder pathFinder, int x, int y) {
+    }
 }

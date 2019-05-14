@@ -1,5 +1,6 @@
 package rafalwisnia.Entity;
 
+import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.AnimatedSprite;
@@ -35,6 +36,19 @@ public class Ghost1 extends Mob  {
             changeToRandomDirection(board);
         }
     }
+    public void update(Board board, PathFinder pathFinder, int pacX, int pacY){
+        if(chceckforObstacles(board)) {
+            changeToRandomDirection(board);
+        }
+        else{
+            move();
+        }
+        if(random.nextInt(10)==5) {
+
+            changeToRandomDirection(board);
+        }
+        pathFinder.
+    }
 
     @Override
     public void changeFrame() {
@@ -60,10 +74,6 @@ public class Ghost1 extends Mob  {
         if(los==2)direction = Directions.DOWN;
         if(los==3)direction = Directions.LEFT;
     }
-    protected boolean checkPossibleDirectionChangeGhost(Directions direction, Board board) {
-        if (checkNeighbour(board, direction) && this.x % 50 == 0 && this.y % 50 == 0) return true;
-        else if (this.direction==direction) return  true;
-        else return false;
-    }
+
 
 }
