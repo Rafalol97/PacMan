@@ -6,8 +6,30 @@ public class Sprite {
     private int width,height;
     public SpriteSheet sheet;
     public int [] pixels;
-    public static Sprite brick = new Sprite(50,0,0,SpriteSheet.tiles);
-    public static Sprite podloga = new Sprite(50,1,0,SpriteSheet.tiles);
+
+    //Sciany
+    public static Sprite brick_1 = new Sprite(50,0,17,SpriteSheet.pacmann);
+    public static Sprite brick_2 = new Sprite(50,1,17,SpriteSheet.pacmann);
+    public static Sprite brick_3 = new Sprite(50,0,18,SpriteSheet.pacmann);
+    public static Sprite brick_4 = new Sprite(50,1,18,SpriteSheet.pacmann);
+    public static Sprite brick_5 = new Sprite(50,0,19,SpriteSheet.pacmann);
+    public static Sprite brick_6 = new Sprite(50,1,19,SpriteSheet.pacmann);
+
+    //Sciany obrocome
+    public static Sprite brick_7 = new Sprite(50,2,18,SpriteSheet.pacmann);
+    public static Sprite brick_8 = new Sprite(50,3,18,SpriteSheet.pacmann);
+    public static Sprite brick_9 = new Sprite(50,4,18,SpriteSheet.pacmann);
+    public static Sprite brick_10 = new Sprite(50,2,19,SpriteSheet.pacmann);
+    public static Sprite brick_11 = new Sprite(50,3,19,SpriteSheet.pacmann);
+    public static Sprite brick_12 = new Sprite(50,4,19,SpriteSheet.pacmann);
+
+    public static Sprite brick = new Sprite(50,1,0,SpriteSheet.tiles);
+
+    //Podloga
+    public static Sprite podloga = new Sprite(50,10,10,SpriteSheet.pacmann);
+
+
+    //Pacmann
     public static Sprite pacmann_prawo_0 = new Sprite(50,0,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_1 = new Sprite(50,1,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_2 = new Sprite(50,2,0,SpriteSheet.pacmann);
@@ -26,7 +48,7 @@ public class Sprite {
     public static Sprite pacmann_dol_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
     public static Sprite pacmann_dol_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
     public static Sprite pacmann_dol_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
-
+   public static Sprite ghost_1  =new Sprite(50,0,3,SpriteSheet.pacmann);
     public static Sprite coin = new Sprite(50,3,1,SpriteSheet.pacmann);
   /*
    // public static Sprite podlogaCoin = new Sprite(50,1,0,SpriteSheet.tiles);

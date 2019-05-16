@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
 
+
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale); //ustawienie wilkosci
         setPreferredSize(size); //ustawienie wielkosci procesu gry
@@ -39,10 +40,9 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height); //tworzymy obiekt screen którym będziemy zmieniac nasze piksele
 
         frame = new JFrame(); //stworzenie nowego obiektu okienka javy
-        level = new Level();
         key = new Keyboard();
         addKeyListener(key);
-        level.add(new Pacmann(700,600,key));
+        level = new Level(key);
     }
 
     public synchronized void start() {
@@ -68,10 +68,10 @@ public class Game extends Canvas implements Runnable {
         double delta = 0;
         int frames = 0; // ta zmiena bedzie zliczal ile ramek generujemy na sek
         int updates = 0;
-
+        requestFocus();
         while (running) {
             long now = System.nanoTime();
-            delta += (now - lastTime) *(60) /1000000000.0;
+            delta += (now - lastTime) /ns;
             lastTime = now;
 
             while (delta >= 1) { //timer upewniajacy sie ze robi update 60 razy na sek
@@ -79,8 +79,8 @@ public class Game extends Canvas implements Runnable {
                 updates++; //ile updatow robimy na sek
                 delta--;
 
-            }
 
+            }
             render();
             frames++; //ile ramek robimy na sek
             if (System.currentTimeMillis() - timer > 1000) { //FPS i updaty
@@ -91,6 +91,7 @@ public class Game extends Canvas implements Runnable {
                 frames = 0;
             }
         }
+        stop();
     }
 
     //UPDATE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

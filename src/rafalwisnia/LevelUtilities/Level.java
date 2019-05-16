@@ -5,6 +5,7 @@ import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.Entity.Entity;
 import rafalwisnia.Entity.Ghost1;
 import rafalwisnia.Entity.Pacmann;
+import rafalwisnia.Events.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +22,12 @@ public class Level  {
 
 
     private Board board ;
-        public Level() {
-
+        public Level(Keyboard key) {
+            this.add(new Pacmann(500,600,key));
             border = new Border();
             board = new Board(1000,700);
-            ghosts.add(new Ghost1(500,500));
-            ghosts.add(new Ghost1(500,500));
-            ghosts.add(new Ghost1(500,500));
-            ghosts.add(new Ghost1(500,500));
-            pathFinder = new PathFinder(board.getTiles());
-
+            pathFinder = new PathFinder(board.getTiles(),pacman,board);
+            ghosts.add(new Ghost1(500,500,pathFinder,pacman,board));
         }
 
     public void render(Screen screen){
@@ -57,10 +54,10 @@ public class Level  {
 
     }
     for(int i=0;i<ghosts.size();i++){
-        ghosts.get(i).update(board,pathFinder,pacman.getX(),pacman.getY());
-        ghosts.get(i).update(board);
-        ghosts.get(i).update(board);
-        ghosts.get(i).update(board);
+        ghosts.get(i).update();
+        ghosts.get(i).update();
+        ghosts.get(i).update();
+        ghosts.get(i).update();
     }
 
     }

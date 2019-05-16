@@ -10,7 +10,6 @@ import rafalwisnia.UI.AnimatedSprite;
 import rafalwisnia.UI.Sprite;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static rafalwisnia.UI.Sprite.*;
 
@@ -96,6 +95,12 @@ public class Pacmann extends  Mob implements EventListener {
         }
 
     }
+
+    @Override
+    public void update() {
+
+    }
+
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
         }

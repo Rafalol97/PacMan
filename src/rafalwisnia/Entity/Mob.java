@@ -101,6 +101,7 @@ public abstract class Mob extends Entity {
     public abstract void render(Screen screen);
 
     public abstract void update(Board board);
+    public abstract void update();
 }
 
 

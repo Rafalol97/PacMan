@@ -24,7 +24,7 @@ public class Entity {
         this.y = y;
         this.sprite = sprite;
     }
-    public void update(Board board){
+    public void update(){
 
     }
     public void render(Screen screen){
@@ -54,6 +54,6 @@ public class Entity {
         //this.level =level;
     }
 
-    public void update(Board board, PathFinder pathFinder, int x, int y) {
+    public void update(Board board) {
     }
 }

@@ -11,43 +11,68 @@ import java.util.List;
 import java.util.Random;
 
 public class Ghost1 extends Mob  {
-    private AnimatedSprite spriteTymczasowy = new AnimatedSprite(Sprite.pacmann_dol_3);
+    private AnimatedSprite spriteTymczasowy = new AnimatedSprite(Sprite.ghost_1);
      Random random = new Random();
      Random random2 = new Random();
+    private Board board;
+    private PathFinder pathFinder;
+    private Entity pacman;
 
-    public Ghost1(int x,int y) {
+    public Ghost1(int x,int y,PathFinder pathFinder,Entity pacman,Board board) {
+        this.pathFinder = pathFinder;
+        this.pacman = pacman;
+        this.board = board;
         this.x=x;
         this.y=y;
-        direction = Directions.RIGHT;
+        direction = Directions.UP;
     }
 
     public void render(Screen screen){
         screen.renderMob(x,y,spriteTymczasowy.getSprite(),0);
     }
-    public void update(Board board){
-        if(chceckforObstacles(board)) {
-            changeToRandomDirection(board);
-        }
-        else{
-            move();
-        }
-        if(random.nextInt(10)==5) {
 
+    public void update() {
+        if (this.x % 50 == 0 && this.y % 50 == 0) {
+            int coordinates[] = board.getTileWhereAmI(x, y);
+          /*  List<PathFinder.Node> nodes = pathFinder.compute(new PathFinder.Node(coordinates[0], coordinates[1]));
+            if (nodes != null) {
+                for (int i = 0; i < nodes.size() - 1; i++) {
+                    System.out.println(nodes.get(i).toString());
+                }
+            }
+            if (nodes != null) {
+                changeDirectionTowardsNode(nodes, coordinates);
+            }
+             (else {
+
+                System.out.printf("Mam cie");
+            }
+
+           */
+        }
+        if (chceckforObstacles(board)) {
             changeToRandomDirection(board);
+        } else {
+            move();
         }
     }
-    public void update(Board board, PathFinder pathFinder, int pacX, int pacY){
-        if(chceckforObstacles(board)) {
-            changeToRandomDirection(board);
+    private void changeDirectionTowardsNode(List<PathFinder.Node> nodes,int [] coordinates){
+        if(nodes.get(0).x>coordinates[0]){
+            direction = Directions.RIGHT;
         }
-        else{
-            move();
+        if(nodes.get(0).x<coordinates[0]){
+            direction = Directions.LEFT;
         }
-        if(random.nextInt(10)==5) {
+        if(nodes.get(0).y>coordinates[1]){
+            direction = Directions.DOWN;
+        }
+        if(nodes.get(0).y<coordinates[1]){
+            direction = Directions.RIGHT;
+        }
+    }
+    @Override
+    public void update(Board board) {
 
-            changeToRandomDirection(board);
-        }
-        pathFinder.
     }
 
     @Override

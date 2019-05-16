@@ -27,6 +27,7 @@ import java.util.*;
  */
 public abstract class AStar<T>
 {
+    public int [][] tempMap;
     private class Path implements Comparable{
         public T point;
         public Double f;
@@ -149,6 +150,7 @@ public abstract class AStar<T>
         mindists = new HashMap<T, Double>();
         expandedCounter = 0;
         lastCost = 0.0;
+        this.tempMap = new int[20][14];
     }
 
 
@@ -219,7 +221,11 @@ public abstract class AStar<T>
      * @return A list of nodes from the initial point to a goal,
      * <code>null</code> if a path doesn't exist.
      */
+
+
+
     public List<T> compute(T start){
+        getMap();
         try{
             Path root = new Path();
             root.setPoint(start);
@@ -259,5 +265,6 @@ public abstract class AStar<T>
         return null;
 
     }
+    public abstract void getMap();
 }
 

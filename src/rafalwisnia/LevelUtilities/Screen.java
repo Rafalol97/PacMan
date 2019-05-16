@@ -2,12 +2,7 @@ package rafalwisnia.LevelUtilities;
 
 
 
-import rafalwisnia.Entity.Ghost1;
-import rafalwisnia.Entity.Ghost2;
-import rafalwisnia.Entity.Mob;
 import rafalwisnia.UI.Sprite;
-
-import rafalwisnia.UI.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,7 +17,7 @@ public class Screen {
     public int[] pixels;
     private String pathToBorder = "resources/textures/Board/board.bmp";
     private BufferedImage Border;
-    public static final int ALPHA_COL = 0x0;
+    public static final int ALPHA_COL = -16777216;
 
     public Screen(int width, int height) {
 
@@ -56,23 +51,6 @@ public class Screen {
         }
     }
 
-    public void renderMob(int xp, int yp, Mob mob) {
-        for (int y = 0; y < 32; y++) {
-            int ya = y + yp;
-            int ys = y;
-            for (int x = 0; x < 32; x++) {
-                int xa = x + xp;
-                int xs = x;
-                if (xa < -32 || xa >= width || ya < 0 || ya >= height) break;
-                if (xa < 0) xa = 0;
-                int col = mob.getSprite().pixels[xs + ys * 32];
-                if ((mob instanceof Ghost1) && col == 0xff472BBF) col = 0xffBA0015;
-                if ((mob instanceof Ghost2) && col == 0xff472BBF) col = 0xffE8E83A;
-                if (col != ALPHA_COL) pixels[xa + ya * width] = col;
-            }
-        }
-    }
-
     public void renderMob(int xp, int yp, Sprite sprite, int flip) {
         for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
@@ -97,20 +75,35 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
                 int col = sprite.pixels[x + y * sprite.SIZE];
-                if (col != ALPHA_COL && col != 0xff7f007f) pixels[xa + ya * width] = col;
+                if (col != ALPHA_COL) pixels[xa + ya * width] = col;
             }
         }
     }
 
-    public void renderTile(int xp, int yp, Tile tile) { ///TODO do zmiany
+    public void renderTile(int xp, int yp, Sprite sprite) { ///TODO do zmiany
 
-        for (int y = 0; y < tile.sprite.SIZE; y++) {
+        for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
-            for (int x = 0; x < tile.sprite.SIZE; x++) {
+            for (int x = 0; x <sprite.SIZE; x++) {
                 int xa = x + xp;
-                if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+                pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
+            }
+        }
+    }
+    public void renderTile(int xp, int yp, Sprite sprite, int flip) {
+        for (int y = 0; y < sprite.SIZE; y++) {
+            int ya = y + yp;
+            int ys = y;
+            if (flip == 2 || flip == 3) ys = sprite.SIZE-1 - y;
+            for (int x = 0; x < sprite.SIZE; x++) {
+                int xa = x + xp;
+                int xs = x;
+                if (flip == 1 || flip == 3) xs = sprite.SIZE-1 - x;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < 0) xa = 0;
+                pixels[xa + ya * width] =sprite.pixels[xs + ys * sprite.SIZE];
             }
         }
     }
