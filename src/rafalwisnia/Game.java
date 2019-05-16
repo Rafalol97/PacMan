@@ -41,8 +41,11 @@ public class Game extends Canvas implements Runnable {
 
         frame = new JFrame(); //stworzenie nowego obiektu okienka javy
         key = new Keyboard();
+        level = new Level();
+        level.add(new Pacmann(600,500,key));
         addKeyListener(key);
-        level = new Level(key);
+
+
     }
 
     public synchronized void start() {
@@ -139,6 +142,9 @@ public class Game extends Canvas implements Runnable {
 
         //start gry
         game.start();
+
+    }
+    public static void endthis(){
 
     }
 

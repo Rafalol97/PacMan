@@ -13,12 +13,12 @@ import java.util.ArrayList;
 
 import static rafalwisnia.UI.Sprite.*;
 
-public class Pacmann extends  Mob implements EventListener {
+public class Pacmann extends  Mob {
     private Keyboard input;
     private Sprite sprite;
 
     private Directions directionTemp;
-    private int directionIter;
+    private EventListener eventListener;
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
     private AnimatedSprite klatkiPacmannUp[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannRight[] = new AnimatedSprite[4];
@@ -58,51 +58,52 @@ public class Pacmann extends  Mob implements EventListener {
         this.input = input;
         this.x=x;
         this.y=y;
-        kierunekKlatek=false;
+        kierunekKlatek=true;
         klatka=0;
-        frameSpeed=6;
+        frameSpeed=10;
         this.directionIter=0;
     }
-
-    @Override
-    public void onEvent(Event event) {
+    public void setEventListener(EventListener eventListener){
+        this.eventListener = eventListener;
     }
+
     public void update(Board board) {
         remember();
-        if(chceckforObstacles(board)) {
-
-            moving=false;
-            klatka =3;
-        }
-        else{
-            move();
+        if(this.x%50==0&&this.y%50==0){
+            if(eventListener!=null)eventListener.onEvent(new Event( Event.Type.CheckCoin,this.x,this.y));
         }
         if (this.checkPossibleDirectionChange(directionTemp, board)) {
             this.direction = directionTemp;
             if(this.direction==Directions.UP){
                 directionIter =0;
+
             }
             if(this.direction==Directions.RIGHT){
                 directionIter =1;
+
             }
             if(this.direction==Directions.DOWN){
                 directionIter =2;
+
             }
             if(this.direction==Directions.LEFT){
                 directionIter =3;
             }
-          klatka =0;
+
         }
+        if(chceckforObstacles(board)) {
 
-    }
-
-    @Override
-    public void update() {
-
+            moving=true;
+            //klatka =3;
+        }
+        else{
+            move();
+        }
     }
 
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
+
         }
         if (input.down) {directionTemp = Directions.DOWN;
         }
@@ -127,7 +128,7 @@ public class Pacmann extends  Mob implements EventListener {
     }
 
     public void render(Screen screen){
-        int flip =0;
+    int flip = 0;
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
     }

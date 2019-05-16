@@ -4,7 +4,7 @@ public class Sprite {
     public final int SIZE;
     private int x,y;
     private int width,height;
-    public SpriteSheet sheet;
+    private SpriteSheet sheet;
     public int [] pixels;
 
     //Sciany
@@ -23,7 +23,8 @@ public class Sprite {
     public static Sprite brick_11 = new Sprite(50,3,19,SpriteSheet.pacmann);
     public static Sprite brick_12 = new Sprite(50,4,19,SpriteSheet.pacmann);
 
-    public static Sprite brick = new Sprite(50,1,0,SpriteSheet.tiles);
+    //Dodatkowe
+    public static Sprite brick_13 = new Sprite(50,2,17,SpriteSheet.pacmann);
 
     //Podloga
     public static Sprite podloga = new Sprite(50,10,10,SpriteSheet.pacmann);
@@ -34,56 +35,62 @@ public class Sprite {
     public static Sprite pacmann_prawo_1 = new Sprite(50,1,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_2 = new Sprite(50,2,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_3 = new Sprite(50,3,0,SpriteSheet.pacmann);
+
     public static Sprite pacmann_lewo_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
     public static Sprite pacmann_lewo_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
     public static Sprite pacmann_lewo_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
     public static Sprite pacmann_lewo_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
 
-    public static Sprite pacmann_gora_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_gora_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_gora_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_gora_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_0 = new Sprite(50,4,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_1 = new Sprite(50,5,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_2 = new Sprite(50,6,1,SpriteSheet.pacmann);
+    public static Sprite pacmann_gora_3 = new Sprite(50,7,1,SpriteSheet.pacmann);
 
-    public static Sprite pacmann_dol_0 = new Sprite(50,0,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_dol_1 = new Sprite(50,1,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_dol_2 = new Sprite(50,2,1,SpriteSheet.pacmann);
-    public static Sprite pacmann_dol_3 = new Sprite(50,3,1,SpriteSheet.pacmann);
-   public static Sprite ghost_1  =new Sprite(50,0,3,SpriteSheet.pacmann);
-    public static Sprite coin = new Sprite(50,3,1,SpriteSheet.pacmann);
-  /*
-   // public static Sprite podlogaCoin = new Sprite(50,1,0,SpriteSheet.tiles);
-    public static Sprite pacmann_prawo_0 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
-  //  public static Sprite pacmann_2 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
-   // public static Sprite pacmann_3 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
-  //  public static Sprite pacmann_4 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
-   // public static Sprite pacmann_5 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
-  //  public static Sprite pacmann_6 = new Sprite(50,1,1,SpriteSheet.pacmann_prawo_0);
+    public static Sprite pacmann_dol_0 = new Sprite(50,4,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_1 = new Sprite(50,5,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_2 = new Sprite(50,6,0,SpriteSheet.pacmann);
+    public static Sprite pacmann_dol_3 = new Sprite(50,7,0,SpriteSheet.pacmann);
+    //Ghost1
+    public static Sprite ghost_1_1  =new Sprite(50,0,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_2  =new Sprite(50,1,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_3  =new Sprite(50,2,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_4  =new Sprite(50,3,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_5  =new Sprite(50,4,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_6  =new Sprite(50,5,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_7  =new Sprite(50,6,2,SpriteSheet.pacmann);
+    public static Sprite ghost_1_8  =new Sprite(50,7,2,SpriteSheet.pacmann);
+    //Ghost2
+    public static Sprite ghost_2_1  =new Sprite(50,0,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_2  =new Sprite(50,1,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_3  =new Sprite(50,2,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_4  =new Sprite(50,3,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_5  =new Sprite(50,4,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_6  =new Sprite(50,5,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_7  =new Sprite(50,6,3,SpriteSheet.pacmann);
+    public static Sprite ghost_2_8  =new Sprite(50,7,3,SpriteSheet.pacmann);
+    //Ghost3
+    public static Sprite ghost_3_1  =new Sprite(50,0,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_2  =new Sprite(50,1,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_3  =new Sprite(50,2,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_4  =new Sprite(50,3,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_5  =new Sprite(50,4,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_6  =new Sprite(50,5,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_7  =new Sprite(50,6,4,SpriteSheet.pacmann);
+    public static Sprite ghost_3_8  =new Sprite(50,7,4,SpriteSheet.pacmann);
+    //Ghost4
+    public static Sprite ghost_4_1  =new Sprite(50,0,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_2  =new Sprite(50,1,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_3  =new Sprite(50,2,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_4  =new Sprite(50,3,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_5  =new Sprite(50,4,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_6  =new Sprite(50,5,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_7  =new Sprite(50,6,5,SpriteSheet.pacmann);
+    public static Sprite ghost_4_8  =new Sprite(50,7,5,SpriteSheet.pacmann);
 
 
+    public static  Sprite smallCoin = new Sprite(50,0,6,SpriteSheet.pacmann);
+    public static  Sprite bigCoin = new Sprite(50,1,6,SpriteSheet.pacmann);
 
-
-
-
-    public static Sprite ghost_1  =new Sprite(50,0,0,SpriteSheet.ghosts);
-    public static Sprite ghost_1_down = new Sprite (50,0,1,SpriteSheet.ghosts);
-    public static Sprite ghost_1_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
-    public static Sprite ghost_1_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
-
-    public static Sprite ghost_2  =new Sprite(50,0,0,SpriteSheet.ghosts);
-    public static Sprite ghost_2_down = new Sprite (50,0,1,SpriteSheet.ghosts);
-    public static Sprite ghost_2_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
-    public static Sprite ghost_2_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
-
-    public static Sprite ghost_3  =new Sprite(50,0,0,SpriteSheet.ghosts);
-    public static Sprite ghost_3_down = new Sprite (50,0,1,SpriteSheet.ghosts);
-    public static Sprite ghost_3_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
-    public static Sprite ghost_3_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
-
-    public static Sprite ghost_4  =new Sprite(50,0,0,SpriteSheet.ghosts);
-    public static Sprite ghost_4_down = new Sprite (50,0,1,SpriteSheet.ghosts);
-    public static Sprite ghost_4_right = new Sprite (50 ,1,0,SpriteSheet.ghosts);
-    public static Sprite ghost_4_left = new Sprite (50 ,1,1,SpriteSheet.ghosts);
-*/
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SIZE = size;
@@ -102,14 +109,13 @@ public class Sprite {
         this.width = width;
         this.height = height;
         this.pixels = new int[pixels.length];
-        for (int i = 0; i < pixels.length; i++) {
-            this.pixels[i] = pixels[i];
-        }
+        this.pixels = pixels;
+
     }
     private void load() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SPRITE_WIDTH];
+                pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.getSPRITE_WIDTH()];
             }
         }
     }

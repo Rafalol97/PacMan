@@ -5,15 +5,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class SpriteSheet {
+ class SpriteSheet {
     private String path;
-    public final int SIZE;
-    public final int SPRITE_WIDTH,SPRITE_HEIGHT;
+    private final int SIZE;
+    private final int SPRITE_WIDTH,SPRITE_HEIGHT;
     private  int width, height;
     public int pixels[];
-    public static SpriteSheet tiles = new SpriteSheet("resources/textures/Tiles/sheet.jpg",100);
-    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/texturyprawdziwe.png", 1000);
-    //public static SpriteSheet ghosts = new SpriteSheet("/textures/sheets/player_sheet.png", 1000);
+
+    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/texturyprawdziwe3.png", 1000);
 
     public SpriteSheet(String path, int SIZE) {
         this.path = path;
@@ -36,7 +35,15 @@ public class SpriteSheet {
 
     }
 
+     public int getSIZE() {
+         return SIZE;
+     }
 
+     public int getSPRITE_WIDTH() {
+         return SPRITE_WIDTH;
+     }
 
-
-}
+     public int getSPRITE_HEIGHT() {
+         return SPRITE_HEIGHT;
+     }
+ }

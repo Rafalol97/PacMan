@@ -11,6 +11,7 @@ public abstract class Mob extends Entity {
     protected boolean kierunekKlatek;
     protected int frameSpeed;
     protected int frameWait;
+    protected int directionIter;
     protected enum Directions {
         UP, DOWN, RIGHT, LEFT
     }
@@ -34,29 +35,27 @@ public abstract class Mob extends Entity {
         else return false;
     }
     boolean checkPossibleDirectionChangeGhost(Directions direction, Board board) {
-        if (checkNeighbour(board, direction) && this.x % 50 == 0 && this.y % 50 == 0) return true;
-        else if (this.direction==direction) return  true;
-        return false;
+        return checkNeighbour(board, direction);
     }
 
      boolean checkNeighbour(Board board, Directions direction) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
         if (direction == Directions.UP) {
 
-            return (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0);
+            return (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0)||(board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1);
         }
         if (direction == Directions.DOWN) {
 
-            return (board.getTileAlias(boardTile[0]+ 1, boardTile[1] ) == 0);
+            return (board.getTileAlias(boardTile[0]+ 1, boardTile[1] ) == 0)||(board.getTileAlias(boardTile[0]+ 1, boardTile[1] ) == -1);
         }
         if (direction == Directions.RIGHT) {
 
 
-            return (board.getTileAlias(boardTile[0] , boardTile[1]+ 1) == 0);
+            return (board.getTileAlias(boardTile[0] , boardTile[1]+ 1) == 0)||(board.getTileAlias(boardTile[0] , boardTile[1]+ 1) == -1);
         }
         if (direction == Directions.LEFT) {
 
-            return (board.getTileAlias(boardTile[0] , boardTile[1]- 1) == 0);
+            return (board.getTileAlias(boardTile[0] , boardTile[1]- 1) == 0)||(board.getTileAlias(boardTile[0] , boardTile[1]- 1) == -1);
         }
         return false;
 
@@ -64,13 +63,13 @@ public abstract class Mob extends Entity {
     protected boolean chceckforObstacles(Board board){
         if(this.x%50==0&&this.y%50==0) {
             int boardTile[] = board.getTileWhereAmI(this.x, this.y);
-            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0))
+            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0||board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1))
                 return false;
-            else if (this.direction == Directions.DOWN && (board.getTileAlias(boardTile[0] + 1, boardTile[1]) == 0))
+            else if (this.direction == Directions.DOWN && (board.getTileAlias(boardTile[0] + 1, boardTile[1]) == 0)||board.getTileAlias(boardTile[0] + 1, boardTile[1]) == -1)
                 return false;
-            else if (this.direction == Directions.RIGHT && (board.getTileAlias(boardTile[0], boardTile[1] + 1) == 0))
+            else if (this.direction == Directions.RIGHT && (board.getTileAlias(boardTile[0], boardTile[1] + 1) == 0)||board.getTileAlias(boardTile[0], boardTile[1]+1) == -1)
                 return false;
-            else if (this.direction == Directions.LEFT && (board.getTileAlias(boardTile[0], boardTile[1] - 1) == 0))
+            else if (this.direction == Directions.LEFT && (board.getTileAlias(boardTile[0], boardTile[1] - 1) == 0)||board.getTileAlias(boardTile[0], boardTile[1]-1) == -1)
                 return false;
             else return true;
         }
@@ -101,7 +100,8 @@ public abstract class Mob extends Entity {
     public abstract void render(Screen screen);
 
     public abstract void update(Board board);
-    public abstract void update();
+
+
 }
 
 

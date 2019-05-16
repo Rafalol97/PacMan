@@ -10,31 +10,59 @@ import rafalwisnia.UI.Sprite;
 import java.util.List;
 import java.util.Random;
 
-public class Ghost1 extends Mob  {
-    private AnimatedSprite spriteTymczasowy = new AnimatedSprite(Sprite.ghost_1);
+public class Ghost1 extends Ghost  {
+    private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
+    private AnimatedSprite klatkiDuszekUp[] = new AnimatedSprite[2];
+    private AnimatedSprite klatkiDuszekDown[] = new AnimatedSprite[2];
+    private AnimatedSprite klatkiDuszekRight[] = new AnimatedSprite[2];
+    private AnimatedSprite klatkiDuszekLeft[] = new AnimatedSprite[2];
+
+    private Sprite sprite;
      Random random = new Random();
      Random random2 = new Random();
     private Board board;
     private PathFinder pathFinder;
     private Entity pacman;
 
-    public Ghost1(int x,int y,PathFinder pathFinder,Entity pacman,Board board) {
-        this.pathFinder = pathFinder;
-        this.pacman = pacman;
+    public Ghost1(int x,int y,Board board) {
+        klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_1_1);
+        klatkiDuszekRight[1] = new AnimatedSprite(Sprite.ghost_1_2);
+
+        klatkiDuszekDown[0] = new AnimatedSprite(Sprite.ghost_1_3);
+        klatkiDuszekDown[1] = new AnimatedSprite(Sprite.ghost_1_4);
+
+        klatkiDuszekUp[0] = new AnimatedSprite(Sprite.ghost_1_5);
+        klatkiDuszekUp[1] = new AnimatedSprite(Sprite.ghost_1_6);
+
+        klatkiDuszekLeft[0] = new AnimatedSprite(Sprite.ghost_1_7);
+        klatkiDuszekLeft[1] = new AnimatedSprite(Sprite.ghost_1_8);
+
+        listaKlatek.add(klatkiDuszekUp);
+        listaKlatek.add(klatkiDuszekRight);
+        listaKlatek.add(klatkiDuszekDown);
+        listaKlatek.add(klatkiDuszekLeft);
+
         this.board = board;
         this.x=x;
         this.y=y;
-        direction = Directions.UP;
+        frameSpeed = 10;
+
+
     }
 
     public void render(Screen screen){
-        screen.renderMob(x,y,spriteTymczasowy.getSprite(),0);
+        sprite =listaKlatek.get(directionIter)[klatka].getSprite();
+        screen.renderMob(x,y,sprite,0);
     }
 
-    public void update() {
+
+
+    @Override
+    public void update(Board board) {
+        /*
         if (this.x % 50 == 0 && this.y % 50 == 0) {
             int coordinates[] = board.getTileWhereAmI(x, y);
-          /*  List<PathFinder.Node> nodes = pathFinder.compute(new PathFinder.Node(coordinates[0], coordinates[1]));
+           List<PathFinder.Node> nodes = pathFinder.compute(new PathFinder.Node(coordinates[0], coordinates[1]));
             if (nodes != null) {
                 for (int i = 0; i < nodes.size() - 1; i++) {
                     System.out.println(nodes.get(i).toString());
@@ -48,57 +76,24 @@ public class Ghost1 extends Mob  {
                 System.out.printf("Mam cie");
             }
 
-           */
+
         }
+        */
+        if(random.nextInt(4)==0){
+            changeToRandomDirection(board);
+        }
+
         if (chceckforObstacles(board)) {
             changeToRandomDirection(board);
         } else {
             move();
         }
-    }
-    private void changeDirectionTowardsNode(List<PathFinder.Node> nodes,int [] coordinates){
-        if(nodes.get(0).x>coordinates[0]){
-            direction = Directions.RIGHT;
-        }
-        if(nodes.get(0).x<coordinates[0]){
-            direction = Directions.LEFT;
-        }
-        if(nodes.get(0).y>coordinates[1]){
-            direction = Directions.DOWN;
-        }
-        if(nodes.get(0).y<coordinates[1]){
-            direction = Directions.RIGHT;
-        }
-    }
-    @Override
-    public void update(Board board) {
 
     }
 
-    @Override
-    public void changeFrame() {
-    }
 
-    private void changeToRandomDirection(Board board){
-        ArrayList<Integer> lista = new ArrayList<>();
-        if (checkPossibleDirectionChangeGhost(Directions.DOWN, board)) {
-            lista.add(2);
-        }
-        if (checkPossibleDirectionChangeGhost(Directions.UP, board)) {
-            lista.add(0);
-        }
-        if (checkPossibleDirectionChangeGhost(Directions.RIGHT, board)) {
-            lista.add(1);
-        }
-        if (checkPossibleDirectionChangeGhost(Directions.LEFT, board)) {
-            lista.add(3);
-        }
-        int los = lista.get(random.nextInt(lista.size()));
-        if(los==0)direction = Directions.UP;
-        if(los==1)direction = Directions.RIGHT;
-        if(los==2)direction = Directions.DOWN;
-        if(los==3)direction = Directions.LEFT;
-    }
+
+
 
 
 }

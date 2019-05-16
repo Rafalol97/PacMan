@@ -2,17 +2,28 @@ package rafalwisnia.Events;
 
 public class Event {
     public enum Type{
-        MOUSE_PRESSED,
-        MOUSE_RELEASed,
-        MOUSE_MOVED
+        CheckCoin,
+        CheckCoin2
     }
     private Type type;
     boolean handled;
-    protected Event(Type type){
+    private int x;
+    private int y;
+    public Event(Type type,int x,int y){
         this.type= type;
+        this.x=x;
+        this.y=y;
 
     }
     public Type getType(){
         return type;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
