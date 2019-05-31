@@ -16,8 +16,11 @@ import static rafalwisnia.UI.Sprite.*;
 public class Pacmann extends  Mob {
     private Keyboard input;
     private Sprite sprite;
-
+    public int lives =3;
+    private boolean enraged;
+    public int enrageRate;
     private Directions directionTemp;
+
     private EventListener eventListener;
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
     private AnimatedSprite klatkiPacmannUp[] = new AnimatedSprite[4];
@@ -25,6 +28,13 @@ public class Pacmann extends  Mob {
     private AnimatedSprite klatkiPacmannDown[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannLeft[] = new AnimatedSprite[4];
 
+    public boolean isEnraged() {
+        return enraged;
+    }
+
+    public void setEnraged(boolean enraged) {
+        this.enraged = enraged;
+    }
 
 
     public Pacmann(int x,int y,Keyboard input) {
@@ -68,38 +78,49 @@ public class Pacmann extends  Mob {
     }
 
     public void update(Board board) {
-        remember();
-        if(this.x%50==0&&this.y%50==0){
-            if(eventListener!=null)eventListener.onEvent(new Event( Event.Type.CheckCoin,this.x,this.y));
-        }
-        if (this.checkPossibleDirectionChange(directionTemp, board)) {
-            this.direction = directionTemp;
-            if(this.direction==Directions.UP){
-                directionIter =0;
+            if (this.isAlive()) {
+                remember();
+                if (this.x % 50 == 0 && this.y % 50 == 0) {
+                    if (eventListener != null) eventListener.onEvent(new Event(Event.Type.CheckCoin, this.x, this.y));
+                }
+                if (this.checkPossibleDirectionChange(directionTemp, board)) {
+                    this.direction = directionTemp;
+                    if (this.direction == Directions.UP) {
+                        directionIter = 0;
 
+                    }
+                    if (this.direction == Directions.RIGHT) {
+                        directionIter = 1;
+
+                    }
+                    if (this.direction == Directions.DOWN) {
+                        directionIter = 2;
+
+                    }
+                    if (this.direction == Directions.LEFT) {
+                        directionIter = 3;
+                    }
+
+                }
+                if (chceckforObstacles(board)) {
+
+                    moving = true;
+                    //klatka =3;
+                } else {
+                    move();
+                }
+            } else {
+                this.x = 600;
+                this.y = 500;
+                this.setAlive(true);
+                lives--;
+                if(lives==0){
+                    if (eventListener != null) eventListener.onEvent(new Event(Event.Type.Reset, this.x, this.y));
+                }
             }
-            if(this.direction==Directions.RIGHT){
-                directionIter =1;
-
-            }
-            if(this.direction==Directions.DOWN){
-                directionIter =2;
-
-            }
-            if(this.direction==Directions.LEFT){
-                directionIter =3;
-            }
 
         }
-        if(chceckforObstacles(board)) {
 
-            moving=true;
-            //klatka =3;
-        }
-        else{
-            move();
-        }
-    }
 
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;

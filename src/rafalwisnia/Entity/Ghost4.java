@@ -16,7 +16,7 @@ public class Ghost4 extends Ghost  {
     private AnimatedSprite klatkiDuszekDown[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekRight[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekLeft[] = new AnimatedSprite[2];
-
+    private boolean przestraszony;
     private Sprite sprite;
     Random random = new Random();
     Random random2 = new Random();
@@ -51,7 +51,12 @@ public class Ghost4 extends Ghost  {
     }
 
     public void render(Screen screen){
-        sprite =listaKlatek.get(directionIter)[klatka].getSprite();
+        if (!przestraszony) {
+            sprite =listaKlatek.get(directionIter)[klatka].getSprite();
+        }
+        else{
+            sprite = klatkiDuszekPrzestraszony[klatka].getSprite();
+        }
         screen.renderMob(x,y,sprite,0);
     }
 
@@ -85,6 +90,10 @@ public class Ghost4 extends Ghost  {
         } else {
             move();
         }
+    }
+
+    public void setPrzestraszony(boolean przestraszony) {
+        this.przestraszony = przestraszony;
     }
 
 

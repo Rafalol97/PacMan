@@ -3,6 +3,8 @@ package rafalwisnia.Entity;
 import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
+import rafalwisnia.UI.AnimatedSprite;
+import rafalwisnia.UI.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,23 @@ import java.util.Random;
 public abstract class Ghost extends Mob {
 
 
+    protected AnimatedSprite klatkiDuszekPrzestraszony[]= new AnimatedSprite[2];
+
     protected static Random random = new Random();
+    private boolean scared;
+
+    public boolean isScared() {
+        return scared;
+    }
+
+    public void setScared(boolean scared) {
+        this.scared = scared;
+    }
+
+    public Ghost() {
+        klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.ghostScared1);
+        klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.ghostScared2);
+    }
 
     @Override
     public void changeFrame() {
@@ -82,5 +100,10 @@ public abstract class Ghost extends Mob {
             }
         }
     }
+    public void resetToDefault(){
+        this.x=800;
+        this.y=500;
+    }
+
 
 }

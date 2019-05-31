@@ -1,6 +1,5 @@
 package rafalwisnia.Entity;
 
-
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
 
@@ -17,10 +16,11 @@ public abstract class Mob extends Entity {
     }
     Directions direction;
     private double speed;
-
+    private boolean alive;
 
     Mob() {
         this.speed =1 ;
+
     }
 
 

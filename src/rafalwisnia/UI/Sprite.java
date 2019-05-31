@@ -86,12 +86,23 @@ public class Sprite {
     public static Sprite ghost_4_6  =new Sprite(50,5,5,SpriteSheet.pacmann);
     public static Sprite ghost_4_7  =new Sprite(50,6,5,SpriteSheet.pacmann);
     public static Sprite ghost_4_8  =new Sprite(50,7,5,SpriteSheet.pacmann);
-
+    public static Sprite ghostScared1 =new Sprite(50,6,5,SpriteSheet.pacmann);
+    public static Sprite ghostScared2  =new Sprite(50,7,5,SpriteSheet.pacmann);
 
     public static  Sprite smallCoin = new Sprite(50,0,6,SpriteSheet.pacmann);
     public static  Sprite bigCoin = new Sprite(50,1,6,SpriteSheet.pacmann);
 
-
+    public static  Sprite number_0 = new Sprite(50,0,16,SpriteSheet.pacmann);
+    public static  Sprite number_1 = new Sprite(50,1,16,SpriteSheet.pacmann);
+    public static  Sprite number_2 = new Sprite(50,2,16,SpriteSheet.pacmann);
+    public static  Sprite number_3 = new Sprite(50,3,16,SpriteSheet.pacmann);
+    public static  Sprite number_4 = new Sprite(50,4,16,SpriteSheet.pacmann);
+    public static  Sprite number_5 = new Sprite(50,5,16,SpriteSheet.pacmann);
+    public static  Sprite number_6 = new Sprite(50,6,16,SpriteSheet.pacmann);
+    public static  Sprite number_7 = new Sprite(50,7,16,SpriteSheet.pacmann);
+    public static  Sprite number_8 = new Sprite(50,8,16,SpriteSheet.pacmann);
+    public static  Sprite number_9 = new Sprite(50,9,16,SpriteSheet.pacmann);
+    public static  Sprite number_10 = new Sprite(50,0,15,SpriteSheet.pacmann);
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SIZE = size;
         this.width = size;

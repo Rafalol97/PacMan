@@ -15,7 +15,7 @@ public class Entity {
     private Sprite sprite;
     private boolean removed = false;
     protected final Random random = new Random();
-
+    private boolean alive = true;
     public Entity() {
     }
 
@@ -55,5 +55,16 @@ public class Entity {
     }
 
     public void update(Board board) {
+    }
+    public  void setPrzestraszony(boolean przestraszony){
+
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

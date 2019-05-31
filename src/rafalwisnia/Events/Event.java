@@ -3,7 +3,7 @@ package rafalwisnia.Events;
 public class Event {
     public enum Type{
         CheckCoin,
-        CheckCoin2
+        Reset
     }
     private Type type;
     boolean handled;
