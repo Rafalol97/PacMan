@@ -9,6 +9,7 @@ import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.AnimatedSprite;
 import rafalwisnia.UI.Sprite;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static rafalwisnia.UI.Sprite.*;
@@ -16,12 +17,21 @@ import static rafalwisnia.UI.Sprite.*;
 public class Pacmann extends  Mob {
     private Keyboard input;
     private Sprite sprite;
-    public int lives =3;
+    private int lives =3;
     private boolean enraged;
     public int enrageRate;
     private Directions directionTemp;
 
     private EventListener eventListener;
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
     private AnimatedSprite klatkiPacmannUp[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannRight[] = new AnimatedSprite[4];
@@ -152,6 +162,18 @@ public class Pacmann extends  Mob {
     int flip = 0;
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
+    }
+    public void renderLives(Screen screen){
+       screen.renderColor(1150,35,150,50, Color.BLACK);
+        if(lives>=1){
+            screen.renderSprite(1150,35,Sprite.pacmann_prawo_0,false);
+        }
+        if(lives>=2){
+            screen.renderSprite(1200,35,Sprite.pacmann_prawo_0,false);
+        }
+        if(lives>=3){
+            screen.renderSprite(1250,35,Sprite.pacmann_prawo_0,false);
+        }
     }
 
 

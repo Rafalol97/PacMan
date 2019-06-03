@@ -121,6 +121,7 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics(); //ustawienie bufferow pod grafike
 
+
         g.drawImage(image, 0,0, getWidth(), getHeight(), null);
 
         g.dispose(); //wyswietlenie grafiki stworzonej powyzej

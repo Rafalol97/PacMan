@@ -51,7 +51,7 @@ public class Ghost1 extends Ghost  {
     }
 
     public void render(Screen screen){
-        if (!przestraszony) {
+        if (!isScared()) {
             sprite =listaKlatek.get(directionIter)[klatka].getSprite();
         }
         else{

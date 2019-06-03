@@ -27,8 +27,8 @@ public abstract class Ghost extends Mob {
     }
 
     public Ghost() {
-        klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.ghostScared1);
-        klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.ghostScared2);
+        klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
+        klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
     }
 
     @Override
@@ -103,6 +103,7 @@ public abstract class Ghost extends Mob {
     public void resetToDefault(){
         this.x=800;
         this.y=500;
+        scared=false;
     }
 
 

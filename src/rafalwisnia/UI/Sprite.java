@@ -103,6 +103,11 @@ public class Sprite {
     public static  Sprite number_8 = new Sprite(50,8,16,SpriteSheet.pacmann);
     public static  Sprite number_9 = new Sprite(50,9,16,SpriteSheet.pacmann);
     public static  Sprite number_10 = new Sprite(50,0,15,SpriteSheet.pacmann);
+
+    public static Sprite duszekPrzestraszony1 = new Sprite(50,2,6,SpriteSheet.pacmann);
+    public static Sprite duszekPrzestraszony2 = new Sprite(50,3,6,SpriteSheet.pacmann);
+
+
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SIZE = size;
         this.width = size;

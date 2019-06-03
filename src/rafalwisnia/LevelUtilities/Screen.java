@@ -5,6 +5,7 @@ package rafalwisnia.LevelUtilities;
 import rafalwisnia.UI.Sprite;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +105,16 @@ public class Screen {
                 if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 pixels[xa + ya * width] =sprite.pixels[xs + ys * sprite.SIZE];
+            }
+        }
+    }
+    public void renderColor(int xp, int yp,int width,int height, Color color) { ///TODO do zmiany
+
+        for (int y = 0; y < height; y++) {
+            int ya = y + yp;
+            for (int x = 0; x <width; x++) {
+                int xa = x + xp;
+                pixels[xa + ya * this.width] =color.getRGB();
             }
         }
     }
