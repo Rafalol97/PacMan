@@ -115,7 +115,9 @@ public class Pacmann extends  Mob {
                 if (chceckforObstacles(board)) {
 
                     moving = true;
-                    //klatka =3;
+                    if(this.x<=300&&this.direction==Directions.LEFT){
+                        move();
+                    }
                 } else {
                     move();
                 }
@@ -160,6 +162,7 @@ public class Pacmann extends  Mob {
 
     public void render(Screen screen){
     int flip = 0;
+
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
     }
