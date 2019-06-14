@@ -178,6 +178,9 @@ public class Pacmann extends  Mob {
             screen.renderSprite(1250,35,Sprite.pacmann_prawo_0,false);
         }
     }
+    public void renderDeath(Screen screen){
+
+    }
 
 
 }

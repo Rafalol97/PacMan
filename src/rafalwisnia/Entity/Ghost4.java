@@ -16,13 +16,9 @@ public class Ghost4 extends Ghost  {
     private AnimatedSprite klatkiDuszekDown[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekRight[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekLeft[] = new AnimatedSprite[2];
-    private boolean przestraszony;
     private Sprite sprite;
     Random random = new Random();
-    Random random2 = new Random();
-    private Board board;
-    private PathFinder pathFinder;
-    private Entity pacman;
+
 
     public Ghost4(int x,int y,Board board) {
         klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_4_1);
@@ -42,7 +38,6 @@ public class Ghost4 extends Ghost  {
         listaKlatek.add(klatkiDuszekDown);
         listaKlatek.add(klatkiDuszekLeft);
 
-        this.board = board;
         this.x=x;
         this.y=y;
         direction = Directions.UP;
@@ -63,24 +58,6 @@ public class Ghost4 extends Ghost  {
 
     @Override
     public void update(Board board) {
-        if (this.x % 50 == 0 && this.y % 50 == 0) {
-            int coordinates[] = board.getTileWhereAmI(x, y);
-          /*  List<PathFinder.Node> nodes = pathFinder.compute(new PathFinder.Node(coordinates[0], coordinates[1]));
-            if (nodes != null) {
-                for (int i = 0; i < nodes.size() - 1; i++) {
-                    System.out.println(nodes.get(i).toString());
-                }
-            }
-            if (nodes != null) {
-                changeDirectionTowardsNode(nodes, coordinates);
-            }
-             (else {
-
-                System.out.printf("Mam cie");
-            }
-
-           */
-        }
         if(random.nextInt(5)==0){
             changeToRandomDirection(board);
         }
@@ -91,12 +68,6 @@ public class Ghost4 extends Ghost  {
             move();
         }
     }
-
-    public void setPrzestraszony(boolean przestraszony) {
-        this.przestraszony = przestraszony;
-    }
-
-
 
 
 }

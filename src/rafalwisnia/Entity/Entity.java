@@ -1,22 +1,20 @@
 package rafalwisnia.Entity;
 
 
-import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.UI.Sprite;
 import rafalwisnia.LevelUtilities.Screen;
 
 
-import java.util.Random;
-
-public class Entity {
+public abstract class Entity {
     protected int x,y;
     private Sprite sprite;
     private boolean removed = false;
-    protected final Random random = new Random();
     private boolean alive = true;
+
     public Entity() {
+
     }
 
     public Entity(int x, int y, Sprite sprite) {
@@ -24,14 +22,17 @@ public class Entity {
         this.y = y;
         this.sprite = sprite;
     }
-    public void update(){
+    public abstract void update(Board board);
 
-    }
+    //public abstract void update();
+
+
     public void render(Screen screen){
         if(sprite != null) screen.renderSprite(x,y,sprite,true); ///TODO int x int y Sprite sprite fixed?
 
     }
-    public void remove(){
+
+    public void setRemoved(){
         removed= true ;
     }
 
@@ -46,18 +47,8 @@ public class Entity {
     public Sprite getSprite() {
         return sprite;
     }
-
     public boolean isRemoved() {
         return removed;
-    }
-    public void init(Level level){
-        //this.level =level;
-    }
-
-    public void update(Board board) {
-    }
-    public  void setPrzestraszony(boolean przestraszony){
-
     }
 
     public boolean isAlive() {

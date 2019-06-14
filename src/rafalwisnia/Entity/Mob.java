@@ -4,28 +4,26 @@ import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
 
 public abstract class Mob extends Entity {
-    protected boolean moving = false;
-
-    protected int klatka;
-    protected boolean kierunekKlatek;
-    protected int frameSpeed;
-    protected int frameWait;
-    protected int directionIter;
+     boolean moving = false;
+     boolean kierunekKlatek;
+    private boolean alive;
+    private double speed;
+    int klatka;
+    int frameSpeed;
+    int frameWait;
+    int directionIter;
     protected enum Directions {
         UP, DOWN, RIGHT, LEFT
-    }
+        }
     Directions direction;
-    private double speed;
-    private boolean alive;
 
     Mob() {
         this.speed =1 ;
-
     }
 
 
 
-    protected boolean checkPossibleDirectionChange(Directions direction, Board board) {
+     boolean checkPossibleDirectionChange(Directions direction, Board board) {
         if (this.direction == Directions.UP && direction == Directions.DOWN) return true;
         else if (this.direction == Directions.DOWN && direction == Directions.UP) return true;
         else if (this.direction == Directions.RIGHT && direction == Directions.LEFT) return true;
@@ -38,7 +36,7 @@ public abstract class Mob extends Entity {
         return checkNeighbour(board, direction);
     }
 
-     boolean checkNeighbour(Board board, Directions direction) {
+     private boolean checkNeighbour(Board board, Directions direction) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
         if (direction == Directions.UP) {
 
@@ -60,7 +58,7 @@ public abstract class Mob extends Entity {
         return false;
 
     }
-    protected boolean chceckforObstacles(Board board){
+    boolean chceckforObstacles(Board board){
         if(this.x%50==0&&this.y%50==0) {
             int boardTile[] = board.getTileWhereAmI(this.x, this.y);
             if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1))
@@ -77,7 +75,7 @@ public abstract class Mob extends Entity {
 
         return false;
     }
-    public void move(){
+    void move(){
         if(direction==Directions.UP){
             y-=speed;
             changeFrame();

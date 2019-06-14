@@ -35,15 +35,7 @@ import java.io.IOException;
 
     }
 
-     public int getSIZE() {
-         return SIZE;
-     }
-
      public int getSPRITE_WIDTH() {
          return SPRITE_WIDTH;
-     }
-
-     public int getSPRITE_HEIGHT() {
-         return SPRITE_HEIGHT;
      }
  }

@@ -11,7 +11,9 @@ import java.io.File;
 import java.io.IOException;
 
 
-
+/**
+ * Z neta
+ */
 public class Screen {
 
     private int width, height;

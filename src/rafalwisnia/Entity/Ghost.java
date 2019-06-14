@@ -13,9 +13,9 @@ import java.util.Random;
 public abstract class Ghost extends Mob {
 
 
-    protected AnimatedSprite klatkiDuszekPrzestraszony[]= new AnimatedSprite[2];
+     AnimatedSprite klatkiDuszekPrzestraszony[]= new AnimatedSprite[2];
 
-    protected static Random random = new Random();
+     static Random random = new Random();
     private boolean scared;
 
     public boolean isScared() {
@@ -26,7 +26,7 @@ public abstract class Ghost extends Mob {
         this.scared = scared;
     }
 
-    public Ghost() {
+     Ghost() {
         klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
         klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
     }
@@ -64,7 +64,7 @@ public abstract class Ghost extends Mob {
             direction = Directions.RIGHT;
         }
     }
-   protected void changeToRandomDirection(Board board){
+    void changeToRandomDirection(Board board){
         if(this.x%50==0&&this.y%50==0) {
             ArrayList<Integer> lista = new ArrayList<>();
             if (checkPossibleDirectionChangeGhost(Directions.DOWN, board)&&direction!=Directions.DOWN) {

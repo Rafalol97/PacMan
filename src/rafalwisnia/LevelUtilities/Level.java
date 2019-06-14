@@ -1,16 +1,12 @@
 package rafalwisnia.LevelUtilities;
 
 
-import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.Entity.*;
 import rafalwisnia.Events.Event;
 import rafalwisnia.Events.EventListener;
-import rafalwisnia.Events.Keyboard;
-import rafalwisnia.Game;
 import rafalwisnia.UI.Sprite;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -23,13 +19,14 @@ public class Level implements EventListener {
     private int pacmanSpeed;
     private int timer;
     private Board board;
-
+    private Coin[][] coinsTable;
     public Level() {
         createLevel();
 
     }
 
     private void createLevel() {
+        coinsTable=new Coin[14][20];
         ghosts = new ArrayList<>();
         coins = new ArrayList<>();
         border = new Border();
@@ -42,6 +39,7 @@ public class Level implements EventListener {
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 14; j++) {
                 if (board.getTileAlias(j, i) == 0 && !(i >= 8 && i <= 11 && j >= 6 && j <= 9)&&!(i==6&&j==8) ){
+                //    coinsTable[j][i]= new Coin(i,j,Sprite.smallCoin);
                     coins.add(new Coin(i, j, Sprite.smallCoin));
                     Coin.count++;
                 }
@@ -63,9 +61,10 @@ public class Level implements EventListener {
     public void render(Screen screen) {
         border.render(screen);
         board.render(screen);
-        for (int i = 0; i < coins.size(); i++) {
-            coins.get(i).render(screen);
+        for(int i=0;i<coins.size();i++) {
+           coins.get(i).render(screen);
         }
+
         for (int i = 0; i < ghosts.size(); i++) {
             ghosts.get(i).render(screen);
         }
@@ -76,7 +75,6 @@ public class Level implements EventListener {
 
 
     public void add(Entity e) {
-        e.init(this);
         if (e instanceof Pacmann) {
             ((Pacmann) e).setEventListener(this);
             pacman = (Pacmann) e;
@@ -110,12 +108,10 @@ public class Level implements EventListener {
             ghosts.get(i).update(board);
             //  ghosts.get(i).update();
         }
+        pacman.getX();
         checkForCollisionWithGhosts();
     }
 
-    private void remove() {
-        pacman.remove();
-    }
 
     public Board getBoard() {
         return board;
@@ -151,6 +147,8 @@ public class Level implements EventListener {
         } else if (Event.Type.Reset == event.getType()) {
             this.clearLevel();
         }
+
+
     }
 
     public void scareAllGhosts() {
@@ -174,6 +172,7 @@ public class Level implements EventListener {
                     pacman.enrageRate++;
                 } else {
                     pacman.setAlive(false);
+
                 }
 
             }
