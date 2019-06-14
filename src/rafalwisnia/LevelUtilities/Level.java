@@ -235,6 +235,7 @@ public class Level implements EventListener {
             }
         }
     }
+
     public void sendOutGhost(int number)
     {
 
