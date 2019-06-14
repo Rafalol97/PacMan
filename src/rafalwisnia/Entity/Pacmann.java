@@ -22,6 +22,9 @@ public class Pacmann extends  Mob {
     public int enrageRate;
     private Directions directionTemp;
 
+
+
+    private Integer respawnTimeLeft;
     private EventListener eventListener;
 
     public int getLives() {
@@ -37,7 +40,13 @@ public class Pacmann extends  Mob {
     private AnimatedSprite klatkiPacmannRight[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannDown[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannLeft[] = new AnimatedSprite[4];
+    public Integer getRespawnTimeLeft() {
+        return respawnTimeLeft;
+    }
 
+    public void setRespawnTimeLeft(Integer respawnTimeLeft) {
+        this.respawnTimeLeft = respawnTimeLeft;
+    }
     public boolean isEnraged() {
         return enraged;
     }
@@ -45,7 +54,6 @@ public class Pacmann extends  Mob {
     public void setEnraged(boolean enraged) {
         this.enraged = enraged;
     }
-
 
     public Pacmann(int x,int y,Keyboard input) {
 
@@ -83,56 +91,47 @@ public class Pacmann extends  Mob {
         frameSpeed=10;
         this.directionIter=0;
     }
+
     public void setEventListener(EventListener eventListener){
         this.eventListener = eventListener;
     }
 
     public void update(Board board) {
-            if (this.isAlive()) {
-                remember();
-                if (this.x % 50 == 0 && this.y % 50 == 0) {
-                    if (eventListener != null) eventListener.onEvent(new Event(Event.Type.CheckCoin, this.x, this.y));
-                }
-                if (this.checkPossibleDirectionChange(directionTemp, board)) {
-                    this.direction = directionTemp;
-                    if (this.direction == Directions.UP) {
-                        directionIter = 0;
 
-                    }
-                    if (this.direction == Directions.RIGHT) {
-                        directionIter = 1;
+        remember();
+        if (this.x % 50 == 0 && this.y % 50 == 0) {
+            if (eventListener != null) eventListener.onEvent(new Event(Event.Type.CheckCoin, this.x, this.y));
+        }
+        if (this.checkPossibleDirectionChange(directionTemp, board)) {
+            this.direction = directionTemp;
+            if (this.direction == Directions.UP) {
+                directionIter = 0;
 
-                    }
-                    if (this.direction == Directions.DOWN) {
-                        directionIter = 2;
+            }
+            if (this.direction == Directions.RIGHT) {
+                directionIter = 1;
 
-                    }
-                    if (this.direction == Directions.LEFT) {
-                        directionIter = 3;
-                    }
+            }
+            if (this.direction == Directions.DOWN) {
+                directionIter = 2;
 
-                }
-                if (chceckforObstacles(board)) {
-
-                    moving = true;
-                    if(this.x<=300&&this.direction==Directions.LEFT){
-                        move();
-                    }
-                } else {
-                    move();
-                }
-            } else {
-                this.x = 600;
-                this.y = 500;
-                this.setAlive(true);
-                lives--;
-                if(lives==0){
-                    if (eventListener != null) eventListener.onEvent(new Event(Event.Type.Reset, this.x, this.y));
-                }
+            }
+            if (this.direction == Directions.LEFT) {
+                directionIter = 3;
             }
 
         }
+        if (chceckforObstacles(board,0)) {
 
+            moving = true;
+            if (this.x <= 300 && this.direction == Directions.LEFT) {
+                move();
+            }
+        } else {
+            move();
+        }
+
+    }
 
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
@@ -166,6 +165,7 @@ public class Pacmann extends  Mob {
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
     }
+
     public void renderLives(Screen screen){
        screen.renderColor(1150,35,150,50, Color.BLACK);
         if(lives>=1){
@@ -178,8 +178,13 @@ public class Pacmann extends  Mob {
             screen.renderSprite(1250,35,Sprite.pacmann_prawo_0,false);
         }
     }
+
     public void renderDeath(Screen screen){
 
+    }
+    public void resetPacman(){
+        this.x=800;
+        this.y=600;
     }
 
 

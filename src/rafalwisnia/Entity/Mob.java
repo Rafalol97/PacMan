@@ -7,7 +7,7 @@ public abstract class Mob extends Entity {
      boolean moving = false;
      boolean kierunekKlatek;
     private boolean alive;
-    private double speed;
+    protected double speed;
     int klatka;
     int frameSpeed;
     int frameWait;
@@ -21,25 +21,27 @@ public abstract class Mob extends Entity {
         this.speed =1 ;
     }
 
+    public double getSpeed() {
+        return speed;
+    }
 
-
-     boolean checkPossibleDirectionChange(Directions direction, Board board) {
+    boolean checkPossibleDirectionChange(Directions direction, Board board) {
         if (this.direction == Directions.UP && direction == Directions.DOWN) return true;
         else if (this.direction == Directions.DOWN && direction == Directions.UP) return true;
         else if (this.direction == Directions.RIGHT && direction == Directions.LEFT) return true;
         else if (this.direction == Directions.LEFT && direction == Directions.RIGHT) return true;
-        else if (checkNeighbour(board, direction) && this.x % 50 == 0 && this.y % 50 == 0) return true;
+        else if (checkNeighbour(board, direction,0) && this.x % 50 == 0 && this.y % 50 == 0) return true;
         else if (this.direction==direction) return  true;
         else return false;
     }
     boolean checkPossibleDirectionChangeGhost(Directions direction, Board board) {
-        return checkNeighbour(board, direction);
+        return checkNeighbour(board, direction,1);
     }
 
-     private boolean checkNeighbour(Board board, Directions direction) {
+     private boolean checkNeighbour(Board board, Directions direction,int type) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
         if (direction == Directions.UP) {
-
+            if (type == 1 && board.getTileAlias(boardTile[0] - 1, boardTile[1])==17) return true;
             return (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0)||(board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1);
         }
         if (direction == Directions.DOWN) {
@@ -58,11 +60,12 @@ public abstract class Mob extends Entity {
         return false;
 
     }
-    boolean chceckforObstacles(Board board){
+    boolean chceckforObstacles(Board board, int type){
         if(this.x%50==0&&this.y%50==0) {
             int boardTile[] = board.getTileWhereAmI(this.x, this.y);
-            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1))
+            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1)||(type == 1 && board.getTileAlias(boardTile[0] - 1, boardTile[1])==17)) {
                 return false;
+            }
             else if (this.direction == Directions.DOWN && (board.getTileAlias(boardTile[0] + 1, boardTile[1]) == 0) || board.getTileAlias(boardTile[0] + 1, boardTile[1]) == -1)
                 return false;
             else if (this.direction == Directions.RIGHT && (board.getTileAlias(boardTile[0], boardTile[1] + 1) == 0) || board.getTileAlias(boardTile[0], boardTile[1] + 1) == -1)
@@ -77,19 +80,19 @@ public abstract class Mob extends Entity {
     }
     void move(){
         if(direction==Directions.UP){
-            y-=speed;
+            y-=1;
             changeFrame();
         }
         else  if(direction==Directions.DOWN){
-            y+=speed;
+            y+=1;
             changeFrame();
         }
         else if(direction==Directions.RIGHT){
-            x+=speed;
+            x+=1;
             changeFrame();
         }
         else if(direction==Directions.LEFT){
-            x-=speed;
+            x-=1;
             changeFrame();
         }
         frameWait++;

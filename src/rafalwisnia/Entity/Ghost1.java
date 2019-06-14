@@ -1,6 +1,9 @@
 package rafalwisnia.Entity;
 
+import rafalwisnia.Events.Event;
+import rafalwisnia.Events.EventListener;
 import rafalwisnia.LevelUtilities.Board;
+import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.AnimatedSprite;
 import rafalwisnia.UI.Sprite;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
-public class Ghost1 extends Ghost  {
+public class Ghost1 extends Ghost implements EventListener {
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
     private AnimatedSprite klatkiDuszekUp[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekDown[] = new AnimatedSprite[2];
@@ -18,7 +21,7 @@ public class Ghost1 extends Ghost  {
     private Sprite sprite;
      Random random = new Random();
 
-    public Ghost1(int x,int y,Board board) {
+    public Ghost1(int x, int y, Board board, Level parentLevel) {
         klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_1_1);
         klatkiDuszekRight[1] = new AnimatedSprite(Sprite.ghost_1_2);
 
@@ -39,35 +42,63 @@ public class Ghost1 extends Ghost  {
         this.x=x;
         this.y=y;
         frameSpeed = 10;
-
-
+        parentLevel.setEventListenerGhost1(this);
     }
 
-    public void render(Screen screen){
-        if (!isScared()) {
-            sprite =listaKlatek.get(directionIter)[klatka].getSprite();
+
+    public void render(Screen screen) {
+        if (this.isGhostVisible()) {
+            if (!isScared()) {
+                sprite = listaKlatek.get(directionIter)[klatka].getSprite();
+            } else {
+                sprite = klatkiDuszekPrzestraszony[klatka].getSprite();
+            }
+            screen.renderMob(x, y, sprite, 0);
         }
-        else{
-            sprite = klatkiDuszekPrzestraszony[klatka].getSprite();
-        }
-        screen.renderMob(x,y,sprite,0);
     }
 
 
 
     @Override
     public void update(Board board) {
+        if (started) {
+            //Jesli sobie chodzi
+            if (random.nextInt(4) == 0) {
+                changeToRandomDirection(board);
+            }
 
-        if(random.nextInt(4)==0){
-            changeToRandomDirection(board);
-        }
+            if (chceckforObstacles(board, 1)) {
+                changeToRandomDirection(board);
+            } else {
+                move();
+            }
 
-        if (chceckforObstacles(board)) {
-            changeToRandomDirection(board);
-        } else {
+            //Jesli jest w boxie
+        } else if (this.frameAmountLeave != 0) {
+            direction = Directions.UP;
+            frameAmountLeave--;
             move();
+            if(frameAmountLeave==0){
+                started=true;
+            }
         }
-
     }
 
+    @Override
+    public void onEvent(Event event) {
+        if(event.getType()==Event.Type.StartGhost1)
+        {
+            frameAmountLeave= (100);
+        }
+    }
+
+    @Override
+    public void resetToDefault() {
+        frameAmountLeave=0;
+        scared=false;
+        started = false;
+        this.x=750;
+        this.y=450;
+
+    }
 }

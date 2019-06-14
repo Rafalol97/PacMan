@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame(); //stworzenie nowego obiektu okienka javy
         key = new Keyboard();
         level = new Level();
-        level.add(new Pacmann(600,500,key));
+        level.add(new Pacmann(800,600,key));
         addKeyListener(key);
 
 

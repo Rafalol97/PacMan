@@ -13,10 +13,13 @@ import java.util.Random;
 public abstract class Ghost extends Mob {
 
 
-     AnimatedSprite klatkiDuszekPrzestraszony[]= new AnimatedSprite[2];
-
-     static Random random = new Random();
-    private boolean scared;
+    AnimatedSprite klatkiDuszekPrzestraszony[] = new AnimatedSprite[2];
+    protected boolean started;
+    static Random random = new Random();
+    protected boolean scared;
+    private boolean leaveNest;
+    int frameAmountLeave;
+    boolean ghostVisible;
 
     public boolean isScared() {
         return scared;
@@ -26,60 +29,65 @@ public abstract class Ghost extends Mob {
         this.scared = scared;
     }
 
-     Ghost() {
+    Ghost() {
+        speed=2;
+        leaveNest = false;
         klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
         klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
     }
 
     @Override
     public void changeFrame() {
-        if(frameWait>=frameSpeed) {
+        if (frameWait >= frameSpeed) {
             if (klatka >= 1) {
                 kierunekKlatek = false;
             }
-            if(klatka<=0) {
+            if (klatka <= 0) {
                 kierunekKlatek = true;
             }
-            if(kierunekKlatek)klatka++;else klatka--;
-            frameWait=0;
+            if (kierunekKlatek) klatka++;
+            else klatka--;
+            frameWait = 0;
         }
     }
+
     @Override
     public abstract void render(Screen screen);
 
     @Override
     public abstract void update(Board board);
 
-    protected void changeDirectionTowardsNode(List<PathFinder.Node> nodes, int [] coordinates){
-        if(nodes.get(0).x>coordinates[0]){
+    protected void changeDirectionTowardsNode(List<PathFinder.Node> nodes, int[] coordinates) {
+        if (nodes.get(0).x > coordinates[0]) {
             direction = Directions.RIGHT;
         }
-        if(nodes.get(0).x<coordinates[0]){
+        if (nodes.get(0).x < coordinates[0]) {
             direction = Directions.LEFT;
         }
-        if(nodes.get(0).y>coordinates[1]){
+        if (nodes.get(0).y > coordinates[1]) {
             direction = Directions.DOWN;
         }
-        if(nodes.get(0).y<coordinates[1]){
+        if (nodes.get(0).y < coordinates[1]) {
             direction = Directions.RIGHT;
         }
     }
-    void changeToRandomDirection(Board board){
-        if(this.x%50==0&&this.y%50==0) {
+
+    void changeToRandomDirection(Board board) {
+        if (this.x % 50 == 0 && this.y % 50 == 0) {
             ArrayList<Integer> lista = new ArrayList<>();
-            if (checkPossibleDirectionChangeGhost(Directions.DOWN, board)&&direction!=Directions.DOWN) {
+            if (checkPossibleDirectionChangeGhost(Directions.DOWN, board) && direction != Directions.DOWN) {
                 lista.add(2);
             }
-            if (checkPossibleDirectionChangeGhost(Directions.UP, board)&&direction!=Directions.UP) {
+            if (checkPossibleDirectionChangeGhost(Directions.UP, board) && direction != Directions.UP) {
                 lista.add(0);
             }
-            if (checkPossibleDirectionChangeGhost(Directions.RIGHT, board)&&direction!=Directions.RIGHT) {
+            if (checkPossibleDirectionChangeGhost(Directions.RIGHT, board) && direction != Directions.RIGHT) {
                 lista.add(1);
             }
-            if (checkPossibleDirectionChangeGhost(Directions.LEFT, board)&&direction!=Directions.LEFT) {
+            if (checkPossibleDirectionChangeGhost(Directions.LEFT, board) && direction != Directions.LEFT) {
                 lista.add(3);
             }
-            if(lista.size()!=0) {
+            if (lista.size() != 0) {
                 int los = lista.get(random.nextInt(lista.size()));
                 if (los == 0) {
                     direction = Directions.UP;
@@ -100,11 +108,23 @@ public abstract class Ghost extends Mob {
             }
         }
     }
-    public void resetToDefault(){
-        this.x=800;
-        this.y=500;
-        scared=false;
+
+    public abstract void resetToDefault();
+
+    public boolean isStarted() {
+        return started;
     }
 
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public boolean isGhostVisible() {
+        return ghostVisible;
+    }
+
+    public void setGhostVisible(boolean ghostVisible) {
+        this.ghostVisible = ghostVisible;
+    }
 
 }

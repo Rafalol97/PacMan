@@ -25,7 +25,7 @@ public class Sprite {
 
     //Dodatkowe
     public static Sprite brick_13 = new Sprite(50,2,17,SpriteSheet.pacmann);
-
+    public static Sprite brick_17 = new Sprite(50,3,17,SpriteSheet.pacmann);
     //Podloga
     public static Sprite podloga = new Sprite(50,10,10,SpriteSheet.pacmann);
 
