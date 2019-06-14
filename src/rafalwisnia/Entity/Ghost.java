@@ -29,6 +29,8 @@ public abstract class Ghost extends Mob {
         this.scared = scared;
     }
 
+    public abstract void updateAIbyCherry(Board board, int PacManX, int PacManY);
+
     Ghost() {
         speed=2;
         leaveNest = false;

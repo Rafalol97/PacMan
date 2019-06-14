@@ -93,6 +93,11 @@ public class Ghost2 extends Ghost implements EventListener {
         this.x=800;
         this.y=450;
     }
+
+    @Override
+    public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
+
+    }
 }
 
 

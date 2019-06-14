@@ -1,6 +1,5 @@
 package rafalwisnia;
 
-import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.Entity.Pacmann;
 import rafalwisnia.Events.Keyboard;
 
@@ -23,7 +22,7 @@ public class Game extends Canvas implements Runnable {
 
 
     private Thread thread;
-    private JFrame frame;
+    private JFrame gameWindow;
     private Keyboard key;
     private boolean running = false;
 
@@ -39,7 +38,7 @@ public class Game extends Canvas implements Runnable {
 
         screen = new Screen(width, height); //tworzymy obiekt screen którym będziemy zmieniac nasze piksele
 
-        frame = new JFrame(); //stworzenie nowego obiektu okienka javy
+        gameWindow = new JFrame(); //stworzenie nowego obiektu okienka javy
         key = new Keyboard();
         level = new Level();
         level.add(new Pacmann(800,600,key));
@@ -89,7 +88,7 @@ public class Game extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000) { //FPS i updaty
                 timer += 1000;
                 System.out.println(updates + " ups, " + frames + " fps");
-                frame.setTitle(title + "   |   " + updates + " ups, " + frames + " fps");
+                gameWindow.setTitle(title + "   |   " + updates + " ups, " + frames + " fps");
                 updates = 0;
                 frames = 0;
             }
@@ -131,14 +130,14 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args) {
         Game game = new Game();
         //ustawienia okienka
-        game.frame.setResizable(false); //NIE MA MAKSYMALIZACJI
-        game.frame.setTitle(Game.title); //Tytuł okienka
-        game.frame.add(game); //Wypełniamy okno naszą "grą" dzięki canvas'owi
-        //game.frame.setUndecorated(true);  //Usuniecie paska na gorze
-        game.frame.pack(); //ustawia wielkosc okna na podstawie wcześniej ustawione "size" w konstruktorze
-        game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //wyłączenie procesu razem z zamknięciem okna
-        game.frame.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
-        game.frame.setVisible(true); //ustawienie okienka żeby było widoczne
+        game.gameWindow.setResizable(false); //NIE MA MAKSYMALIZACJI
+        game.gameWindow.setTitle(Game.title); //Tytuł okienka
+        game.gameWindow.add(game); //Wypełniamy okno naszą "grą" dzięki canvas'owi
+        //game.gameWindow.setUndecorated(true);  //Usuniecie paska na gorze
+        game.gameWindow.pack(); //ustawia wielkosc okna na podstawie wcześniej ustawione "size" w konstruktorze
+        game.gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //wyłączenie procesu razem z zamknięciem okna
+        game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
+        game.gameWindow.setVisible(true); //ustawienie okienka żeby było widoczne
 
 
         //start gry

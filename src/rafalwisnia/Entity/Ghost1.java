@@ -101,4 +101,39 @@ public class Ghost1 extends Ghost implements EventListener {
         this.y=450;
 
     }
+
+    @Override
+    public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
+        if(this.x == PacManX || this.y == PacManY) {
+            if(PacManX < this.x){
+                if(this.direction == Directions.LEFT) {
+                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                        System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
+                    }
+                }
+            }
+            if(PacManX > this.x) {
+                if(this.direction == Directions.RIGHT) {
+                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                        System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
+                    }
+                }
+            }
+            if(PacManY < this.y) {
+                if(this.direction == Directions.UP) {
+                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                        System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
+                    }
+                }
+            }
+            if(PacManY > this.y) {
+                if(this.direction == Directions.DOWN) {
+                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                        System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
+                    }
+
+                }
+            }
+        }
+    }
 }

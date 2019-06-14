@@ -126,6 +126,7 @@ public class Level implements EventListener {
                 for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
 
                     ghosts.get(i).update(board);
+                    ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                 }
             }
             checkForCollisionWithGhosts();
