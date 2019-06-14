@@ -68,6 +68,8 @@ public class Board {
             }
         }
     }
+    // Wrzucasz dane x i y i zwraca odwórconą tablice (y - 0, x -1 )
+
     public int[] getTileWhereAmI(int x,int y){
         int wspolrzedne[] = new int [2];
        wspolrzedne[1]=(x-x%50-300)/50;
@@ -75,6 +77,10 @@ public class Board {
        return  wspolrzedne;
 
     }
+
+    //Przyujmuje odwrócone wartości to znaczy najpierw y a potem x
+    // W przypadku gdy bierzemy dane z funkcji getTileWhereAmI(tab[0],tab[1])
+    //Gdzie tab[1] to x a tab[0] to y
     public int getTileAlias(int y, int x){
         if(y<0||y>13|x<0||x>19)return 1;
         return tiles[y][x];
