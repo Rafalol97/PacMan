@@ -8,9 +8,58 @@ import rafalwisnia.LevelUtilities.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
+class MenucanvasUP extends Canvas {
+    Image title = Toolkit.getDefaultToolkit().getImage("resources/textures/Board/123.png");
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+        g.drawImage(title, 0, 0, this);
+    }
+}
+
+class MenucanvasDOWN extends Canvas {
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+    }
+}
+
+class MenucanvasLEFT extends Canvas {
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+    }
+}
+
+class MenucanvasRIGHT extends Canvas {
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+    }
+}
+
+class MenucanvasMIDDLE extends Canvas {
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+    }
+}
 
 public class Game extends Canvas implements Runnable {
     //private  static final long serialVersionUID = 1L;
@@ -127,7 +176,72 @@ public class Game extends Canvas implements Runnable {
         bs.show(); //pokazanie buffera w celu jego wyczyszczenia
     }
 
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, 500, 800);
+    }
+
     public static void main(String[] args) {
+        final boolean[] Dont = {true};
+        JButton startButton = new JButton("New Game");
+        JButton exitButton = new JButton("Exit");
+
+        MenucanvasUP menucanvasUP = new MenucanvasUP();
+        MenucanvasDOWN menucanvasDOWN = new MenucanvasDOWN();
+        MenucanvasRIGHT menucanvasRIGHT = new MenucanvasRIGHT();
+        MenucanvasLEFT menucanvasLEFT = new MenucanvasLEFT();
+        MenucanvasMIDDLE menucanvasMIDDLE = new MenucanvasMIDDLE();
+
+        JFrame menuWindow = new JFrame();
+        menuWindow.setLayout(null);
+
+        menuWindow.setResizable(false);
+        menuWindow.setUndecorated(true);
+        menuWindow.setSize(500, 800);
+        menuWindow.setLocationRelativeTo(null);
+        menuWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        menucanvasUP.setBounds(100,0,300,400);
+        menucanvasDOWN.setBounds(100, 550, 300, 250);
+        menucanvasLEFT.setBounds(0,0,100,800);
+        menucanvasRIGHT.setBounds(400,0,100,800);
+        menucanvasMIDDLE.setBounds(100,450,300,50);
+
+        startButton.setBounds(100, 400, 300, 50);
+        exitButton.setBounds(100, 500, 300, 50);
+
+        menuWindow.add(menucanvasUP);
+        menuWindow.add(menucanvasDOWN);
+        menuWindow.add(menucanvasLEFT);
+        menuWindow.add(menucanvasRIGHT);
+        menuWindow.add(menucanvasMIDDLE);
+
+        menuWindow.add(startButton);
+        menuWindow.add(exitButton);
+
+        menuWindow.setVisible(true);
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dont[0] = false;
+            }
+        });
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
+            }
+        });
+
+        while(Dont[0]) {
+            System.out.println("O MAJ FUCKING GAD");;
+        }
+
+        menuWindow.setVisible(false);
+
         Game game = new Game();
         //ustawienia okienka
         game.gameWindow.setResizable(false); //NIE MA MAKSYMALIZACJI
