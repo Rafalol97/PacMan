@@ -78,6 +78,8 @@ public abstract class Mob extends Entity {
 
         return false;
     }
+
+
     boolean checkforObstaclesByCherry(Board board, int GhostX, int GhostY, int PacX, int PacY) {
         int tabGhost[] = board.getTileWhereAmI(GhostX, GhostY);
         int tabPac[] = board.getTileWhereAmI(PacX, PacY);
@@ -85,32 +87,6 @@ public abstract class Mob extends Entity {
         if (PacX < GhostX) {
             zmienna = GhostX;
             while (zmienna > 300) {
-                zmienna -= 50;
-                tabGhost[0]--;
-                if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
-                    return true;
-                }
-                if(tabGhost[0] == tabPac[0]){
-                    return false;
-                }
-            }
-        }
-        if (PacX > GhostX) {
-            zmienna = GhostX;
-            while (zmienna < 1300) {
-                zmienna += 50;
-                tabGhost[0]++;
-                if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
-                    return true;
-                }
-                if(tabGhost[0] == tabPac[0]){
-                    return false;
-                }
-            }
-        }
-        if (PacY < GhostY) {
-            zmienna = GhostY;
-            while (zmienna > 100) {
                 zmienna -= 50;
                 tabGhost[1]--;
                 if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
@@ -121,15 +97,41 @@ public abstract class Mob extends Entity {
                 }
             }
         }
-        if (PacY > GhostY) {
-            zmienna = GhostY;
-            while (zmienna < 800) {
+        if (PacX > GhostX) {
+            zmienna = GhostX;
+            while (zmienna < 1300) {
                 zmienna += 50;
                 tabGhost[1]++;
                 if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
                     return true;
                 }
                 if(tabGhost[1] == tabPac[1]){
+                    return false;
+                }
+            }
+        }
+        if (PacY < GhostY) {
+            zmienna = GhostY;
+            while (zmienna > 100) {
+                zmienna -= 50;
+                tabGhost[0]--;
+                if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
+                    return true;
+                }
+                if(tabGhost[0] == tabPac[0]){
+                    return false;
+                }
+            }
+        }
+        if (PacY > GhostY) {
+            zmienna = GhostY;
+            while (zmienna < 800) {
+                zmienna += 50;
+                tabGhost[0]++;
+                if(board.getTileAlias(tabGhost[0], tabGhost[1]) > 1) {
+                    return true;
+                }
+                if(tabGhost[0] == tabPac[0]){
                     return false;
                 }
             }
