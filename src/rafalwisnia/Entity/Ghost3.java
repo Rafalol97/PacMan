@@ -101,4 +101,9 @@ public class Ghost3 extends Ghost implements EventListener {
     public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
 
     }
+
+    @Override
+    public void updateChase(Board board, int PacManX, int PacManY) {
+
+    }
 }

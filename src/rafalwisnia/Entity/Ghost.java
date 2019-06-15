@@ -21,6 +21,9 @@ public abstract class Ghost extends Mob {
     int frameAmountLeave;
     boolean ghostVisible;
 
+    public boolean chase;
+    protected int lastSaw;
+
     public boolean isScared() {
         return scared;
     }
@@ -128,5 +131,5 @@ public abstract class Ghost extends Mob {
     public void setGhostVisible(boolean ghostVisible) {
         this.ghostVisible = ghostVisible;
     }
-
+    public abstract void updateChase(Board board, int PacManX, int PacManY);
 }

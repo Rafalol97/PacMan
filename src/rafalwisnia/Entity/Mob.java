@@ -61,6 +61,13 @@ public abstract class Mob extends Entity {
 
     }
     boolean chceckforObstacles(Board board, int type){
+
+        if((this.x==300||(this.x>1200&&this.y==450))&&type==0) {
+            System.out.println(this.x+" " +this.y);
+            return false;
+        }
+
+
         if(this.x%50==0&&this.y%50==0) {
             int boardTile[] = board.getTileWhereAmI(this.x, this.y);
             if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1)||(type == 1 && board.getTileAlias(boardTile[0] - 1, boardTile[1])==17)) {
@@ -74,7 +81,7 @@ public abstract class Mob extends Entity {
                 return false;
             else return true;
         }
-        if(this.x==300||this.x==1300)return true;
+
 
         return false;
     }

@@ -105,35 +105,76 @@ public class Ghost1 extends Ghost implements EventListener {
     @Override
     public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
         if(this.x == PacManX || this.y == PacManY) {
-            if(PacManX < this.x){
-                if(this.direction == Directions.LEFT) {
-                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
-                        System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
-                    }
-                }
+            if(PacManX < this.x&&this.direction == Directions.LEFT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                      //  System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
+                        lastSaw=3;
+                        chase=true;
             }
-            if(PacManX > this.x) {
-                if(this.direction == Directions.RIGHT) {
-                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
-                        System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
-                    }
-                }
-            }
-            if(PacManY < this.y) {
-                if(this.direction == Directions.UP) {
-                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
-                        System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
-                    }
-                }
-            }
-            if(PacManY > this.y) {
-                if(this.direction == Directions.DOWN) {
-                    if(!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
-                        System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
-                    }
+            else  if(PacManX > this.x&&this.direction == Directions.RIGHT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                      //  System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
+                        lastSaw=1;
+                        chase=true;
 
+            }
+            else  if(PacManY < this.y&&this.direction == Directions.UP&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                     //   System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
+                        lastSaw=0;
+                        chase=true;
+            }
+            else if(PacManY > this.y&&this.direction == Directions.DOWN&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+
+                     //   System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
+                        lastSaw=2;
+                        chase=true;
+            }
+            else{
+                lastSaw=-1;
+
+            }
+
+        }
+    }
+
+    public void updateChase(Board board, int PacManX, int PacManY) {
+        if(this.x%50==0&&this.y%50==0) {
+            if (this.lastSaw == 0) {
+                this.direction = Directions.UP;
+            } else if (this.lastSaw == 1) {
+                this.direction = Directions.RIGHT;
+            } else if (this.lastSaw == 2) {
+                this.direction = Directions.DOWN;
+            } else if (this.lastSaw == 3) {
+                this.direction = Directions.LEFT;
+            }
+
+            if (chceckforObstacles(board, 1)) {
+                if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
+                    if (PacManY < this.y) {
+                        System.out.println("UP od sciany");
+                        this.direction = Directions.UP;
+                    } else if (PacManY > this.y) {
+                        System.out.println("DOWN od sciany");
+                        this.direction = Directions.DOWN;
+                    } else {
+                        if (this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
+                        else if (this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
+                    }
+                } else if (this.direction == Directions.UP || this.direction == Directions.DOWN) {
+                    if (PacManX < this.x) {
+                        System.out.println("LEFT od sciany");
+                        this.direction = Directions.LEFT;
+                    } else if (PacManX > this.x) {
+                        System.out.println("RIGHT od sciany");
+                        this.direction = Directions.RIGHT;
+                    } else {
+                        if (this.direction == Directions.UP) this.direction = Directions.DOWN;
+                        else if (this.direction == Directions.DOWN) this.direction = Directions.UP;
+                    }
                 }
             }
+
         }
+        move();
+
     }
 }

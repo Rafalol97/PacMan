@@ -97,7 +97,14 @@ public class Pacmann extends  Mob {
     }
 
     public void update(Board board) {
-
+        if(this.x<280)
+        {
+            this.x=1279;
+        }
+        else if( this.x>1280)
+        {
+            this.x=281;
+        }
         remember();
         if (this.x % 50 == 0 && this.y % 50 == 0) {
             if (eventListener != null) eventListener.onEvent(new Event(Event.Type.CheckCoin, this.x, this.y));

@@ -236,11 +236,7 @@ public class Game extends Canvas implements Runnable {
             }
         });
 
-        while(Dont[0]) {
-            System.out.println("O MAJ FUCKING GAD");;
-        }
 
-        menuWindow.setVisible(false);
 
         Game game = new Game();
         //ustawienia okienka
@@ -251,8 +247,13 @@ public class Game extends Canvas implements Runnable {
         game.gameWindow.pack(); //ustawia wielkosc okna na podstawie wcześniej ustawione "size" w konstruktorze
         game.gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //wyłączenie procesu razem z zamknięciem okna
         game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
-        game.gameWindow.setVisible(true); //ustawienie okienka żeby było widoczne
 
+        while(Dont[0]) {
+            System.out.println("O MAJ FUCKING GAD");;
+        }
+
+        menuWindow.setVisible(false);
+        game.gameWindow.setVisible(true); //ustawienie okienka żeby było widoczne
 
         //start gry
         game.start();

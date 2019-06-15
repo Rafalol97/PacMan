@@ -124,8 +124,11 @@ public class Level implements EventListener {
 
             for (int i = 0; i < ghosts.size(); i++) {
                 for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
-
-                    ghosts.get(i).update(board);
+                    if (!ghosts.get(i).chase) {
+                        ghosts.get(i).update(board);
+                    } else if (ghosts.get(i).chase) {
+                        ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
+                    }
                     ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                 }
             }
@@ -137,7 +140,7 @@ public class Level implements EventListener {
                     if (eventListenerGhost1 != null)
                         eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
                 }
-
+                /*
                 if (licznikCzasu == 5 * 60) {
                     if (eventListenerGhost2 != null)
                         eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
@@ -153,6 +156,8 @@ public class Level implements EventListener {
                     allGhostsOut = true;
                     licznikCzasu = 0;
                 }
+
+                 */
             }
         }
         else if(!pacman.isAlive())
