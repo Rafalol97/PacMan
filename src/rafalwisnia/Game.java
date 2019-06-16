@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -61,6 +62,14 @@ class MenucanvasMIDDLE extends Canvas {
     }
 }
 
+class Czuwam extends  Canvas {
+    Keyboard input = new Keyboard();
+    public Czuwam(Keyboard input) {
+        this.input = input;
+        addKeyListener(this.input);
+    }
+}
+
 public class Game extends Canvas implements Runnable {
     //private  static final long serialVersionUID = 1L;
 
@@ -73,7 +82,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private JFrame gameWindow;
     JFrame pauzaWindow;
-    private Keyboard key;
+    private static Keyboard key;
     private boolean running = false;
 
     public static Screen screen;
@@ -157,13 +166,13 @@ public class Game extends Canvas implements Runnable {
                 System.out.println("robie pauze");
                 pauzaWindow.setVisible(true);
                 pauza = true;
-                key.esc = false;
+                key.keys[KeyEvent.VK_ESCAPE] = false;
             }
             else {
                 System.out.println("koniec pauzy");
                 pauzaWindow.setVisible(false);
                 pauza = false;
-                key.esc = false;
+                key.keys[KeyEvent.VK_ESCAPE] = false;
             }
         }
         level.pauza = pauza;
@@ -268,6 +277,8 @@ public class Game extends Canvas implements Runnable {
         game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
         //game.gameWindow.setUndecorated(true);
 
+        Czuwam czuwam = new Czuwam(key);
+
         JButton resume = new JButton();
         JButton reset = new JButton();
         JButton exitOnPauza = new JButton();
@@ -279,6 +290,7 @@ public class Game extends Canvas implements Runnable {
         game.pauzaWindow.setLocationRelativeTo(null);
         game.pauzaWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.pauzaWindow.getContentPane().setBackground(Color.BLACK);
+        game.pauzaWindow.add(czuwam);
 
         while(Dont[0]) {
             System.out.println("O MAJ FUCKING GAD");;

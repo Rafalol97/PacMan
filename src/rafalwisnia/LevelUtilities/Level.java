@@ -109,7 +109,7 @@ public class Level implements EventListener {
         this.eventListenerGhost4 = eventListener;
     }
     public void update() {
-        if(pacman.isAlive() || pauza) {
+        if(pacman.isAlive() && !pauza) {
             if (pacman.isEnraged()) {
                 if (timer > 0) {
                     timer--;
