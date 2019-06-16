@@ -15,13 +15,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 class MenucanvasUP extends Canvas {
-    Image title = Toolkit.getDefaultToolkit().getImage("resources/textures/Board/123.png");
+    Image title = Toolkit.getDefaultToolkit().getImage("resources/textures/Board/title.png");
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.BLACK);
         g.fillRect(0,0,1000,1000);
-        g.drawImage(title, 0, 0, this);
+        g.drawImage(title, 0, 80, this);
     }
 }
 
@@ -198,18 +198,18 @@ public class Game extends Canvas implements Runnable {
 
         menuWindow.setResizable(false);
         menuWindow.setUndecorated(true);
-        menuWindow.setSize(500, 800);
+        menuWindow.setSize(600, 800);
         menuWindow.setLocationRelativeTo(null);
         menuWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        menucanvasUP.setBounds(100,0,300,400);
-        menucanvasDOWN.setBounds(100, 550, 300, 250);
-        menucanvasLEFT.setBounds(0,0,100,800);
-        menucanvasRIGHT.setBounds(400,0,100,800);
-        menucanvasMIDDLE.setBounds(100,450,300,50);
+        menucanvasUP.setBounds(80,0,440,450);
+        menucanvasDOWN.setBounds(80, 700, 440, 100);
+        menucanvasLEFT.setBounds(0,0,80,800);
+        menucanvasRIGHT.setBounds(520,0,80,800);
+        menucanvasMIDDLE.setBounds(80,550,440,50);
 
-        startButton.setBounds(100, 400, 300, 50);
-        exitButton.setBounds(100, 500, 300, 50);
+        startButton.setBounds(80, 450, 440, 100);
+        exitButton.setBounds(80, 600, 440, 100);
 
         menuWindow.add(menucanvasUP);
         menuWindow.add(menucanvasDOWN);

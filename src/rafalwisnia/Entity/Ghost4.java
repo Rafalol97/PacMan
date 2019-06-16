@@ -102,7 +102,31 @@ public class Ghost4 extends Ghost implements EventListener {
 
     }
 
-    @Override
+    public boolean andDirectionIsGOOD(Board board, int PacManX, int PacManY) {
+        if(wrazieW == 3) {
+            return true;
+        }
+        else {
+            if (this.direction == Directions.UP && PacManY > this.y) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.DOWN && PacManY < this.y) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.RIGHT && PacManX < this.x) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.LEFT && PacManX > this.x) {
+                wrazieW++;
+                return false;
+            } else return true;
+        }
+    }
+
+    public void chceckForErrors(Board board, int PacManX, int PacManY) {
+
+    }
+
     public void updateChase(Board board, int PacManX, int PacManY) {
 
     }

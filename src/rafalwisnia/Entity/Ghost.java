@@ -23,6 +23,7 @@ public abstract class Ghost extends Mob {
 
     public boolean chase;
     protected int lastSaw;
+    protected int wrazieW = 0;
 
     public boolean isScared() {
         return scared;
@@ -33,6 +34,7 @@ public abstract class Ghost extends Mob {
     }
 
     public abstract void updateAIbyCherry(Board board, int PacManX, int PacManY);
+
 
     Ghost() {
         speed=2;

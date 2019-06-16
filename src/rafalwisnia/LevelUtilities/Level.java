@@ -140,11 +140,12 @@ public class Level implements EventListener {
                     if (eventListenerGhost1 != null)
                         eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
                 }
-                /*
+ /*
                 if (licznikCzasu == 5 * 60) {
                     if (eventListenerGhost2 != null)
                         eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
                 }
+
                 if (licznikCzasu == 10 * 60) {
 
                     if (eventListenerGhost3 != null)
@@ -156,8 +157,8 @@ public class Level implements EventListener {
                     allGhostsOut = true;
                     licznikCzasu = 0;
                 }
+*/
 
-                 */
             }
         }
         else if(!pacman.isAlive())

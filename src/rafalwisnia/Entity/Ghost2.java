@@ -96,12 +96,138 @@ public class Ghost2 extends Ghost implements EventListener {
 
     @Override
     public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
+        if(this.x == PacManX || this.y == PacManY) {
+            if(PacManX < this.x&&this.direction == Directions.LEFT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                //  System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
+                lastSaw=3;
+                chase=true;
+            }
+            else  if(PacManX > this.x&&this.direction == Directions.RIGHT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                //  System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
+                lastSaw=1;
+                chase=true;
 
+            }
+            else  if(PacManY < this.y&&this.direction == Directions.UP&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                //   System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
+                lastSaw=0;
+                chase=true;
+            }
+            else if(PacManY > this.y&&this.direction == Directions.DOWN&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+
+                //   System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
+                lastSaw=2;
+                chase=true;
+            }
+            else{
+                lastSaw=-1;
+
+            }
+
+        }
     }
 
-    @Override
-    public void updateChase(Board board, int PacManX, int PacManY) {
+    public boolean andDirectionIsGOOD(Board board, int PacManX, int PacManY) {
+        if(wrazieW == 3) {
+            return true;
+        }
+        else {
+            if (this.direction == Directions.UP && PacManY > this.y) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.DOWN && PacManY < this.y) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.RIGHT && PacManX < this.x) {
+                wrazieW++;
+                return false;
+            } else if (this.direction == Directions.LEFT && PacManX > this.x) {
+                wrazieW++;
+                return false;
+            } else return true;
+        }
+    }
 
+    public void chceckForErrors(Board board, int PacManX, int PacManY) {
+        while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
+            if (this.direction == Directions.UP) {
+                this.direction = Directions.RIGHT;
+            } else if (this.direction == Directions.RIGHT) {
+                this.direction = Directions.DOWN;;
+            } else if (this.direction == Directions.DOWN) {
+                this.direction = Directions.LEFT;
+            } else if (this.direction == Directions.LEFT) {
+                this.direction = Directions.UP;
+            }
+        }
+    }
+
+    public void updateChase(Board board, int PacManX, int PacManY) {
+        if(this.x%50==0&&this.y%50==0) {
+            if (this.lastSaw == 0) {
+                this.direction = Directions.UP;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (this.lastSaw == 1) {
+                this.direction = Directions.RIGHT;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (this.lastSaw == 2) {
+                this.direction = Directions.DOWN;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (this.lastSaw == 3) {
+                this.direction = Directions.LEFT;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (PacManY < this.y) {
+                this.direction = Directions.UP;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (PacManY > this.y) {
+                this.direction = Directions.DOWN;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (PacManX < this.x) {
+                this.direction = Directions.LEFT;
+                chceckForErrors(board, PacManX, PacManY);
+            } else if (PacManX > this.x) {
+                this.direction = Directions.RIGHT;
+                chceckForErrors(board, PacManX, PacManY);
+            }
+            wrazieW = 0;
+
+            if (chceckforObstacles(board, 1)) {
+                if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
+                    if (PacManY < this.y) {
+                        System.out.println("UP od sciany");
+                        this.direction = Directions.UP;
+                        chceckForErrors(board, PacManX, PacManY);
+                    } else if (PacManY > this.y) {
+                        System.out.println("DOWN od sciany");
+                        this.direction = Directions.DOWN;
+                        chceckForErrors(board, PacManX, PacManY);
+                    } else {
+                        if (this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
+                        else if (this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
+                    }
+                } else if (this.direction == Directions.UP || this.direction == Directions.DOWN) {
+                    if (PacManX < this.x) {
+                        System.out.println("LEFT od sciany");
+                        this.direction = Directions.LEFT;
+                        chceckForErrors(board, PacManX, PacManY);
+                    } else if (PacManX > this.x) {
+                        System.out.println("RIGHT od sciany");
+                        this.direction = Directions.RIGHT;
+                        chceckForErrors(board, PacManX, PacManY);
+                    } else {
+                        if (this.direction == Directions.UP) this.direction = Directions.DOWN;
+                        else if (this.direction == Directions.DOWN) this.direction = Directions.UP;
+                    }
+                }
+            }
+
+
+            wrazieW = 0;
+            chceckForErrors(board, PacManX, PacManY);
+            wrazieW = 0;
+            System.out.println("yo2");
+        }
+        move();
     }
 }
 
