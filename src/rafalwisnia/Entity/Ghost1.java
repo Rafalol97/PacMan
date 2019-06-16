@@ -156,7 +156,7 @@ public class Ghost1 extends Ghost implements EventListener {
     }
 
     public void chceckForErrors(Board board, int PacManX, int PacManY) {
-        while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
+        while(chceckforObstacles(board, 1)) {
             if (this.direction == Directions.UP) {
                 this.direction = Directions.RIGHT;
             } else if (this.direction == Directions.RIGHT) {
@@ -166,6 +166,7 @@ public class Ghost1 extends Ghost implements EventListener {
             } else if (this.direction == Directions.LEFT) {
                 this.direction = Directions.UP;
             }
+            System.out.println("-------"+this.direction+"---------");
         }
     }
 
@@ -200,7 +201,7 @@ public class Ghost1 extends Ghost implements EventListener {
             }
             //wrazieW = 0;
             lastSaw = -1;
-/*
+
             if (chceckforObstacles(board, 1)) {
                 if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
                     if (PacManY < this.y) {
@@ -231,11 +232,12 @@ public class Ghost1 extends Ghost implements EventListener {
                 }
             }
 
-*/
+
 
             chceckForErrors(board, PacManX, PacManY);
             wrazieW = 0;
-            System.out.println("yo1");
+
+            System.out.println("++++++++"+this.direction+"++++++++");
         }
         if (!chceckforObstacles(board, 1)){
             move();

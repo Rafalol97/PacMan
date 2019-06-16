@@ -136,7 +136,7 @@ public class Game extends Canvas implements Runnable {
             frames++; //ile ramek robimy na sek
             if (System.currentTimeMillis() - timer > 1000) { //FPS i updaty
                 timer += 1000;
-                System.out.println(updates + " ups, " + frames + " fps");
+             //   System.out.println(updates + " ups, " + frames + " fps");
                 gameWindow.setTitle(title + "   |   " + updates + " ups, " + frames + " fps");
                 updates = 0;
                 frames = 0;

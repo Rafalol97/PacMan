@@ -66,18 +66,16 @@ public abstract class Mob extends Entity {
             System.out.println(this.x+" " +this.y);
             return false;
         }
-
-
         if(this.x%50==0&&this.y%50==0) {
             int boardTile[] = board.getTileWhereAmI(this.x, this.y);
-            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1)||(type == 1 && board.getTileAlias(boardTile[0] - 1, boardTile[1])==17)) {
+            if (this.direction == Directions.UP && (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0 || board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1||(type == 1 && board.getTileAlias(boardTile[0] - 1, boardTile[1])==17))) {
                 return false;
             }
-            else if (this.direction == Directions.DOWN && (board.getTileAlias(boardTile[0] + 1, boardTile[1]) == 0) || board.getTileAlias(boardTile[0] + 1, boardTile[1]) == -1)
+            else if (this.direction == Directions.DOWN && ((board.getTileAlias(boardTile[0] + 1, boardTile[1]) == 0) || board.getTileAlias(boardTile[0] + 1, boardTile[1]) == -1))
                 return false;
-            else if (this.direction == Directions.RIGHT && (board.getTileAlias(boardTile[0], boardTile[1] + 1) == 0) || board.getTileAlias(boardTile[0], boardTile[1] + 1) == -1)
+            else if (this.direction == Directions.RIGHT && ((board.getTileAlias(boardTile[0], boardTile[1] + 1) == 0) || board.getTileAlias(boardTile[0], boardTile[1] + 1) == -1))
                 return false;
-            else if (this.direction == Directions.LEFT && (board.getTileAlias(boardTile[0], boardTile[1] - 1) == 0) || board.getTileAlias(boardTile[0], boardTile[1] - 1) == -1)
+            else if (this.direction == Directions.LEFT && ((board.getTileAlias(boardTile[0], boardTile[1] - 1) == 0) || board.getTileAlias(boardTile[0], boardTile[1] - 1) == -1))
                 return false;
             else return true;
         }
