@@ -73,6 +73,8 @@ public class Ghost1 extends Ghost implements EventListener {
                 move();
             }
 
+
+
             //Jesli jest w boxie
         } else if (this.frameAmountLeave != 0) {
             direction = Directions.UP;
@@ -97,6 +99,8 @@ public class Ghost1 extends Ghost implements EventListener {
         frameAmountLeave=0;
         scared=false;
         started = false;
+        chase = false;
+        lastSaw = -1;
         this.x=750;
         this.y=450;
 
@@ -156,7 +160,7 @@ public class Ghost1 extends Ghost implements EventListener {
     }
 
     public void chceckForErrors(Board board, int PacManX, int PacManY) {
-        while(chceckforObstacles(board, 1)) {
+        while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
             if (this.direction == Directions.UP) {
                 this.direction = Directions.RIGHT;
             } else if (this.direction == Directions.RIGHT) {
@@ -166,81 +170,99 @@ public class Ghost1 extends Ghost implements EventListener {
             } else if (this.direction == Directions.LEFT) {
                 this.direction = Directions.UP;
             }
-            System.out.println("-------"+this.direction+"---------");
         }
     }
 
+    boolean kontrolna = false;
+
+    public void chceckForErrorsGOOD(Board board, int PacManX, int PacManY) {
+        while(chceckforObstacles(board, 1)) {
+            if (this.direction == Directions.UP) {
+                if(this.x < PacManX && kontrolna == false) {
+                    this.direction = Directions.RIGHT;
+                    kontrolna = true;
+                }
+                else if (this.x > PacManX && kontrolna == false) {
+                    this.direction = Directions.LEFT;
+                    kontrolna = true;
+                }
+            } else if (this.direction == Directions.RIGHT) {
+                if(this.y < PacManY && kontrolna == false) {
+                    this.direction = Directions.DOWN;
+                    kontrolna = true;
+                }
+                else if (this.y > PacManY && kontrolna == false) {
+                    this.direction = Directions.UP;
+                    kontrolna = true;
+                }
+            } else if (this.direction == Directions.DOWN) {
+                if(this.x < PacManX && kontrolna == false) {
+                    this.direction = Directions.RIGHT;
+                    kontrolna = true;
+                }
+                else if (this.x > PacManX && kontrolna == false) {
+                    this.direction = Directions.LEFT;
+                    kontrolna = true;
+                }
+            } else if (this.direction == Directions.LEFT) {
+                if(this.y < PacManY && kontrolna == false) {
+                    this.direction = Directions.DOWN;
+                    kontrolna = true;
+                }
+                else if (this.y > PacManY && kontrolna == false) {
+                    this.direction = Directions.UP;
+                    kontrolna = true;
+                }
+            }
+        }
+    }
 
     public void updateChase(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {
             if (this.lastSaw == 0) {
                 this.direction = Directions.UP;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (this.lastSaw == 1) {
                 this.direction = Directions.RIGHT;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (this.lastSaw == 2) {
                 this.direction = Directions.DOWN;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (this.lastSaw == 3) {
                 this.direction = Directions.LEFT;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (PacManY <= this.y) {
-                System.out.println("DO GOOORY");
                 this.direction = Directions.UP;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (PacManY >= this.y) {
                 this.direction = Directions.DOWN;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (PacManX <= this.x) {
                 this.direction = Directions.LEFT;
-                //chceckForErrors(board, PacManX, PacManY);
             } else if (PacManX >= this.x) {
                 this.direction = Directions.RIGHT;
-                //chceckForErrors(board, PacManX, PacManY);
             }
-            //wrazieW = 0;
             lastSaw = -1;
 
             if (chceckforObstacles(board, 1)) {
                 if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
                     if (PacManY < this.y) {
-                        System.out.println("UP od sciany");
                         this.direction = Directions.UP;
-                        //(board, PacManX, PacManY);
                     } else if (PacManY > this.y) {
-                        System.out.println("DOWN od sciany");
                         this.direction = Directions.DOWN;
-                        //chceckForErrors(board, PacManX, PacManY);
                     } else {
                         if (this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
                         else if (this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
                     }
                 } else if (this.direction == Directions.UP || this.direction == Directions.DOWN) {
                     if (PacManX < this.x) {
-                        System.out.println("LEFT od sciany");
                         this.direction = Directions.LEFT;
-                        //chceckForErrors(board, PacManX, PacManY);
                     } else if (PacManX > this.x) {
-                        System.out.println("RIGHT od sciany");
                         this.direction = Directions.RIGHT;
-                        //chceckForErrors(board, PacManX, PacManY);
                     } else {
                         if (this.direction == Directions.UP) this.direction = Directions.DOWN;
                         else if (this.direction == Directions.DOWN) this.direction = Directions.UP;
                     }
                 }
             }
-
-
-
             chceckForErrors(board, PacManX, PacManY);
+            kontrolna = false;
             wrazieW = 0;
-
-            System.out.println("++++++++"+this.direction+"++++++++");
         }
-        if (!chceckforObstacles(board, 1)){
-            move();
-        }
+        move();
     }
 }

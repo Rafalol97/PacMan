@@ -72,6 +72,7 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private JFrame gameWindow;
+    JFrame pauzaWindow;
     private Keyboard key;
     private boolean running = false;
 
@@ -88,6 +89,7 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height); //tworzymy obiekt screen którym będziemy zmieniac nasze piksele
 
         gameWindow = new JFrame(); //stworzenie nowego obiektu okienka javy
+        pauzaWindow = new JFrame();
         key = new Keyboard();
         level = new Level();
         level.add(new Pacmann(800,600,key));
@@ -145,9 +147,26 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
+    boolean pauza = false;
+
     //UPDATE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void update() {
         key.update();
+        if (key.esc) {
+            if(!pauza) {
+                System.out.println("robie pauze");
+                pauzaWindow.setVisible(true);
+                pauza = true;
+                key.esc = false;
+            }
+            else {
+                System.out.println("koniec pauzy");
+                pauzaWindow.setVisible(false);
+                pauza = false;
+                key.esc = false;
+            }
+        }
+        level.pauza = pauza;
         level.update();
     }
 
@@ -247,6 +266,19 @@ public class Game extends Canvas implements Runnable {
         game.gameWindow.pack(); //ustawia wielkosc okna na podstawie wcześniej ustawione "size" w konstruktorze
         game.gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //wyłączenie procesu razem z zamknięciem okna
         game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
+        //game.gameWindow.setUndecorated(true);
+
+        JButton resume = new JButton();
+        JButton reset = new JButton();
+        JButton exitOnPauza = new JButton();
+
+        game.pauzaWindow.setLayout(null);
+        game.pauzaWindow.setResizable(false);
+        game.pauzaWindow.setUndecorated(true);
+        game.pauzaWindow.setSize(800, 450);
+        game.pauzaWindow.setLocationRelativeTo(null);
+        game.pauzaWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.pauzaWindow.getContentPane().setBackground(Color.BLACK);
 
         while(Dont[0]) {
             System.out.println("O MAJ FUCKING GAD");;

@@ -93,13 +93,43 @@ public class Ghost3 extends Ghost implements EventListener {
         frameAmountLeave=0;
         scared=false;
         started = false;
+        chase = false;
+        lastSaw = -1;
         this.x=750;
         this.y=500;
     }
 
     @Override
     public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
+        if(this.x == PacManX || this.y == PacManY) {
+            if(PacManX < this.x&&this.direction == Directions.LEFT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
+                //  System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
+                lastSaw=3;
+                chase=true;
+            }
+            else  if(PacManX > this.x&&this.direction == Directions.RIGHT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                //  System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
+                lastSaw=1;
+                chase=true;
 
+            }
+            else  if(PacManY < this.y&&this.direction == Directions.UP&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+                //   System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
+                lastSaw=0;
+                chase=true;
+            }
+            else if(PacManY > this.y&&this.direction == Directions.DOWN&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
+
+                //   System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
+                lastSaw=2;
+                chase=true;
+            }
+            else{
+                lastSaw=-1;
+
+            }
+
+        }
     }
 
     public boolean andDirectionIsGOOD(Board board, int PacManX, int PacManY) {
@@ -107,27 +137,81 @@ public class Ghost3 extends Ghost implements EventListener {
             return true;
         }
         else {
-            if (this.direction == Directions.UP && PacManY > this.y) {
+            if (this.direction == Directions.UP && PacManY < this.y) {
+                return true;
+            } else if (this.direction == Directions.DOWN && PacManY > this.y) {
+                return true;
+            } else if (this.direction == Directions.RIGHT && PacManX > this.x) {
+                return true;
+            } else if (this.direction == Directions.LEFT && PacManX < this.x) {
+                return true;
+            } else {
                 wrazieW++;
                 return false;
-            } else if (this.direction == Directions.DOWN && PacManY < this.y) {
-                wrazieW++;
-                return false;
-            } else if (this.direction == Directions.RIGHT && PacManX < this.x) {
-                wrazieW++;
-                return false;
-            } else if (this.direction == Directions.LEFT && PacManX > this.x) {
-                wrazieW++;
-                return false;
-            } else return true;
+            }
         }
     }
 
     public void chceckForErrors(Board board, int PacManX, int PacManY) {
-
+        while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
+            if (this.direction == Directions.UP) {
+                this.direction = Directions.RIGHT;
+            } else if (this.direction == Directions.RIGHT) {
+                this.direction = Directions.DOWN;
+            } else if (this.direction == Directions.DOWN) {
+                this.direction = Directions.LEFT;
+            } else if (this.direction == Directions.LEFT) {
+                this.direction = Directions.UP;
+            }
+        }
     }
 
-    public void updateChase(Board board, int PacManX, int PacManY) {
 
+    public void updateChase(Board board, int PacManX, int PacManY) {
+        if(this.x%50==0&&this.y%50==0) {
+            if (this.lastSaw == 0) {
+                this.direction = Directions.UP;
+            } else if (this.lastSaw == 1) {
+                this.direction = Directions.RIGHT;
+            } else if (this.lastSaw == 2) {
+                this.direction = Directions.DOWN;
+            } else if (this.lastSaw == 3) {
+                this.direction = Directions.LEFT;
+            } else if (PacManY <= this.y) {
+                this.direction = Directions.UP;
+            } else if (PacManY >= this.y) {
+                this.direction = Directions.DOWN;
+            } else if (PacManX <= this.x) {
+                this.direction = Directions.LEFT;
+            } else if (PacManX >= this.x) {
+                this.direction = Directions.RIGHT;
+            }
+            lastSaw = -1;
+
+            if (chceckforObstacles(board, 1)) {
+                if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
+                    if (PacManY < this.y) {
+                        this.direction = Directions.UP;
+                    } else if (PacManY > this.y) {
+                        this.direction = Directions.DOWN;
+                    } else {
+                        if (this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
+                        else if (this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
+                    }
+                } else if (this.direction == Directions.UP || this.direction == Directions.DOWN) {
+                    if (PacManX < this.x) {
+                        this.direction = Directions.LEFT;
+                    } else if (PacManX > this.x) {
+                        this.direction = Directions.RIGHT;
+                    } else {
+                        if (this.direction == Directions.UP) this.direction = Directions.DOWN;
+                        else if (this.direction == Directions.DOWN) this.direction = Directions.UP;
+                    }
+                }
+            }
+            chceckForErrors(board, PacManX, PacManY);
+            wrazieW = 0;
+        }
+        move();
     }
 }

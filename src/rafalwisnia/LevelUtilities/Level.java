@@ -20,15 +20,20 @@ public class Level implements EventListener {
     private int timer;
     private Board board;
     private Coin[][] coinsTable;
+
+    public boolean pauza = false;
+
     public Level() {
         createLevel();
     }
+
     private Integer licznikCzasu=0;
     private boolean allGhostsOut=false;
     private EventListener eventListenerGhost1;
     private EventListener eventListenerGhost2;
     private EventListener eventListenerGhost3;
     private EventListener eventListenerGhost4;
+
     private void createLevel() {
         coinsTable=new Coin[14][20];
         ghosts = new ArrayList<>();
@@ -104,7 +109,7 @@ public class Level implements EventListener {
         this.eventListenerGhost4 = eventListener;
     }
     public void update() {
-        if(pacman.isAlive()) {
+        if(pacman.isAlive() || pauza) {
             if (pacman.isEnraged()) {
                 if (timer > 0) {
                     timer--;
@@ -140,7 +145,7 @@ public class Level implements EventListener {
                     if (eventListenerGhost1 != null)
                         eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
                 }
- /*
+/*
                 if (licznikCzasu == 5 * 60) {
                     if (eventListenerGhost2 != null)
                         eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
