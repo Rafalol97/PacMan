@@ -5,6 +5,7 @@ import rafalwisnia.Events.Keyboard;
 
 import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.LevelUtilities.Screen;
+import rafalwisnia.UI.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,17 +17,40 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 class MenucanvasUP extends Canvas {
+    Integer pozycja;
     Image title = Toolkit.getDefaultToolkit().getImage("resources/textures/Board/title.png");
+
+    Sprite[][] pacman =    {{Sprite.pacmann_gora_0, Sprite.pacmann_gora_1, Sprite.pacmann_gora_2, Sprite.pacmann_gora_3},
+                            {Sprite.pacmann_prawo_0, Sprite.pacmann_prawo_1, Sprite.pacmann_prawo_2, Sprite.pacmann_prawo_3},
+                            {Sprite.pacmann_dol_0, Sprite.pacmann_dol_1, Sprite.pacmann_dol_2, Sprite.pacmann_dol_3},
+                            {Sprite.pacmann_lewo_0, Sprite.pacmann_lewo_1, Sprite.pacmann_lewo_2, Sprite.pacmann_lewo_3}};
+
+    public MenucanvasUP(Integer pozycja) {
+        this.pozycja = pozycja;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.BLACK);
         g.fillRect(0,0,1000,1000);
         g.drawImage(title, 0, 80, this);
+
     }
 }
 
 class MenucanvasDOWN extends Canvas {
+    Integer pozycja;
+
+    Sprite[][] pacman =    {{Sprite.pacmann_gora_0, Sprite.pacmann_gora_1, Sprite.pacmann_gora_2, Sprite.pacmann_gora_3},
+            {Sprite.pacmann_prawo_0, Sprite.pacmann_prawo_1, Sprite.pacmann_prawo_2, Sprite.pacmann_prawo_3},
+            {Sprite.pacmann_dol_0, Sprite.pacmann_dol_1, Sprite.pacmann_dol_2, Sprite.pacmann_dol_3},
+            {Sprite.pacmann_lewo_0, Sprite.pacmann_lewo_1, Sprite.pacmann_lewo_2, Sprite.pacmann_lewo_3}};
+
+    public MenucanvasDOWN(Integer pozycja) {
+        this.pozycja = pozycja;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -36,6 +60,17 @@ class MenucanvasDOWN extends Canvas {
 }
 
 class MenucanvasLEFT extends Canvas {
+    Integer pozycja;
+
+    Sprite[][] pacman =    {{Sprite.pacmann_gora_0, Sprite.pacmann_gora_1, Sprite.pacmann_gora_2, Sprite.pacmann_gora_3},
+            {Sprite.pacmann_prawo_0, Sprite.pacmann_prawo_1, Sprite.pacmann_prawo_2, Sprite.pacmann_prawo_3},
+            {Sprite.pacmann_dol_0, Sprite.pacmann_dol_1, Sprite.pacmann_dol_2, Sprite.pacmann_dol_3},
+            {Sprite.pacmann_lewo_0, Sprite.pacmann_lewo_1, Sprite.pacmann_lewo_2, Sprite.pacmann_lewo_3}};
+
+    public MenucanvasLEFT(Integer pozycja) {
+        this.pozycja = pozycja;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -45,6 +80,17 @@ class MenucanvasLEFT extends Canvas {
 }
 
 class MenucanvasRIGHT extends Canvas {
+    Integer pozycja;
+
+    Sprite[][] pacman =    {{Sprite.pacmann_gora_0, Sprite.pacmann_gora_1, Sprite.pacmann_gora_2, Sprite.pacmann_gora_3},
+            {Sprite.pacmann_prawo_0, Sprite.pacmann_prawo_1, Sprite.pacmann_prawo_2, Sprite.pacmann_prawo_3},
+            {Sprite.pacmann_dol_0, Sprite.pacmann_dol_1, Sprite.pacmann_dol_2, Sprite.pacmann_dol_3},
+            {Sprite.pacmann_lewo_0, Sprite.pacmann_lewo_1, Sprite.pacmann_lewo_2, Sprite.pacmann_lewo_3}};
+
+    public MenucanvasRIGHT(Integer pozycja) {
+        this.pozycja = pozycja;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -62,14 +108,6 @@ class MenucanvasMIDDLE extends Canvas {
     }
 }
 
-class Czuwam extends  Canvas {
-    Keyboard input = new Keyboard();
-    public Czuwam(Keyboard input) {
-        this.input = input;
-        addKeyListener(this.input);
-    }
-}
-
 public class Game extends Canvas implements Runnable {
     //private  static final long serialVersionUID = 1L;
 
@@ -81,7 +119,6 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private JFrame gameWindow;
-    JFrame pauzaWindow;
     private static Keyboard key;
     private boolean running = false;
 
@@ -98,7 +135,6 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height); //tworzymy obiekt screen którym będziemy zmieniac nasze piksele
 
         gameWindow = new JFrame(); //stworzenie nowego obiektu okienka javy
-        pauzaWindow = new JFrame();
         key = new Keyboard();
         level = new Level();
         level.add(new Pacmann(800,600,key));
@@ -156,26 +192,9 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    boolean pauza = false;
-
     //UPDATE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void update() {
         key.update();
-        if (key.esc) {
-            if(!pauza) {
-                System.out.println("robie pauze");
-                pauzaWindow.setVisible(true);
-                pauza = true;
-                key.keys[KeyEvent.VK_ESCAPE] = false;
-            }
-            else {
-                System.out.println("koniec pauzy");
-                pauzaWindow.setVisible(false);
-                pauza = false;
-                key.keys[KeyEvent.VK_ESCAPE] = false;
-            }
-        }
-        level.pauza = pauza;
         level.update();
     }
 
@@ -215,10 +234,12 @@ public class Game extends Canvas implements Runnable {
         JButton startButton = new JButton("New Game");
         JButton exitButton = new JButton("Exit");
 
-        MenucanvasUP menucanvasUP = new MenucanvasUP();
-        MenucanvasDOWN menucanvasDOWN = new MenucanvasDOWN();
-        MenucanvasRIGHT menucanvasRIGHT = new MenucanvasRIGHT();
-        MenucanvasLEFT menucanvasLEFT = new MenucanvasLEFT();
+        Integer pozycja = 0;
+
+        MenucanvasUP menucanvasUP = new MenucanvasUP(pozycja);
+        MenucanvasDOWN menucanvasDOWN = new MenucanvasDOWN(pozycja);
+        MenucanvasRIGHT menucanvasRIGHT = new MenucanvasRIGHT(pozycja);
+        MenucanvasLEFT menucanvasLEFT = new MenucanvasLEFT(pozycja);
         MenucanvasMIDDLE menucanvasMIDDLE = new MenucanvasMIDDLE();
 
         JFrame menuWindow = new JFrame();
@@ -277,20 +298,9 @@ public class Game extends Canvas implements Runnable {
         game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
         //game.gameWindow.setUndecorated(true);
 
-        Czuwam czuwam = new Czuwam(key);
-
         JButton resume = new JButton();
         JButton reset = new JButton();
         JButton exitOnPauza = new JButton();
-
-        game.pauzaWindow.setLayout(null);
-        game.pauzaWindow.setResizable(false);
-        game.pauzaWindow.setUndecorated(true);
-        game.pauzaWindow.setSize(800, 450);
-        game.pauzaWindow.setLocationRelativeTo(null);
-        game.pauzaWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.pauzaWindow.getContentPane().setBackground(Color.BLACK);
-        game.pauzaWindow.add(czuwam);
 
         while(Dont[0]) {
             System.out.println("O MAJ FUCKING GAD");;

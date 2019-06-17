@@ -32,7 +32,6 @@ import java.io.IOException;
         } catch (Exception e) {
             System.err.println(" failed!");
         }
-
     }
 
      public int getSPRITE_WIDTH() {

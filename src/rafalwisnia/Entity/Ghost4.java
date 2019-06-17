@@ -156,13 +156,13 @@ public class Ghost4 extends Ghost implements EventListener {
     public void chceckForErrors(Board board, int PacManX, int PacManY) {
         while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
             if (this.direction == Directions.UP) {
-                this.direction = Directions.RIGHT;
-            } else if (this.direction == Directions.RIGHT) {
-                this.direction = Directions.DOWN;;
-            } else if (this.direction == Directions.DOWN) {
                 this.direction = Directions.LEFT;
-            } else if (this.direction == Directions.LEFT) {
+            } else if (this.direction == Directions.RIGHT) {
                 this.direction = Directions.UP;
+            } else if (this.direction == Directions.DOWN) {
+                this.direction = Directions.RIGHT;
+            } else if (this.direction == Directions.LEFT) {
+                this.direction = Directions.DOWN;
             }
         }
     }
