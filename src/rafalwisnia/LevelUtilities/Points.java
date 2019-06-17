@@ -8,6 +8,7 @@ import rafalwisnia.UI.Sprite;
 
 public class Points implements EventListener {
     private Sprite  cyferki[]= new Sprite[11];
+    public static int poziom;
     private int liczbaPunktow;
     public Points() {
         cyferki[0] = Sprite.number_0;
@@ -21,6 +22,7 @@ public class Points implements EventListener {
         cyferki[8] = Sprite.number_8;
         cyferki[9] = Sprite.number_9;
         cyferki[10] = Sprite.number_10;
+
     }
 
     @Override
@@ -59,6 +61,9 @@ public class Points implements EventListener {
         else {
             screen.renderTile(420, 35, cyferki[10]);
         }
+
+        screen.renderTile(420,835,cyferki[poziom]);
+
     }
 
     public int getLiczbaPunktow() {
@@ -68,5 +73,9 @@ public class Points implements EventListener {
     public void add(int points){
         this.liczbaPunktow+=points;
     }
+
+    public void addLevel(){this.poziom++;}
+
+    public void resetLevel(){this.poziom=0;}
 
 }

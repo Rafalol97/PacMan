@@ -8,10 +8,12 @@ import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.Sprite;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -115,6 +117,10 @@ public class Game extends Canvas implements Runnable {
     public static int height = width / 16 * 9;
     public static int scale = 1;
     public static String title = "PacMan";
+    JButton wznow = new JButton("Wznów grę");
+    JButton resetGry = new JButton("Restart");
+    JButton wylacz = new JButton("Wyjdź :(");
+    JButton edytor = new JButton("Edytor poziomu");
 
 
     private Thread thread;
@@ -137,7 +143,7 @@ public class Game extends Canvas implements Runnable {
         gameWindow = new JFrame(); //stworzenie nowego obiektu okienka javy
         key = new Keyboard();
         level = new Level();
-        level.add(new Pacmann(800,600,key));
+        level.add(new Pacmann(800,600,key,3));
         addKeyListener(key);
 
 
@@ -195,6 +201,25 @@ public class Game extends Canvas implements Runnable {
     //UPDATE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void update() {
         key.update();
+        if(key.esc){
+            if(level.pauza){
+                level.pauza=false;
+                wznow.setVisible(false);
+                wylacz.setVisible(false);
+                resetGry.setVisible(false);
+                edytor.setVisible(false);
+                key.keys[KeyEvent.VK_ESCAPE]=false;
+            }
+            else{
+                level.pauza=true;
+                wznow.setVisible(true);
+                wylacz.setVisible(true);
+                resetGry.setVisible(true);
+                edytor.setVisible(true);
+                key.keys[KeyEvent.VK_ESCAPE]=false;
+            }
+        }
+
         level.update();
     }
 
@@ -209,9 +234,19 @@ public class Game extends Canvas implements Runnable {
         screen.clear();
 
         level.render(screen);
+        Color color ;
 
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = screen.pixels[i];
+        if(level.pauza) {
+
+            for (int i = 0; i < pixels.length; i++) {
+                color = new Color(screen.pixels[i]);
+                pixels[i] = color.darker().darker().darker().getRGB();
+            }
+        }
+        else{
+            for (int i = 0; i < pixels.length; i++) {
+                pixels[i] = screen.pixels[i];
+            }
         }
 
         Graphics g = bs.getDrawGraphics(); //ustawienie bufferow pod grafike
@@ -289,8 +324,165 @@ public class Game extends Canvas implements Runnable {
 
         Game game = new Game();
         //ustawienia okienka
+       // jPanel.setBackground(Color.white);
         game.gameWindow.setResizable(false); //NIE MA MAKSYMALIZACJI
         game.gameWindow.setTitle(Game.title); //Tytuł okienka
+
+        game.wznow.setBounds(725,335,150,50);
+        game.resetGry.setBounds(725,395,150,50);
+        game.edytor.setBounds(725,455,150,50);
+        game.wylacz.setBounds(725,515,150,50);
+        game.wznow.setVisible(false);
+        game.resetGry.setVisible(false);
+        game.wylacz.setVisible(false);
+        game.edytor.setVisible(false);
+        game.gameWindow.add(game.wznow);
+        game.gameWindow.add(game.resetGry);
+        game.gameWindow.add(game.wylacz);
+        game.gameWindow.add(game.edytor);
+
+        game.wznow.setForeground(Color.BLACK);
+        game.wznow.setBackground(Color.WHITE);
+        Border line = new LineBorder(Color.BLACK);
+        Border margin = new EmptyBorder(5, 15, 5, 15);
+        Border compound = new CompoundBorder(line, margin);
+        game.wznow.setBorder(compound);
+        game.wznow.setFocusPainted(false);
+
+        game.resetGry.setForeground(Color.BLACK);
+        game.resetGry.setBackground(new Color(0x78BEAF0E));
+        game.resetGry.setBorder(compound);
+        game.resetGry.setFocusPainted(false);
+;
+
+        game.wylacz.setForeground(Color.BLACK);
+        game.wylacz.setBackground(new Color(0x9B3B35));
+        game.wylacz.setBorder(compound);
+        game.wylacz.setFocusPainted(false);
+
+        game.edytor.setForeground(Color.BLACK);
+        game.edytor.setBackground(new Color(0x459B59));
+        game.edytor.setBorder(compound);
+        game.edytor.setFocusPainted(false);
+
+
+        game.wznow.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                game.wznow.setVisible(false);
+                game.wylacz.setVisible(false);
+                game.resetGry.setVisible(false);
+                game.requestFocus();
+                game.level.pauza=false;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        game.resetGry.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                game.level.pauza=false;
+                game.wznow.setVisible(false);
+                game.wylacz.setVisible(false);
+                game.resetGry.setVisible(false);
+                game.requestFocus();
+                game.level.clearLevel(false);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        game.wylacz.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(1);
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        game.edytor.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Mam cie");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        JButton[] jButtons = new JButton[3];
+
+
+
         game.gameWindow.add(game); //Wypełniamy okno naszą "grą" dzięki canvas'owi
         //game.gameWindow.setUndecorated(true);  //Usuniecie paska na gorze
         game.gameWindow.pack(); //ustawia wielkosc okna na podstawie wcześniej ustawione "size" w konstruktorze
@@ -298,12 +490,9 @@ public class Game extends Canvas implements Runnable {
         game.gameWindow.setLocationRelativeTo(null); //ustawienie żeby okienko uruchamiało się w środku ekranu
         //game.gameWindow.setUndecorated(true);
 
-        JButton resume = new JButton();
-        JButton reset = new JButton();
-        JButton exitOnPauza = new JButton();
 
         while(Dont[0]) {
-            System.out.println("O MAJ FUCKING GAD");;
+            System.out.println("hhe");
         }
 
         menuWindow.setVisible(false);

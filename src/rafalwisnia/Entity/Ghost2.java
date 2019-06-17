@@ -19,8 +19,9 @@ public class Ghost2 extends Ghost implements EventListener {
     private AnimatedSprite klatkiDuszekLeft[] = new AnimatedSprite[2];
     private Sprite sprite;
     Random random = new Random();
-
-    public Ghost2(int x, int y, Board board,Level parentLevel) {
+    private int waitAfterDeath;
+    public Ghost2(int x, int y, Board board,Level parentLevel,double speed) {
+        super(x,y,speed);
         klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_2_1);
         klatkiDuszekRight[1] = new AnimatedSprite(Sprite.ghost_2_2);
 
@@ -47,7 +48,11 @@ public class Ghost2 extends Ghost implements EventListener {
     }
 
     public void render(Screen screen) {
-        if (isGhostVisible()) {
+        if(dead){
+            sprite=oczyDuszkaPoSmierci[directionIter];
+            screen.renderMob(x,y,sprite,0);
+        }
+        else if (isGhostVisible()) {
             if (!isScared()) {
                 sprite = listaKlatek.get(directionIter)[klatka].getSprite();
             } else {
@@ -60,27 +65,67 @@ public class Ghost2 extends Ghost implements EventListener {
 
     @Override
     public void update(Board board) {
-
-        if (started) {
-            if (random.nextInt(3) == 0) {
-                changeToRandomDirection(board);
+        if(waitAfterDeath>0){
+            waitAfterDeath--;
+        }
+        else if(dead){
+            if(this.y<this.yStartowe){
+                this.direction=Directions.DOWN;
             }
-
-            if (chceckforObstacles(board, 1)) {
-                changeToRandomDirection(board);
-            } else {
-                move();
+            if(this.y>this.yStartowe){
+                this.direction=Directions.UP;
             }
-        } else if (this.frameAmountLeave != 0) {
-            direction = Directions.UP;
-            frameAmountLeave--;
+            if(this.x<this.xStartowe){
+                this.direction=Directions.RIGHT;
+            }
+            if(this.x>this.xStartowe){
+                this.direction=Directions.LEFT;
+            }
             move();
-            if(frameAmountLeave==0){
-                started=true;
+
+            if(this.x==this.xStartowe&&this.y==this.yStartowe){
+                System.out.println("I'm alive");
+                dead=false;
+                resetToDefault();
+                frameAmountLeave=100;
+                this.speed=speedTemp;
+
+            }
+
+        }
+        else {
+            if (started) {
+                if (random.nextInt(3) == 0) {
+                    changeToRandomDirection(board);
+                }
+
+                if (chceckforObstacles(board, 1)) {
+                    changeToRandomDirection(board);
+                } else {
+                    move();
+                }
+            } else if (this.frameAmountLeave != 0) {
+                direction = Directions.UP;
+                frameAmountLeave--;
+                move();
+                if (frameAmountLeave == 0) {
+                    started = true;
+                }
             }
         }
     }
     public void onEvent(Event event) {
+        if(event.getType()==Event.Type.Dead)
+        {
+            dead=true;
+            speedTemp=this.speed;
+            this.speed=2;
+            scared=false;
+            chase=false;
+            lastSaw=-1;
+            waitAfterDeath= (int) (60*speed);
+            System.out.println("I'm dead");
+        }
         if(event.getType()==Event.Type.StartGhost2)
         {
             frameAmountLeave= (100);

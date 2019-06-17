@@ -3,11 +3,13 @@ package rafalwisnia.LevelUtilities;
 
 
 import rafalwisnia.UI.Sprite;
+import rafalwisnia.UI.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
 import java.io.IOException;
 
 
@@ -117,6 +119,19 @@ public class Screen {
             for (int x = 0; x <width; x++) {
                 int xa = x + xp;
                 pixels[xa + ya * this.width] =color.getRGB();
+            }
+        }
+    }
+    public void renderSheet(int xp, int yp, SpriteSheet sheet, boolean fixed) {
+        int color;
+
+        for (int y = 0; y < sheet.SPRITE_HEIGHT; y++) {
+            int ya = y + yp;
+            for (int x = 0; x < sheet.SPRITE_WIDTH; x++) {
+                int xa = x + xp;
+                if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+                color= sheet.pixels[x + y * sheet.SPRITE_WIDTH];
+                if (color != ALPHA_COL) pixels[xa + ya * width] = color;
             }
         }
     }

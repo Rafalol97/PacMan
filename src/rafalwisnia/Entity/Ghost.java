@@ -12,18 +12,22 @@ import java.util.Random;
 
 public abstract class Ghost extends Mob {
 
+    Sprite[] oczyDuszkaPoSmierci = new Sprite[4];
 
     AnimatedSprite klatkiDuszekPrzestraszony[] = new AnimatedSprite[2];
-    protected boolean started;
     static Random random = new Random();
-    protected boolean scared;
-    private boolean leaveNest;
     int frameAmountLeave;
-    boolean ghostVisible;
 
+    private boolean leaveNest;
+    boolean dead;
+    boolean scared;
+    boolean ghostVisible;
+    boolean started;
     public boolean chase;
-    protected int lastSaw;
-    protected int wrazieW = 0;
+    int lastSaw;
+    int wrazieW = 0;
+    int xStartowe,yStartowe;
+
 
     public boolean isScared() {
         return scared;
@@ -35,8 +39,24 @@ public abstract class Ghost extends Mob {
 
     public abstract void updateAIbyCherry(Board board, int PacManX, int PacManY);
 
+    public boolean isDead() {
+        return dead;
+    }
 
-    Ghost() {
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    Ghost(int xStartowe, int yStartowe,double speed) {
+        super(speed);
+        oczyDuszkaPoSmierci[0]=Sprite.oczy_Prawo;
+        oczyDuszkaPoSmierci[1]=Sprite.oczy_Dol;
+        oczyDuszkaPoSmierci[2]=Sprite.oczy_Gora;
+        oczyDuszkaPoSmierci[3]=Sprite.oczy_Lewa;
+
+        this.xStartowe=xStartowe;
+        this.yStartowe=yStartowe;
+        this.speed = speed;
         speed=2;
         leaveNest = false;
         klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);

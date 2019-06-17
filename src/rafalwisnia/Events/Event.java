@@ -8,6 +8,7 @@ public class Event {
         StartGhost2,
         StartGhost3,
         StartGhost4,
+        Dead
     }
     private Type type;
     boolean handled;

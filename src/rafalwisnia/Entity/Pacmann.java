@@ -55,8 +55,8 @@ public class Pacmann extends  Mob {
         this.enraged = enraged;
     }
 
-    public Pacmann(int x,int y,Keyboard input) {
-
+    public Pacmann(int x,int y,Keyboard input,double speed) {
+        super(speed);
         klatkiPacmannRight[0]= new AnimatedSprite(pacmann_prawo_0);
         klatkiPacmannRight[1]= new AnimatedSprite(pacmann_prawo_1);
         klatkiPacmannRight[2]= new AnimatedSprite(pacmann_prawo_2);
@@ -135,20 +135,23 @@ public class Pacmann extends  Mob {
                 move();
             }
         } else {
-            move();
+            if(moving) move();
         }
 
     }
 
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
-
+            moving=true;
         }
         if (input.down) {directionTemp = Directions.DOWN;
+            moving=true;
         }
         if (input.right) {directionTemp = Directions.RIGHT;
+            moving=true;
         }
         if (input.left) {directionTemp = Directions.LEFT;
+            moving=true;
         }
     }
 
@@ -192,6 +195,8 @@ public class Pacmann extends  Mob {
     public void resetPacman(){
         this.x=800;
         this.y=600;
+        this.direction=Directions.UP;
+        moving=false;
     }
 
 

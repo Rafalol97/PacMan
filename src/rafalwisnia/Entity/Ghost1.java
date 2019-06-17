@@ -19,9 +19,13 @@ public class Ghost1 extends Ghost implements EventListener {
     private AnimatedSprite klatkiDuszekRight[] = new AnimatedSprite[2];
     private AnimatedSprite klatkiDuszekLeft[] = new AnimatedSprite[2];
     private Sprite sprite;
-     Random random = new Random();
+    Random random = new Random();
+    boolean kontrolna = false;
+    private int waitAfterDeath;
 
-    public Ghost1(int x, int y, Board board, Level parentLevel) {
+
+    public Ghost1(int x, int y, Board board, Level parentLevel,double speed) {
+        super(x,y,speed);
         klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_1_1);
         klatkiDuszekRight[1] = new AnimatedSprite(Sprite.ghost_1_2);
 
@@ -47,7 +51,11 @@ public class Ghost1 extends Ghost implements EventListener {
 
 
     public void render(Screen screen) {
-        if (this.isGhostVisible()) {
+        if(dead){
+            sprite=oczyDuszkaPoSmierci[directionIter];
+            screen.renderMob(x,y,sprite,0);
+        }
+        else if (this.isGhostVisible()) {
             if (!isScared()) {
                 sprite = listaKlatek.get(directionIter)[klatka].getSprite();
             } else {
@@ -61,36 +69,79 @@ public class Ghost1 extends Ghost implements EventListener {
 
     @Override
     public void update(Board board) {
-        if (started) {
-            //Jesli sobie chodzi
-            if (random.nextInt(4) == 0) {
-                changeToRandomDirection(board);
+        if(waitAfterDeath>0){
+            waitAfterDeath--;
+        }
+        else if(dead){
+            if(this.y<this.yStartowe){
+                this.direction=Directions.DOWN;
             }
-
-            if (chceckforObstacles(board, 1)) {
-                changeToRandomDirection(board);
-            } else {
-                move();
+            if(this.y>this.yStartowe){
+                this.direction=Directions.UP;
             }
-
-
-
-            //Jesli jest w boxie
-        } else if (this.frameAmountLeave != 0) {
-            direction = Directions.UP;
-            frameAmountLeave--;
+            if(this.x<this.xStartowe){
+                this.direction=Directions.RIGHT;
+            }
+            if(this.x>this.xStartowe){
+                this.direction=Directions.LEFT;
+            }
             move();
-            if(frameAmountLeave==0){
-                started=true;
+
+            if(this.x==this.xStartowe&&this.y==this.yStartowe){
+                System.out.println("I'm alive");
+                dead=false;
+                resetToDefault();
+                frameAmountLeave=100;
+                this.speed=speedTemp;
+
+            }
+
+        }
+        else {
+            if (started) {
+                //Jesli sobie chodzi
+                if (random.nextInt(4) == 0) {
+                    changeToRandomDirection(board);
+                }
+
+                if (chceckforObstacles(board, 1)) {
+                    changeToRandomDirection(board);
+                } else {
+                    move();
+                }
+
+
+                //Jesli jest w boxie
+            } else if (this.frameAmountLeave != 0) {
+                direction = Directions.UP;
+                frameAmountLeave--;
+                move();
+                if (frameAmountLeave == 0) {
+                    started = true;
+                }
+
             }
         }
     }
 
     @Override
     public void onEvent(Event event) {
-        if(event.getType()==Event.Type.StartGhost1)
+        int odleglosc=0;
+        if(event.getType()==Event.Type.Dead)
         {
-            frameAmountLeave= (100);
+            dead=true;
+            speedTemp=this.speed;
+            this.speed=2;
+            scared=false;
+            chase=false;
+            lastSaw=-1;
+            waitAfterDeath= (int) (60*speed);
+            System.out.println("I'm dead");
+        }
+        if(event.getType()==Event.Type.StartGhost1)
+
+        {
+            frameAmountLeave=100;
         }
     }
 
@@ -172,8 +223,6 @@ public class Ghost1 extends Ghost implements EventListener {
             }
         }
     }
-
-    boolean kontrolna = false;
 
     public void chceckForErrorsGOOD(Board board, int PacManX, int PacManY) {
         while(chceckforObstacles(board, 1)) {

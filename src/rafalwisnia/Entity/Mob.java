@@ -6,6 +6,7 @@ import rafalwisnia.LevelUtilities.Screen;
 public abstract class Mob extends Entity {
      boolean moving = false;
      boolean kierunekKlatek;
+     double speedTemp;
     private boolean alive;
     protected double speed;
     int klatka;
@@ -17,8 +18,8 @@ public abstract class Mob extends Entity {
         }
     Directions direction;
 
-    Mob() {
-        this.speed =1 ;
+    Mob(double speed) {
+        this.speed=speed;
     }
 
     public double getSpeed() {

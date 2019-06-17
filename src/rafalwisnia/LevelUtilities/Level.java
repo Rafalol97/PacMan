@@ -5,13 +5,16 @@ import rafalwisnia.Entity.*;
 import rafalwisnia.Events.Event;
 import rafalwisnia.Events.EventListener;
 import rafalwisnia.UI.Sprite;
+import rafalwisnia.UI.SpriteSheet;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class Level implements EventListener {
     private List<Ghost> ghosts;
+    private List<Mob> update;
     private Pacmann pacman;
     private Border border;
     private Points points;
@@ -24,7 +27,11 @@ public class Level implements EventListener {
     public boolean pauza = false;
 
     public Level() {
-        createLevel();
+        LinkedList<Double> speeds = new LinkedList<>();
+        for (int i = 0; i < 4; i++) {
+            speeds.add(1.0);
+        }
+        createLevel(speeds);
     }
 
     private Integer licznikCzasu=0;
@@ -34,17 +41,17 @@ public class Level implements EventListener {
     private EventListener eventListenerGhost3;
     private EventListener eventListenerGhost4;
 
-    private void createLevel() {
+    private void createLevel(LinkedList<Double> speeds) {
         coinsTable=new Coin[14][20];
         ghosts = new ArrayList<>();
         coins = new ArrayList<>();
         border = new Border();
         board = new Board(1000, 700);
         points = new Points();
-        ghosts.add(new Ghost1(750, 450, board,this));
-        ghosts.add(new Ghost2(800, 450, board,this));
-        ghosts.add(new Ghost3(750, 500, board,this));
-        ghosts.add(new Ghost4(800, 500, board,this));
+        ghosts.add(new Ghost1(750, 450, board,this,speeds.get(0)));
+        ghosts.add(new Ghost2(800, 450, board,this,speeds.get(1)));
+        ghosts.add(new Ghost3(750, 500, board,this,speeds.get(2)));
+        ghosts.add(new Ghost4(800, 500, board,this,speeds.get(3)));
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 14; j++) {
                 if (board.getTileAlias(j, i) == 0 && !(i >= 8 && i <= 11 && j >= 6 && j <= 9)&&!(i==10&&j==10) ){
@@ -64,11 +71,31 @@ public class Level implements EventListener {
 
     }
 
-    private void clearLevel() {
+    public void clearLevel(boolean wygrana) {
+        LinkedList<Double> speeds = new LinkedList<>();
+        if(wygrana) {
+            double ghostSpeed;
+            for (Ghost ghost : ghosts) {
+                ghostSpeed =(int) (ghost.getSpeed() + (int) (ghost.getSpeed() / 2));
+                if (ghostSpeed == 1) ghostSpeed = 2;
+                speeds.add(ghostSpeed);
+                System.out.println(speeds.getLast());
+            }
+            points.addLevel();
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                speeds.add(1.0);
+                this.points.resetLevel();
+            }
+        }
         pacman.setLives(3);
-        createLevel();
+        createLevel(speeds);
+
         allGhostsOut = false;
         licznikCzasu = 0;
+        pacman.resetPacman();
+
     }
 
     public void render(Screen screen) {
@@ -86,6 +113,7 @@ public class Level implements EventListener {
         pacman.render(screen);
         points.render(screen);
         pacman.renderLives(screen);
+        screen.renderSheet(550,300, SpriteSheet.youdied,false);
     }
     public void add(Entity e) {
         if (e instanceof Pacmann) {
@@ -128,15 +156,17 @@ public class Level implements EventListener {
             }
 
             for (int i = 0; i < ghosts.size(); i++) {
-                for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
-                    if (!ghosts.get(i).chase) {
-                        ghosts.get(i).update(board);
-                    } else if (ghosts.get(i).chase) {
-                        ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
+                    for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
+                        if (!ghosts.get(i).chase) {
+                            ghosts.get(i).update(board);
+                        } else if (ghosts.get(i).chase) {
+                            ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
+                        }
+                        if(!ghosts.get(i).isDead()) {
+                            ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
+                        }
                     }
-                    ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                 }
-            }
             checkForCollisionWithGhosts();
             if (!allGhostsOut) {
                 licznikCzasu++;
@@ -145,7 +175,7 @@ public class Level implements EventListener {
                     if (eventListenerGhost1 != null)
                         eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
                 }
-/*
+
                 if (licznikCzasu == 5 * 60) {
                     if (eventListenerGhost2 != null)
                         eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
@@ -162,7 +192,7 @@ public class Level implements EventListener {
                     allGhostsOut = true;
                     licznikCzasu = 0;
                 }
-*/
+
 
             }
         }
@@ -174,7 +204,7 @@ public class Level implements EventListener {
                 pacman.resetPacman();
                 pacman.setLives(pacman.getLives()-1);
                 if(pacman.getLives()==0){
-                    this.clearLevel();
+                    this.clearLevel(false);
                 }
                 for(int i=0;i<ghosts.size();i++){
                     ghosts.get(i).resetToDefault();
@@ -212,11 +242,12 @@ public class Level implements EventListener {
             }
             if (Coin.count == 0) {
                 System.out.println("Koniec");
-                this.clearLevel();
+
+                this.clearLevel(true);
+
             }
 
         }
-
 
     }
 
@@ -230,13 +261,14 @@ public class Level implements EventListener {
         int ghostX, ghostY;
         int pacmanX = pacman.getX();
         int pacmanY = pacman.getY();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < ghosts.size(); i++) {
             ghostX = ghosts.get(i).getX();
             ghostY = ghosts.get(i).getY();
-            if (Math.sqrt(Math.pow((ghostX - pacmanX), 2) + Math.pow((ghostY - pacmanY), 2)) < 25) {
+            if (Math.sqrt(Math.pow((ghostX - pacmanX), 2) + Math.pow((ghostY - pacmanY), 2)) < 25&&!ghosts.get(i).isDead()) {
 
                 if (pacman.isEnraged() && ghosts.get(i).isScared()) {
-                    sendOutGhost(i);
+
+                   killThemaAll(i);
                     points.add(pacman.enrageRate * 200);
                     pacman.enrageRate++;
                 } else {
@@ -248,25 +280,25 @@ public class Level implements EventListener {
         }
     }
 
-    public void sendOutGhost(int number)
+    public void killThemaAll(int number)
     {
 
         if (number ==0) {
-            ghosts.get(0).resetToDefault();
-            if (eventListenerGhost1 != null) eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
+
+            if (eventListenerGhost1 != null) eventListenerGhost1.onEvent(new Event(Event.Type.Dead, 0, 0));
         }
 
         if (number ==1) {
-            ghosts.get(1).resetToDefault();
-            if (eventListenerGhost2 != null) eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
+
+            if (eventListenerGhost2 != null) eventListenerGhost2.onEvent(new Event(Event.Type.Dead, 0, 0));
         }
         if (number ==2) {
-            ghosts.get(2).resetToDefault();
-            if (eventListenerGhost3 != null) eventListenerGhost3.onEvent(new Event(Event.Type.StartGhost3, 0, 0));
+
+            if (eventListenerGhost3 != null) eventListenerGhost3.onEvent(new Event(Event.Type.Dead, 0, 0));
         }
         if (number == 3) {
-            ghosts.get(3).resetToDefault();
-            if (eventListenerGhost4 != null) eventListenerGhost4.onEvent(new Event(Event.Type.StartGhost4, 0, 0));
+
+            if (eventListenerGhost4 != null) eventListenerGhost4.onEvent(new Event(Event.Type.Dead, 0, 0));
 
         }
 
@@ -277,6 +309,7 @@ public class Level implements EventListener {
             ghosts.get(i).setGhostVisible(false);
         }
     }
+
     public void showAllGhosts(){
         for(int i=0;i<ghosts.size();i++)
         {
