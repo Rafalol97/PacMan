@@ -177,15 +177,15 @@ public class Pacmann extends  Mob {
     }
 
     public void renderLives(Screen screen){
-       screen.renderColor(1150,35,150,50, Color.BLACK);
+
         if(lives>=1){
-            screen.renderSprite(1150,35,Sprite.pacmann_prawo_0,false);
+            screen.renderSprite(1150,22,Sprite.pacmann_prawo_0,false);
         }
         if(lives>=2){
-            screen.renderSprite(1200,35,Sprite.pacmann_prawo_0,false);
+            screen.renderSprite(1200,22,Sprite.pacmann_prawo_0,false);
         }
         if(lives>=3){
-            screen.renderSprite(1250,35,Sprite.pacmann_prawo_0,false);
+            screen.renderSprite(1250,22,Sprite.pacmann_prawo_0,false);
         }
     }
 

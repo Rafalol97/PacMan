@@ -80,10 +80,10 @@ class MenucanvasUP extends JPanel {
                 pozycjaX--;
                 if (pozycjaX == 50) MenucanvasLEFT.animacja = true;
                 klatka = coSto == 10 ? klatka + 1 : klatka;
-                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                coSto = coSto > 10 ? 0 : coSto + 1;
                 klatka = klatka < 4 ? klatka : 0;
+                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                 klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                coSto = coSto > 10 ? 0 : coSto + 1;
 
 
                 repaint();
@@ -154,10 +154,10 @@ class MenucanvasDOWN extends JPanel {
                 pozycjaX++;
                 if (pozycjaX == 390) MenucanvasRIGHT.animacja = true;
                 klatka = coSto == 10 ? klatka + 1 : klatka;
-                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                coSto = coSto > 10 ? 0 : coSto + 1;
                 klatka = klatka < 4 ? klatka : 0;
+                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                 klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                coSto = coSto > 10 ? 0 : coSto + 1;
 
                 repaint();
             } else {
@@ -320,10 +320,10 @@ class MenucanvasLEFT extends JPanel {
             if (pozycjaXduszka4 > 20 && etap1duszka4) {
                 pozycjaXduszka4--;
                 klatka = coSto == 10 ? klatka + 1 : klatka;
-                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                coSto = coSto > 10 ? 0 : coSto + 1;
                 klatka = klatka < 4 ? klatka : 0;
+                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                 klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                coSto = coSto > 10 ? 0 : coSto + 1;
                 repaint();
             } else {
                 kierunekDuszka4 = 1;
@@ -331,20 +331,20 @@ class MenucanvasLEFT extends JPanel {
                 if(pozycjaYduszka4 < 730) {
                     pozycjaYduszka4++;
                     klatka = coSto == 10 ? klatka + 1 : klatka;
-                    klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                    coSto = coSto > 10 ? 0 : coSto + 1;
                     klatka = klatka < 4 ? klatka : 0;
+                    klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                     klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                    coSto = coSto > 10 ? 0 : coSto + 1;
                     repaint();
                 } else {
                     kierunekDuszka4 = 0;
                     if (pozycjaXduszka4 < 131){
                         pozycjaXduszka4++;
                         klatka = coSto == 10 ? klatka + 1 : klatka;
-                        klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                        coSto = coSto > 10 ? 0 : coSto + 1;
                         klatka = klatka < 4 ? klatka : 0;
+                        klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                         klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                        coSto = coSto > 10 ? 0 : coSto + 1;
                         repaint();
                     } else {
                         pozycjaXduszka4 = 440;
@@ -515,10 +515,10 @@ class MenucanvasRIGHT extends JPanel {
             if (pozycjaXduszka4 < 10 && etap1duszka4) {
                 pozycjaXduszka4++;
                 klatka = coSto == 10 ? klatka + 1 : klatka;
-                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                coSto = coSto > 10 ? 0 : coSto + 1;
                 klatka = klatka < 4 ? klatka : 0;
+                klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                 klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                coSto = coSto > 10 ? 0 : coSto + 1;
                 repaint();
             } else {
                 kierunekDuszka4 = 2;
@@ -526,20 +526,20 @@ class MenucanvasRIGHT extends JPanel {
                 if(pozycjaYduszka4 > 20) {
                     pozycjaYduszka4--;
                     klatka = coSto == 10 ? klatka + 1 : klatka;
-                    klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                    coSto = coSto > 10 ? 0 : coSto + 1;
                     klatka = klatka < 4 ? klatka : 0;
+                    klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                     klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                    coSto = coSto > 10 ? 0 : coSto + 1;
                     repaint();
                 } else {
                     kierunekDuszka4 = 3;
                     if (pozycjaXduszka4 > -51){
                         pozycjaXduszka4--;
                         klatka = coSto == 10 ? klatka + 1 : klatka;
-                        klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
-                        coSto = coSto > 10 ? 0 : coSto + 1;
                         klatka = klatka < 4 ? klatka : 0;
+                        klatkaDuszka = coSto == 10 ? klatkaDuszka + 1 : klatkaDuszka;
                         klatkaDuszka = klatkaDuszka < 2 ? klatkaDuszka : 0;
+                        coSto = coSto > 10 ? 0 : coSto + 1;
                         repaint();
                     } else {
                         pozycjaXduszka4 = -360;

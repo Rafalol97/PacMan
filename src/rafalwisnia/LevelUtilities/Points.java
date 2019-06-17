@@ -30,39 +30,42 @@ public class Points implements EventListener {
 
     }
     public void render(Screen screen){
+        if(liczbaPunktow>100000){
+            liczbaPunktow=99999;
+        }
         if(liczbaPunktow>=10000) {
-            screen.renderTile(300, 35, cyferki[liczbaPunktow / 10000]);
+            screen.renderTile(300, 22, cyferki[liczbaPunktow / 10000]);
         }
         else {
-            screen.renderTile(300, 35, cyferki[10]);
+            screen.renderTile(300, 22, cyferki[10]);
         }
 
         if(liczbaPunktow>=1000) {
-            screen.renderTile(330, 35, cyferki[(liczbaPunktow / 1000)%10]);
+            screen.renderTile(330, 22, cyferki[(liczbaPunktow / 1000)%10]);
         }
         else {
-            screen.renderTile(330, 35, cyferki[10]);
+            screen.renderTile(330, 22, cyferki[10]);
         }
         if(liczbaPunktow>=100) {
-            screen.renderTile(360,35,cyferki[(liczbaPunktow/100)%10]);
+            screen.renderTile(360,22,cyferki[(liczbaPunktow/100)%10]);
         }
         else {
-            screen.renderTile(360, 35, cyferki[10]);
+            screen.renderTile(360, 22, cyferki[10]);
         }
         if(liczbaPunktow>=10) {
-            screen.renderTile(390,35,cyferki[(liczbaPunktow/10)%10]);
+            screen.renderTile(390,22,cyferki[(liczbaPunktow/10)%10]);
         }
         else {
-            screen.renderTile(390, 35, cyferki[10]);
+            screen.renderTile(390, 22, cyferki[10]);
         }
         if(liczbaPunktow>0) {
-            screen.renderTile(420,35,cyferki[liczbaPunktow%10]);
+            screen.renderTile(420,22,cyferki[liczbaPunktow%10]);
         }
         else {
-            screen.renderTile(420, 35, cyferki[10]);
+            screen.renderTile(420, 22, cyferki[10]);
         }
 
-        screen.renderTile(420,835,cyferki[poziom]);
+        screen.renderTile(420,822,cyferki[poziom]);
 
     }
 
