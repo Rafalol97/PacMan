@@ -207,9 +207,11 @@ public abstract class Ghost extends Mob {
 
                 chceckForErrorsScared(board, PacManX, PacManY);
                 this.wrazieW = 0;
-
-            } else this.update(board);
-            move();
+                move();
+            } else {
+                this.update(board);
+            }
         }
+        move();
     }
 }
