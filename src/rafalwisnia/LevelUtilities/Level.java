@@ -23,7 +23,9 @@ public class Level implements EventListener {
     private int timer;
     private Board board;
     private Coin[][] coinsTable;
-
+    private boolean pokazYouDied=false;
+    private boolean pokazYouWon=false;
+    private boolean zresetujPoWygrane=false;
     public boolean pauza = false;
 
     public Level() {
@@ -32,6 +34,7 @@ public class Level implements EventListener {
             speeds.add(1.0);
         }
         createLevel(speeds);
+
     }
 
     private Integer licznikCzasu=0;
@@ -54,7 +57,7 @@ public class Level implements EventListener {
         ghosts.add(new Ghost4(800, 500, board,this,speeds.get(3)));
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 14; j++) {
-                if (board.getTileAlias(j, i) == 0 && !(i >= 8 && i <= 11 && j >= 6 && j <= 9)&&!(i==10&&j==10) ){
+                if (board.getTileAlias(j, i) == 0 && !(i >= 7 && i <= 12 && j >= 5 && j <= 9)&&!(i==10&&j==10) ){
                     coinsTable[j][i]= new Coin(i,j,Sprite.smallCoin);
                     Coin.count++;
                 }
@@ -89,7 +92,7 @@ public class Level implements EventListener {
                 this.points.resetLevel();
             }
         }
-        pacman.resetPacman();
+        pacman.resetPacmanToDefault(wygrana);
         createLevel(speeds);
         allGhostsOut = false;
         licznikCzasu = 0;
@@ -114,9 +117,15 @@ public class Level implements EventListener {
         if(pacman.isUmiera())pacman.renderDeath(screen);
         else if(pacman.isAlive()) pacman.render(screen);
 
-        if(!pacman.isAlive()&&Points.poziom>3) {
-            screen.renderSheet(550, 300, SpriteSheet.youdied, false);
+        if(pokazYouDied){
+            if(Points.poziom>3) screen.renderSheet(400,450,SpriteSheet.youdied_darksouls,false);
+            else  screen.renderSheet(400,450,SpriteSheet.youdied_generic,false);
         }
+        if(pokazYouWon){
+            screen.renderSheet(400,450,SpriteSheet.youwon,false);
+        }
+
+
     }
     public void add(Entity e) {
         if (e instanceof Pacmann) {
@@ -140,102 +149,117 @@ public class Level implements EventListener {
         this.eventListenerGhost4 = eventListener;
     }
     public void update() {
-        if(pacman.isAlive() && !pauza) {
-            if (pacman.isEnraged()) {
-                if (timer > 0) {
-                    timer--;
-                } else {
-                    pacmanSpeed = 3;
-                    pacman.setEnraged(false);
-                    pacman.enrageRate = 1;
-                    for (int i = 0; i < 4; i++) {
-                        ghosts.get(i).setScared(false);
+        if(!zresetujPoWygrane) {
+            if (pacman.isAlive() && !pauza) {
+                if (pacman.isEnraged()) {
+                    if (timer > 0) {
+                        timer--;
+                    } else {
+                        pacmanSpeed = 3;
+                        pacman.setEnraged(false);
+                        pacman.enrageRate = 1;
+                        for (int i = 0; i < 4; i++) {
+                            ghosts.get(i).setScared(false);
+                        }
                     }
                 }
-            }
-            for (int i = 0; i < pacmanSpeed; i++) {
-                pacman.update(board);
+                for (int i = 0; i < pacmanSpeed; i++) {
+                    pacman.update(board);
 
-            }
+                }
 
-            for (int i = 0; i < ghosts.size(); i++) {
+                for (int i = 0; i < ghosts.size(); i++) {
                     for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
-                        if(ghosts.get(i).isScared()&&ghosts.get(i).isStarted()){
+                        if (ghosts.get(i).isScared() && ghosts.get(i).isStarted()) {
                             ghosts.get(i).updateScared(board, pacman.getX(), pacman.getY());
-                        } else if (ghosts.get(i).chase&&ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()) {
+                        } else if (ghosts.get(i).chase && ghosts.get(i).isStarted() && !ghosts.get(i).isScared()) {
                             ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
-                        }
-                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()||(ghosts.get(i).isDead()))){
+                        } else if (!ghosts.get(i).isStarted() || (ghosts.get(i).isStarted() && !ghosts.get(i).isScared() || (ghosts.get(i).isDead()))) {
                             ghosts.get(i).update(board);
                         }
-                        if(!ghosts.get(i).isDead()&&ghosts.get(i).chase&&!ghosts.get(i).isScared()) {
+                        if (!ghosts.get(i).isDead() && ghosts.get(i).chase && !ghosts.get(i).isScared()) {
                             ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                         }
                     }
                 }
-            checkForCollisionWithGhosts();
-            if (!allGhostsOut) {
-                licznikCzasu++;
+                checkForCollisionWithGhosts();
+                if (!allGhostsOut) {
+                    licznikCzasu++;
 
-                if (licznikCzasu == 2) {
-                    if (eventListenerGhost1 != null)
-                        eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
+                    if (licznikCzasu == 2) {
+                        if (eventListenerGhost1 != null)
+                            eventListenerGhost1.onEvent(new Event(Event.Type.StartGhost1, 0, 0));
+                    }
+
+                    if (licznikCzasu == 5 * 60) {
+                        if (eventListenerGhost2 != null)
+                            eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
+                    }
+
+                    if (licznikCzasu == 10 * 60) {
+
+                        if (eventListenerGhost3 != null)
+                            eventListenerGhost3.onEvent(new Event(Event.Type.StartGhost3, 0, 0));
+                    }
+                    if (licznikCzasu == 15 * 60) {
+                        if (eventListenerGhost4 != null)
+                            eventListenerGhost4.onEvent(new Event(Event.Type.StartGhost4, 0, 0));
+                        allGhostsOut = true;
+                        licznikCzasu = 0;
+                    }
+
+
                 }
-
-                if (licznikCzasu == 5 * 60) {
-                    if (eventListenerGhost2 != null)
-                        eventListenerGhost2.onEvent(new Event(Event.Type.StartGhost2, 0, 0));
+            } else if (!pacman.isAlive()) {
+                int k;
+                if (pacman.getRespawnTimeLeft() + 110 > 5 * 60) {
+                    if ((pacman.getRespawnTimeLeft() - 5 * 60 + 110) % 10 == 0) {
+                        pacman.setKlatkiSmierc(pacman.getKlatkiSmierc() + 1);
+                    }
+                    if (pacman.getKlatkiSmierc() == 10) {
+                        pacman.setKlatkiSmierc(-1);
+                        pacman.setUmiera(false);
+                    }
                 }
-
-                if (licznikCzasu == 10 * 60) {
-
-                    if (eventListenerGhost3 != null)
-                        eventListenerGhost3.onEvent(new Event(Event.Type.StartGhost3, 0, 0));
+                if (pacman.getRespawnTimeLeft() == 5 * 60 - 110) {
+                    if (pacman.getLives() - 1 == 0) pokazYouDied = true;
                 }
-                if (licznikCzasu == 15 * 60) {
-                    if (eventListenerGhost4 != null)
-                        eventListenerGhost4.onEvent(new Event(Event.Type.StartGhost4, 0, 0));
-                    allGhostsOut = true;
-                    licznikCzasu = 0;
-                }
+                //Update ogolnie wszystkiego
+                if (pacman.getRespawnTimeLeft() == 0) {
+                    pokazYouDied = false;
+                    pacman.setAlive(true);
+                    pacman.resetPacman();
+                    pacman.setLives(pacman.getLives() - 1);
+                    if (pacman.getLives() == 0) {
+                        this.clearLevel(false);
+                    }
+                    for (int i = 0; i < ghosts.size(); i++) {
+                        ghosts.get(i).resetToDefault();
+                        allGhostsOut = false;
+                        licznikCzasu = 0;
+                        showAllGhosts();
+                    }
+                } else {
+                    pacman.setRespawnTimeLeft(pacman.getRespawnTimeLeft() - 1);
 
+                }
 
             }
         }
-        else if(!pacman.isAlive())
+        else
         {
-            int k;
-            if(pacman.getRespawnTimeLeft()>5*60-150){
-                if((pacman.getRespawnTimeLeft()-5*60+150)%15==0){
-                    pacman.setKlatkiSmierc(pacman.getKlatkiSmierc()+1);
-                }
-                if(pacman.getKlatkiSmierc()==8){
-                    pacman.setKlatkiSmierc(-1);
-                    pacman.setUmiera(false);
-                }
+            if (pacman.getRespawnTimeLeft() == 3 * 60 ) {
+                pokazYouWon=true;
             }
-            //Update ogolnie wszystkiego
-            if(pacman.getRespawnTimeLeft()==0) {
-                pacman.setAlive(true);
-                pacman.resetPacman();
-                pacman.setLives(pacman.getLives()-1);
-                if(pacman.getLives()==0){
-                    this.clearLevel(false);
-                }
-                for(int i=0;i<ghosts.size();i++){
-                    ghosts.get(i).resetToDefault();
-                    allGhostsOut= false;
-                    licznikCzasu=0;
-                    showAllGhosts();
-                }
+            if(pacman.getRespawnTimeLeft()==0){
+                pokazYouWon=false;
+                this.clearLevel(true);
             }
-            else {
-                pacman.setRespawnTimeLeft(pacman.getRespawnTimeLeft()-1);
-
-            }
-
+            pacman.setRespawnTimeLeft(pacman.getRespawnTimeLeft()-1);
         }
     }
+
+
     public Board getBoard() {
         return board;
     }
@@ -261,10 +285,8 @@ public class Level implements EventListener {
                 }
             }
             if (Coin.count == 0) {
-                System.out.println("Koniec");
-
-                this.clearLevel(true);
-
+                zresetujPoWygrane=true;
+                pacman.setRespawnTimeLeft(3*60);
             }
 
         }
@@ -291,7 +313,7 @@ public class Level implements EventListener {
 
                 if (pacman.isEnraged() && ghosts.get(i).isScared()) {
 
-                   killThemaAll(i);
+                    killThemaAll(i);
                     points.add(pacman.enrageRate * 200);
                     pacman.enrageRate++;
                 } else {
@@ -299,6 +321,7 @@ public class Level implements EventListener {
                     pacman.setUmiera(true);
                     pacman.setRespawnTimeLeft(5*60);
                     hideAllGhosts();
+
                 }
             }
         }

@@ -34,29 +34,29 @@ public class Points implements EventListener {
             liczbaPunktow=99999;
         }
         if(liczbaPunktow>=10000) {
-            screen.renderTile(300, 22, cyferki[liczbaPunktow / 10000]);
+            screen.renderTile(300, 22, cyferki[liczbaPunktow / 10000],0);
         }
         else {
-            screen.renderTile(300, 22, cyferki[10]);
+            screen.renderTile(300, 22, cyferki[10],0);
         }
 
         if(liczbaPunktow>=1000) {
-            screen.renderTile(330, 22, cyferki[(liczbaPunktow / 1000)%10]);
+            screen.renderTile(330, 22, cyferki[(liczbaPunktow / 1000)%10],0);
         }
         else {
-            screen.renderTile(330, 22, cyferki[10]);
+            screen.renderTile(330, 22, cyferki[10],0);
         }
         if(liczbaPunktow>=100) {
-            screen.renderTile(360,22,cyferki[(liczbaPunktow/100)%10]);
+            screen.renderTile(360,22,cyferki[(liczbaPunktow/100)%10],0);
         }
         else {
-            screen.renderTile(360, 22, cyferki[10]);
+            screen.renderTile(360, 22, cyferki[10],0);
         }
         if(liczbaPunktow>=10) {
-            screen.renderTile(390,22,cyferki[(liczbaPunktow/10)%10]);
+            screen.renderTile(390,22,cyferki[(liczbaPunktow/10)%10],0);
         }
         else {
-            screen.renderTile(390, 22, cyferki[10]);
+            screen.renderTile(390, 22, cyferki[10],0);
         }
         if(liczbaPunktow>0) {
             screen.renderLastNumber(420,22,cyferki[liczbaPunktow%10]);
@@ -64,8 +64,10 @@ public class Points implements EventListener {
         else {
             screen.renderLastNumber(420, 22, cyferki[10]);
         }
-
-        screen.renderLastNumber(420,822,cyferki[poziom]);
+        if(poziom>9){
+            screen.renderTile(390,822,cyferki[poziom/10],0);
+        }
+        screen.renderLastNumber(420,822,cyferki[poziom%10]);
 
     }
 

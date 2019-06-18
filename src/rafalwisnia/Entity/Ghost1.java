@@ -138,6 +138,7 @@ public class Ghost1 extends Ghost implements EventListener {
             chase=false;
             lastSaw=-1;
             waitAfterDeath= (int) (60*speed);
+            direction=Directions.UP;
             //System.out.println("I'm dead");
         }
         if(event.getType()==Event.Type.StartGhost1)

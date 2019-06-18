@@ -85,27 +85,15 @@ public class Screen {
         }
     }
 
-    public void renderTile(int xp, int yp, Sprite sprite) { ///TODO do zmiany
-
-        for (int y = 0; y < sprite.SIZE; y++) {
-            int ya = y + yp;
-            for (int x = 0; x <sprite.SIZE; x++) {
-                int xa = x + xp;
-                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
-                if (xa < 0) xa = 0;
-                pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
-            }
-        }
-    }
     public void renderTile(int xp, int yp, Sprite sprite, int flip) {
         for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
             int ys = y;
-            if (flip == 2 || flip == 3) ys = sprite.SIZE-1 - y;
+            if (flip == 2 || flip == 3) ys = sprite.SIZE - 1 - y;
             for (int x = 0; x < sprite.SIZE; x++) {
                 int xa = x + xp;
                 int xs = x;
-                if (flip == 1 || flip == 3) xs = sprite.SIZE-1 - x;
+                if (flip == 1 || flip == 3) xs = sprite.SIZE - 1 - x;
                 if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 pixels[xa + ya * width] =sprite.pixels[xs + ys * sprite.SIZE];

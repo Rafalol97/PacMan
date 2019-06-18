@@ -192,7 +192,6 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.frame.add(edytorWindow);
         edytorWindow.frame.pack();
         edytorWindow.frame.setLocationRelativeTo(null);
-        edytorWindow.frame.setVisible(true);
         edytorWindow.render();
 
 
@@ -274,8 +273,7 @@ public class Game extends Canvas implements Runnable {
         game.edytor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Mam cie");
-
+                 edytorWindow.frame.setVisible(true);
             }
         });
 

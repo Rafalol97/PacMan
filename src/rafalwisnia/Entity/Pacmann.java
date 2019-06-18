@@ -227,7 +227,14 @@ public class Pacmann extends  Mob {
         this.y=600;
         this.direction=Directions.UP;
         moving=false;
-        this.setLives(3);
+
+    }
+    public void resetPacmanToDefault(boolean wygrana){
+        this.x=800;
+        this.y=600;
+        this.direction=Directions.UP;
+        moving=false;
+        if(!wygrana)this.setLives(3);
         this.setKlatkiSmierc(0);
         this.setUmiera(false);
         this.setAlive(true);

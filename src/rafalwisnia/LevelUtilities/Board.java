@@ -9,8 +9,8 @@ public class Board {
             {1,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,2},
             {3,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,3},
             {3,0,8,11,11,11,2,0,8,13,16,88,0,7,11,11,11,88,0,3},
-            {3,0,0,0,0,-1,3,0,0,5,6,0,0,3,-1,0,0,0,0,3},
-            {3,0,8,11,88,0,5,88,0,0,0,0,8,6,0,8,11,88,0,3},
+            {3,0,0,0,0,-1,3,0,0,3,3,0,0,3,-1,0,0,0,0,3},
+            {3,0,8,11,88,0,5,88,0,5,6,0,8,6,0,8,11,88,0,3},
             {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
             {5,11,11,88,0,4, 0,1,88,17,17,8,2,0,4, 0,8,11,11,6},
             {0,0, 0, 0, 0,3, 0,3,0, 0,0,0,3,0,3, 0,0,0 ,0 ,0},
@@ -45,26 +45,26 @@ public class Board {
     public void render(Screen screen){
         for (int y=0;y<14;y++){
             for(int x=0;x<20;x++){
-                if(tiles[y][x]==0) screen.renderTile((x*50)+300,(y*50)+100, Sprite.podloga);
-                else if(tiles[y][x]==1) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_1);
-                else if(tiles[y][x]==2) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_2);
-                else if(tiles[y][x]==3) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_3);
-                else if(tiles[y][x]==4) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_4);
-                else if(tiles[y][x]==5) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_5);
-                else if(tiles[y][x]==6) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_6);
-                else if(tiles[y][x]==7) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_7);
-                else if(tiles[y][x]==8) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_8);
-                else if(tiles[y][x]==9) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_9);
-                else if(tiles[y][x]==10) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_10);
-                else if(tiles[y][x]==11) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_11);
-                else if(tiles[y][x]==12) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_12);
+                if(tiles[y][x]==0) screen.renderTile((x*50)+300,(y*50)+100, Sprite.podloga,0);
+                else if(tiles[y][x]==1) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_1,0);
+                else if(tiles[y][x]==2) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_2,0);
+                else if(tiles[y][x]==3) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_3,0);
+                else if(tiles[y][x]==4) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_4,0);
+                else if(tiles[y][x]==5) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_5,0);
+                else if(tiles[y][x]==6) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_6,0);
+                else if(tiles[y][x]==7) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_7,0);
+                else if(tiles[y][x]==8) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_8,0);
+                else if(tiles[y][x]==9) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_9,0);
+                else if(tiles[y][x]==10) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_10,0);
+                else if(tiles[y][x]==11) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_11,0);
+                else if(tiles[y][x]==12) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_12,0);
                 else if(tiles[y][x]==44) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_4,2);
                 else if(tiles[y][x]==88) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_8,1);
-                else if(tiles[y][x]==13) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13);
+                else if(tiles[y][x]==13) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,0);
                 else if(tiles[y][x]==14) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,2);
                 else if(tiles[y][x]==15) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,3);
                 else if(tiles[y][x]==16) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,4);
-                else if(tiles[y][x]==17) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_17);
+                else if(tiles[y][x]==17) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_17,0);
             }
         }
     }
