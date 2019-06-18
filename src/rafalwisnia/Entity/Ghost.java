@@ -154,4 +154,62 @@ public abstract class Ghost extends Mob {
         this.ghostVisible = ghostVisible;
     }
     public abstract void updateChase(Board board, int PacManX, int PacManY);
+
+    public boolean andDirectionIsGOODscared(Board board, int PacManX, int PacManY) {
+        if(this.wrazieW == 3) {
+            return true;
+        }
+        else {
+            if (this.direction == Directions.UP && PacManY < this.y) {
+                this.wrazieW++;
+                return false;
+            } else if (this.direction == Directions.DOWN && PacManY > this.y) {
+                this.wrazieW++;
+                return false;
+            } else if (this.direction == Directions.RIGHT && PacManX > this.x) {
+                this.wrazieW++;
+                return false;
+            } else if (this.direction == Directions.LEFT && PacManX < this.x) {
+                this.wrazieW++;
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public void chceckForErrorsScared(Board board, int PacManX, int PacManY) {
+        while(chceckforObstacles(board, 1) || andDirectionIsGOODscared(board, PacManX, PacManY)) {
+            if (this.direction == Directions.UP) {
+                this.direction = Directions.RIGHT;
+            } else if (this.direction == Directions.RIGHT) {
+                this.direction = Directions.DOWN;
+            } else if (this.direction == Directions.DOWN) {
+                this.direction = Directions.LEFT;
+            } else if (this.direction == Directions.LEFT) {
+                this.direction = Directions.UP;
+            }
+        }
+    }
+
+    public void updateScared(Board board, int PacManX, int PacManY) {
+        if(this.x%50==0&&this.y%50==0) {
+            if(Math.abs(this.x%50-PacManX) < 3 || Math.abs(this.y%50-PacManY) < 3) {
+                if (PacManY <= this.y) {
+                    this.direction = Directions.DOWN;
+                } else if (PacManY >= this.y) {
+                    this.direction = Directions.UP;
+                } else if (PacManX <= this.x) {
+                    this.direction = Directions.RIGHT;
+                } else if (PacManX >= this.x) {
+                    this.direction = Directions.LEFT;
+                }
+
+                chceckForErrorsScared(board, PacManX, PacManY);
+                this.wrazieW = 0;
+
+            } else this.update(board);
+            move();
+        }
+    }
 }
