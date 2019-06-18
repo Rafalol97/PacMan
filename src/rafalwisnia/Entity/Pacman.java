@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 import static rafalwisnia.UI.Sprite.*;
 
-/**
+/**Pacman.java
+ * Klasa przechowuja atrybuty i stany reprezentujace Pacmana
+ *
  *
  */
 public class Pacman extends  Mob {
@@ -125,10 +127,18 @@ public class Pacman extends  Mob {
         this.klatkiSmierc = klatkiSmierc;
     }
 
+    /**
+     * Funkcja przeypisujaca do atrybutu eventListenerGhost4 - czyli atrybutu odpowiadajacego za nasluchiwanie obiektu tej klasy przez obiekt klasy dziedziczacej z klasy Event Listener
+     * @param eventListener referencja do obiektu rozszerzajacego klase EventListener
+     */
     public void setEventListener(EventListener eventListener){
         this.eventListener = eventListener;
     }
 
+    /** Metoda aktualizujaca stany i atrybuty pacmana w zaleznosci od sytuacji na poziomie.
+     *
+     * @param board referencja obiektu klasy Board
+     */
     public void update(Board board) {
         if(this.x<299)
         {
@@ -171,6 +181,9 @@ public class Pacman extends  Mob {
 
     }
 
+    /**
+     * Metoda ktora zapamietuje przycisk do zmiany kieunku gdy bedzie taka mozliwosc
+     */
     public void remember() {
         if (input.up) {directionTemp = Directions.UP;
             moving=true;
@@ -185,7 +198,10 @@ public class Pacman extends  Mob {
             moving=true;
         }
     }
-
+    /**
+     *Metoda zmieniajaca etap klatek animacji
+     *
+     */
    @Override
     public void changeFrame(){
         if(frameWait>=frameSpeed) {
@@ -200,11 +216,20 @@ public class Pacman extends  Mob {
         }
     }
 
+    /** Metoda, ktora w zalezonosci od atrybutow directionIter, klatka wywoluje metode w obiekcie klasy Screen renderuje odpowiedni obiekt klsy Sprite
+     *
+     * @param screen - referencja do obiektu klasy Screen
+     */
     public void render(Screen screen){
         int flip = 0;
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
     }
+
+    /**Metoda, ktora w zaleznosci od atrybutu - lives renderuje zadana ilosd grafik pacmanow reprezentujaca zycia pacmana
+     *
+     * @param screen - referencja do obiektu klasy Screen
+     */
 
     public void renderLives(Screen screen){
 
@@ -219,10 +244,18 @@ public class Pacman extends  Mob {
         }
     }
 
+    /** Metoda, ktora w przypadku smierci pacmana - renderuje klatki w zaleznosci od atrybutu klatkiSmierc - ktory jest zmienany zewnetrznie przez obiekt klasy Level
+     *
+     * @param screen - referencja do obiektu klasy Screen
+     */
     public void renderDeath(Screen screen){
         if(klatkiSmierc==-1)klatkiSmierc=0;
         screen.renderMob(x,y,klatkiPacmanSmierc[klatkiSmierc].getSprite(),0);
     }
+
+    /**Resetuje pozycje pacmana do pozycji poczatkowej
+     *
+     */
     public void resetPacman(){
         this.x=800;
         this.y=600;
@@ -230,6 +263,11 @@ public class Pacman extends  Mob {
         moving=false;
 
     }
+
+    /** Resetuje pacmana do stanu i pozycji poczatkowych i jesli metoda jest wywolana z powodu przegranej, resetuje liczbe pozostaly zyc
+     *
+     * @param wygrana wartosc logiczna prawda lub falsz
+     */
     public void resetPacmanToDefault(boolean wygrana){
         this.x=800;
         this.y=600;

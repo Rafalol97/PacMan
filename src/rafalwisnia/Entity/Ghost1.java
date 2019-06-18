@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+/**Klasa przechowujaca atrybuty i stany danego duszka
+ *
+ */
 public class Ghost1 extends Ghost implements EventListener {
     private ArrayList<AnimatedSprite[]> listaKlatek = new ArrayList<>() ;
     private AnimatedSprite klatkiDuszekUp[] = new AnimatedSprite[2];
@@ -49,7 +52,11 @@ public class Ghost1 extends Ghost implements EventListener {
         parentLevel.setEventListenerGhost1(this);
     }
 
-
+    /** Metoda wywolujaca metode z obiektu Klasy screen, w zalzenosci od
+     * stanu duszka, kieynku duszka i klatki
+     *
+     * @param screen refernacja obiektu klasy Screen
+     */
     public void render(Screen screen) {
         if(dead){
             sprite=oczyDuszkaPoSmierci[directionIter];
@@ -66,7 +73,11 @@ public class Ghost1 extends Ghost implements EventListener {
     }
 
 
+    /** Metoda aktualizujaca stany i atrybuty duszka w zaleznosci od sytuacji na poziomie.
+     *
 
+     * @param board referencja obiektu klasy Board
+     */
     @Override
     public void update(Board board) {
         if(waitAfterDeath>0){
@@ -128,6 +139,11 @@ public class Ghost1 extends Ghost implements EventListener {
         }
     }
 
+    /** Metoda wywoływana przez zdarzenie wyslane do tego obiektu z klasy Level
+     *  Typ zdarzenia - Dead - smierc duszka
+     *  Typ zdarzenia - StartGhost1 - wyjscie duszka boksu
+     * @param event zdarzenie
+     */
     @Override
     public void onEvent(Event event) {
         int odleglosc=0;
@@ -150,6 +166,9 @@ public class Ghost1 extends Ghost implements EventListener {
         }
     }
 
+    /** Metoda resetujaca duszka do stanu poczatkowego
+     *
+     */
     @Override
     public void resetToDefault() {
         frameAmountLeave=0;
@@ -162,39 +181,47 @@ public class Ghost1 extends Ghost implements EventListener {
 
     }
 
+    /** Metoda ktora zmieniajaca parametr zauwazenia duszka lastSaw
+     * oraz rozpoczynajaca poscig duszka za pacmanem
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     */
     @Override
     public void updateAIbyCherry(Board board, int PacManX, int PacManY) {
         if(this.x == PacManX || this.y == PacManY) {
             if(PacManX < this.x&&this.direction == Directions.LEFT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)){
-                      //  System.out.println("WIDZE PACMANA SKURWIELA PO LEWO");
                         lastSaw=3;
                         chase=true;
             }
             else  if(PacManX > this.x&&this.direction == Directions.RIGHT&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
-                      //  System.out.println("WIDZE PACMANA SKURWIELA PO PRAWO");
                         lastSaw=1;
                         chase=true;
 
             }
             else  if(PacManY < this.y&&this.direction == Directions.UP&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
-                     //   System.out.println("WIDZE PACMANA SKURWIELA NA GORZE");
                         lastSaw=0;
                         chase=true;
             }
             else if(PacManY > this.y&&this.direction == Directions.DOWN&&!checkforObstaclesByCherry(board, this.x, this.y, PacManX, PacManY)) {
-
-                     //   System.out.println("WIDZE PACMANA SKURWIELA NA DOLE");
                         lastSaw=2;
                         chase=true;
             }
             else{
                 lastSaw=-1;
-
             }
 
         }
     }
-
+    /** Funkcja wykorzystywana w updacie gonieniu duchow. Sprawdza czy kierunek wybrany ducha jest zgony do kierunku w ktorym znajduje sie pacman
+     * Funkcja jest opatrzona zmienna bezpieczenstwa ktora po 3 probach losuje kierunek, gdyby odpowiedni wybor byl niemozliwy
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     * @return wartosc logiczna prawda lub falsz
+     */
     public boolean andDirectionIsGOOD(Board board, int PacManX, int PacManY) {
         if(wrazieW == 3) {
             return true;
@@ -215,6 +242,14 @@ public class Ghost1 extends Ghost implements EventListener {
         }
     }
 
+    /** Funkcja upewniajaca sie ze kierunek wybrany przez ghosta jest dozwolony i odpowiedni.
+     * Wykorzystuje metode andDirectionIsGOOD.
+     *
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     */
     public void chceckForErrors(Board board, int PacManX, int PacManY) {
         while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
             if (this.direction == Directions.UP) {
@@ -234,7 +269,12 @@ public class Ghost1 extends Ghost implements EventListener {
         }
     }
 
-
+    /** Update wykonywany kiedy duch jest w trybie poscigu. Jego celem jest symulacja gonienia pacmana (AI)
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     */
     public void updateChase(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {
             if (this.lastSaw == 0) {

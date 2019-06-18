@@ -8,6 +8,10 @@ import rafalwisnia.UI.Sprite;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**Ghost.java
+ * Klasa rozszerzajaca klase Mob uogolniajaca obiekt duszkow
+ * Przechowuje zmienne ktore posiadaja wszystkie duszki i metody z ktorych wszystkie korzystaja
+ */
 public abstract class Ghost extends Mob {
 
     Sprite[] oczyDuszkaPoSmierci = new Sprite[4];
@@ -64,6 +68,11 @@ public abstract class Ghost extends Mob {
         klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
     }
 
+    /**
+     *Metoda zmieniajaca etap klatek animacji
+     *
+     */
+
     @Override
     public void changeFrame() {
         if (frameWait >= frameSpeed) {
@@ -86,7 +95,10 @@ public abstract class Ghost extends Mob {
     public abstract void update(Board board);
 
 
-
+    /** Funkcja losujaca nastepny kieunek ruchu duszka. Jest wykorzystywana gdy duszek nie jest w zadnym specjalnym stanie
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     */
     void changeToRandomDirection(Board board) {
         if (this.x % 50 == 0 && this.y % 50 == 0) {
             ArrayList<Integer> lista = new ArrayList<>();
@@ -143,41 +155,14 @@ public abstract class Ghost extends Mob {
     }
     public abstract void updateChase(Board board, int PacManX, int PacManY);
 
-    public boolean andDirectionIsGOODscared(Board board, int PacManX, int PacManY) {
-        if(this.wrazieW == 3) {
-            return true;
-        }
-        else {
-            if (this.direction == Directions.UP && PacManY > this.y) {
-                return true;
-            } else if (this.direction == Directions.DOWN && PacManY < this.y) {
-                return true;
-            } else if (this.direction == Directions.RIGHT && PacManX < this.x) {
-                return true;
-            } else if (this.direction == Directions.LEFT && PacManX > this.x) {
-                return true;
-            } else {
-                this.wrazieW++;
-                return false;
-            }
-        }
-    }
 
-    public void chceckForErrorsScared(Board board, int PacManX, int PacManY) {
-        while(chceckforObstacles(board, 1) || andDirectionIsGOODscared(board, PacManX, PacManY)) {
-            if (this.direction == Directions.UP) {
-                this.direction = Directions.RIGHT;
-            } else if (this.direction == Directions.RIGHT) {
-                this.direction = Directions.DOWN;
-            } else if (this.direction == Directions.DOWN) {
-                this.direction = Directions.LEFT;
-            } else if (this.direction == Directions.LEFT) {
-                this.direction = Directions.UP;
-            }
-            System.out.println("Kierunek: "+this.direction);
-        }
-    }
-
+    /** Funkcja wykorzystywana w updacie uciekania duchow. Sprawdza czy kierunek wybrany ducha jest przeciwny od kierunku w ktorym znajduje sie pacman
+     * Funkcja jest opatrzona zmienna bezpieczenstwa ktora po 4 probach losuje kierunek, gdyby odpowiedni wybor byl niemozliwy
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     */
     public void chceckForErrorsGOOD(Board board, int PacManX, int PacManY) {
         while(chceckforObstacles(board, 1)) {
             if(do4 < 4) {
@@ -237,6 +222,12 @@ public abstract class Ghost extends Mob {
         }
     }
 
+    /** Update wykonywany kiedy duch jest przestraszony. Jego celem jest symulacja uciekania ducha (AI)
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param PacManX - wspolrzedne x pacmana
+     * @param PacManY - wspolrzedne y pacmana
+     */
     public void updateScared(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {
             if(Math.abs(this.x-PacManX) < 200 && Math.abs(this.y-PacManY) < 200) {

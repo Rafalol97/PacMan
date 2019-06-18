@@ -125,9 +125,9 @@ public abstract class Mob extends Entity {
      * @param board  - refernecja do obiektu Klasy board
      * @param GhostX - pozycja x  sprawdzanego ducha
      * @param GhostY - pozycja y  sprawdzanego ducha
-     * @param PacX -
-     * @param PacY
-     * @return
+     * @param PacX - pozycja x pacmana
+     * @param PacY - pozycja y pacmana
+     * @return -zwaraca wartosc logiczna prawda lub falsz
      */
     boolean checkforObstaclesByCherry(Board board, int GhostX, int GhostY, int PacX, int PacY) {
         int tabGhost[] = board.getTileWhereAmI(GhostX, GhostY);
@@ -188,6 +188,10 @@ public abstract class Mob extends Entity {
         return true;
     }
 
+    /**
+     *  Metoda zmieniajaca pozycje wywolujacego obiektu w zaleznosci od aktualnego stanu direction
+     *  Oblusguje zmiane klatek w obiektach animowanych
+     */
     void move(){
         if(direction==Directions.UP){
             y-=1;
