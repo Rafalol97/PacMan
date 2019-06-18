@@ -107,6 +107,7 @@ public class Ghost2 extends Ghost implements EventListener {
             } else if (this.frameAmountLeave != 0) {
                 direction = Directions.UP;
                 frameAmountLeave--;
+                System.out.println("i start 1");
                 move();
                 if (frameAmountLeave == 0) {
                     started = true;

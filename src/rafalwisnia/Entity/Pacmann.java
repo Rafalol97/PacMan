@@ -21,11 +21,19 @@ public class Pacmann extends  Mob {
     private boolean enraged;
     public int enrageRate;
     private Directions directionTemp;
-
-
+    private int klatkiSmierc;
+    private boolean umiera=false;
 
     private Integer respawnTimeLeft;
     private EventListener eventListener;
+
+    public boolean isUmiera() {
+        return umiera;
+    }
+
+    public void setUmiera(boolean umiera) {
+        this.umiera = umiera;
+    }
 
     public int getLives() {
         return lives;
@@ -40,6 +48,7 @@ public class Pacmann extends  Mob {
     private AnimatedSprite klatkiPacmannRight[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannDown[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannLeft[] = new AnimatedSprite[4];
+    private AnimatedSprite klatkiPacmanSmierc[]= new AnimatedSprite[8];
     public Integer getRespawnTimeLeft() {
         return respawnTimeLeft;
     }
@@ -77,6 +86,16 @@ public class Pacmann extends  Mob {
         klatkiPacmannUp[2] = new AnimatedSprite(pacmann_gora_2);
         klatkiPacmannUp[3] = new AnimatedSprite(pacmann_gora_3);
 
+        klatkiPacmanSmierc[0]= new AnimatedSprite(pacman_smierc1);
+        klatkiPacmanSmierc[1]= new AnimatedSprite(pacman_smierc2);
+        klatkiPacmanSmierc[2]= new AnimatedSprite(pacman_smierc3);
+        klatkiPacmanSmierc[3]= new AnimatedSprite(pacman_smierc4);
+        klatkiPacmanSmierc[4]= new AnimatedSprite(pacman_smierc5);
+        klatkiPacmanSmierc[5]= new AnimatedSprite(pacman_smierc6);
+        klatkiPacmanSmierc[6]= new AnimatedSprite(pacman_smierc7);
+        klatkiPacmanSmierc[7]= new AnimatedSprite(pacman_smierc8);
+
+
         listaKlatek.add(klatkiPacmannUp);
         listaKlatek.add(klatkiPacmannRight);
         listaKlatek.add(klatkiPacmannDown);
@@ -88,8 +107,17 @@ public class Pacmann extends  Mob {
         this.y=y;
         kierunekKlatek=true;
         klatka=0;
+        klatkiSmierc=0;
         frameSpeed=10;
         this.directionIter=0;
+    }
+
+    public int getKlatkiSmierc() {
+        return klatkiSmierc;
+    }
+
+    public void setKlatkiSmierc(int klatkiSmierc) {
+        this.klatkiSmierc = klatkiSmierc;
     }
 
     public void setEventListener(EventListener eventListener){
@@ -170,8 +198,7 @@ public class Pacmann extends  Mob {
     }
 
     public void render(Screen screen){
-    int flip = 0;
-
+        int flip = 0;
         sprite = listaKlatek.get(directionIter)[klatka].getSprite();
         screen.renderMob(x,y,sprite,flip);
     }
@@ -190,7 +217,7 @@ public class Pacmann extends  Mob {
     }
 
     public void renderDeath(Screen screen){
-
+        screen.renderMob(x,y,klatkiPacmanSmierc[klatkiSmierc].getSprite(),0);
     }
     public void resetPacman(){
         this.x=800;

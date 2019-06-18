@@ -50,6 +50,18 @@ public class Sprite {
     public static Sprite pacmann_dol_1 = new Sprite(50,5,0,SpriteSheet.pacmann);
     public static Sprite pacmann_dol_2 = new Sprite(50,6,0,SpriteSheet.pacmann);
     public static Sprite pacmann_dol_3 = new Sprite(50,7,0,SpriteSheet.pacmann);
+    //Pacman po śmierci
+
+    public static Sprite pacman_smierc1 = new Sprite(50,8,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc2 = new Sprite(50,9,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc3  = new Sprite(50,10,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc4  = new Sprite(50,11,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc5 = new Sprite(50,12,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc6 = new Sprite(50,13,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc7  = new Sprite(50,14,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc8  = new Sprite(50,15,0,SpriteSheet.pacmann);
+
+
     //Ghost1
     public static Sprite ghost_1_1  =new Sprite(50,0,2,SpriteSheet.pacmann);
     public static Sprite ghost_1_2  =new Sprite(50,1,2,SpriteSheet.pacmann);

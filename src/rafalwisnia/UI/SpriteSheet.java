@@ -12,7 +12,7 @@ import java.io.IOException;
     private  int width, height;
     public int pixels[];
 
-    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/teksturyprawdziwe4.png", 1000);
+    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/texturyprawdziwe5.png", 1000);
     public static SpriteSheet youdied = new SpriteSheet("resources/textures/Pacman/youdied.png",480,360);
 
     public SpriteSheet(String path, int SIZE) {

@@ -110,9 +110,12 @@ public class Level implements EventListener {
         for (int i = 0; i < ghosts.size(); i++) {
             ghosts.get(i).render(screen);
         }
-        pacman.render(screen);
+
         points.render(screen);
         pacman.renderLives(screen);
+        if(pacman.isUmiera())pacman.renderDeath(screen);
+        else if(pacman.isAlive()) pacman.render(screen);
+
         if(!pacman.isAlive()&&Points.poziom>3) {
             screen.renderSheet(550, 300, SpriteSheet.youdied, false);
         }
@@ -164,10 +167,10 @@ public class Level implements EventListener {
                         } else if (ghosts.get(i).chase&&ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
                         }
-                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()&&!ghosts.get(i).isDead())){
+                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared())){
                             ghosts.get(i).update(board);
                         }
-                        if(!ghosts.get(i).isDead()&&!ghosts.get(i).chase&&!ghosts.get(i).isScared()) {
+                        if(!ghosts.get(i).isDead()&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                         }
                     }
@@ -203,6 +206,16 @@ public class Level implements EventListener {
         }
         else if(!pacman.isAlive())
         {
+            int k;
+            if(pacman.getRespawnTimeLeft()>5*60-80){
+                if((pacman.getRespawnTimeLeft()-5*60+80)%10==0){
+                    pacman.setKlatkiSmierc(pacman.getKlatkiSmierc()+1);
+                }
+                if(pacman.getKlatkiSmierc()==8){
+                    pacman.setKlatkiSmierc(0);
+                    pacman.setUmiera(false);
+                }
+            }
             //Update ogolnie wszystkiego
             if(pacman.getRespawnTimeLeft()==0) {
                 pacman.setAlive(true);
@@ -218,7 +231,11 @@ public class Level implements EventListener {
                     showAllGhosts();
                 }
             }
-            else {pacman.setRespawnTimeLeft(pacman.getRespawnTimeLeft()-1);}
+            else {
+                pacman.setRespawnTimeLeft(pacman.getRespawnTimeLeft()-1);
+
+            }
+
         }
     }
     public Board getBoard() {
@@ -279,6 +296,7 @@ public class Level implements EventListener {
                     pacman.enrageRate++;
                 } else {
                     pacman.setAlive(false);
+                    pacman.setUmiera(true);
                     pacman.setRespawnTimeLeft(5*60);
                     hideAllGhosts();
                 }
