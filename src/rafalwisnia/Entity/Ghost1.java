@@ -107,7 +107,7 @@ public class Ghost1 extends Ghost implements EventListener {
                 if (chceckforObstacles(board, 1)) {
                     changeToRandomDirection(board);
                 } else {
-                    System.out.println("i move");
+                    //System.out.println("i move");
                     move();
                 }
 
@@ -117,7 +117,7 @@ public class Ghost1 extends Ghost implements EventListener {
                 direction = Directions.UP;
                 frameAmountLeave--;
                 move();
-                System.out.println("i start");
+                //System.out.println("i start");
                 if (frameAmountLeave == 0) {
                     started = true;
                 }
@@ -138,7 +138,7 @@ public class Ghost1 extends Ghost implements EventListener {
             chase=false;
             lastSaw=-1;
             waitAfterDeath= (int) (60*speed);
-            System.out.println("I'm dead");
+            //System.out.println("I'm dead");
         }
         if(event.getType()==Event.Type.StartGhost1)
 
@@ -227,6 +227,7 @@ public class Ghost1 extends Ghost implements EventListener {
                 this.direction = Directions.UP;
                 directionIter = 0;
             }
+            System.out.println("Jestem w petli gonienia");
         }
     }
 
