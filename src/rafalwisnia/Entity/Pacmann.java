@@ -48,7 +48,7 @@ public class Pacmann extends  Mob {
     private AnimatedSprite klatkiPacmannRight[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannDown[] = new AnimatedSprite[4];
     private AnimatedSprite klatkiPacmannLeft[] = new AnimatedSprite[4];
-    private AnimatedSprite klatkiPacmanSmierc[]= new AnimatedSprite[8];
+    private AnimatedSprite klatkiPacmanSmierc[]= new AnimatedSprite[10];
     public Integer getRespawnTimeLeft() {
         return respawnTimeLeft;
     }
@@ -94,6 +94,8 @@ public class Pacmann extends  Mob {
         klatkiPacmanSmierc[5]= new AnimatedSprite(pacman_smierc6);
         klatkiPacmanSmierc[6]= new AnimatedSprite(pacman_smierc7);
         klatkiPacmanSmierc[7]= new AnimatedSprite(pacman_smierc8);
+        klatkiPacmanSmierc[8]= new AnimatedSprite(pacman_smierc9);
+        klatkiPacmanSmierc[9]= new AnimatedSprite(pacman_smierc10);
 
 
         listaKlatek.add(klatkiPacmannUp);
@@ -107,7 +109,7 @@ public class Pacmann extends  Mob {
         this.y=y;
         kierunekKlatek=true;
         klatka=0;
-        klatkiSmierc=0;
+        klatkiSmierc=-1;
         frameSpeed=10;
         this.directionIter=0;
     }
@@ -217,6 +219,7 @@ public class Pacmann extends  Mob {
     }
 
     public void renderDeath(Screen screen){
+        if(klatkiSmierc==-1)klatkiSmierc=0;
         screen.renderMob(x,y,klatkiPacmanSmierc[klatkiSmierc].getSprite(),0);
     }
     public void resetPacman(){
@@ -224,7 +227,16 @@ public class Pacmann extends  Mob {
         this.y=600;
         this.direction=Directions.UP;
         moving=false;
+        this.setLives(3);
+        this.setKlatkiSmierc(0);
+        this.setUmiera(false);
+        this.setAlive(true);
+        this.setRespawnTimeLeft(0);
+        this.setEnraged(false);
+        this.direction=Directions.LEFT;
+        this.moving=false;
     }
+
 
 
 }

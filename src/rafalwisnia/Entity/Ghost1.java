@@ -231,47 +231,6 @@ public class Ghost1 extends Ghost implements EventListener {
         }
     }
 
-    public void chceckForErrorsGOOD(Board board, int PacManX, int PacManY) {
-        while(chceckforObstacles(board, 1)) {
-            if (this.direction == Directions.UP) {
-                if(this.x < PacManX && kontrolna == false) {
-                    this.direction = Directions.RIGHT;
-                    kontrolna = true;
-                }
-                else if (this.x > PacManX && kontrolna == false) {
-                    this.direction = Directions.LEFT;
-                    kontrolna = true;
-                }
-            } else if (this.direction == Directions.RIGHT) {
-                if(this.y < PacManY && kontrolna == false) {
-                    this.direction = Directions.DOWN;
-                    kontrolna = true;
-                }
-                else if (this.y > PacManY && kontrolna == false) {
-                    this.direction = Directions.UP;
-                    kontrolna = true;
-                }
-            } else if (this.direction == Directions.DOWN) {
-                if(this.x < PacManX && kontrolna == false) {
-                    this.direction = Directions.RIGHT;
-                    kontrolna = true;
-                }
-                else if (this.x > PacManX && kontrolna == false) {
-                    this.direction = Directions.LEFT;
-                    kontrolna = true;
-                }
-            } else if (this.direction == Directions.LEFT) {
-                if(this.y < PacManY && kontrolna == false) {
-                    this.direction = Directions.DOWN;
-                    kontrolna = true;
-                }
-                else if (this.y > PacManY && kontrolna == false) {
-                    this.direction = Directions.UP;
-                    kontrolna = true;
-                }
-            }
-        }
-    }
 
     public void updateChase(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {

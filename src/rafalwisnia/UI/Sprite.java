@@ -60,7 +60,8 @@ public class Sprite {
     public static Sprite pacman_smierc6 = new Sprite(50,13,0,SpriteSheet.pacmann);
     public static Sprite pacman_smierc7  = new Sprite(50,14,0,SpriteSheet.pacmann);
     public static Sprite pacman_smierc8  = new Sprite(50,15,0,SpriteSheet.pacmann);
-
+    public static Sprite pacman_smierc9  = new Sprite(50,16,0,SpriteSheet.pacmann);
+    public static Sprite pacman_smierc10  = new Sprite(50,17,0,SpriteSheet.pacmann);
 
     //Ghost1
     public static Sprite ghost_1_1  =new Sprite(50,0,2,SpriteSheet.pacmann);

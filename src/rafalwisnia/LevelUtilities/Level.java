@@ -89,12 +89,10 @@ public class Level implements EventListener {
                 this.points.resetLevel();
             }
         }
-        pacman.setLives(3);
+        pacman.resetPacman();
         createLevel(speeds);
-
         allGhostsOut = false;
         licznikCzasu = 0;
-        pacman.resetPacman();
 
     }
 
@@ -167,7 +165,7 @@ public class Level implements EventListener {
                         } else if (ghosts.get(i).chase&&ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
                         }
-                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared())){
+                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()||(ghosts.get(i).isDead()))){
                             ghosts.get(i).update(board);
                         }
                         if(!ghosts.get(i).isDead()&&ghosts.get(i).chase&&!ghosts.get(i).isScared()) {
@@ -207,12 +205,12 @@ public class Level implements EventListener {
         else if(!pacman.isAlive())
         {
             int k;
-            if(pacman.getRespawnTimeLeft()>5*60-80){
-                if((pacman.getRespawnTimeLeft()-5*60+80)%10==0){
+            if(pacman.getRespawnTimeLeft()>5*60-150){
+                if((pacman.getRespawnTimeLeft()-5*60+150)%15==0){
                     pacman.setKlatkiSmierc(pacman.getKlatkiSmierc()+1);
                 }
                 if(pacman.getKlatkiSmierc()==8){
-                    pacman.setKlatkiSmierc(0);
+                    pacman.setKlatkiSmierc(-1);
                     pacman.setUmiera(false);
                 }
             }
@@ -276,7 +274,9 @@ public class Level implements EventListener {
     public void scareAllGhosts() {
         for (int i = 0; i < 4; i++) {
             ghosts.get(i).chase=false;
-            ghosts.get(i).setScared(true);
+            if (!ghosts.get(i).isDead()) {
+                ghosts.get(i).setScared(true);
+            }
         }
     }
 
