@@ -164,7 +164,7 @@ public class Level implements EventListener {
                         } else if (ghosts.get(i).chase&&ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
                         }
-                        else if(!ghosts.get(i).isScared()||!ghosts.get(i).isStarted()){
+                        else if(!ghosts.get(i).isStarted()||(ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()&&!ghosts.get(i).isDead())){
                             ghosts.get(i).update(board);
                         }
                         if(!ghosts.get(i).isDead()&&!ghosts.get(i).chase&&!ghosts.get(i).isScared()) {

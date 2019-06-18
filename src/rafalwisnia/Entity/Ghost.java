@@ -189,6 +189,7 @@ public abstract class Ghost extends Mob {
             } else if (this.direction == Directions.LEFT) {
                 this.direction = Directions.UP;
             }
+            System.out.println("Kierunek: "+this.direction);
         }
     }
 
@@ -210,6 +211,8 @@ public abstract class Ghost extends Mob {
                 move();
                 System.out.println("I run away to: "+this.direction);
             } else {
+                chceckForErrorsScared(board, PacManX, PacManY);
+                this.wrazieW=0;
                 move();
             }
         }
