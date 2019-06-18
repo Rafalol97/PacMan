@@ -214,12 +214,16 @@ public class Ghost1 extends Ghost implements EventListener {
         while(chceckforObstacles(board, 1) || !andDirectionIsGOOD(board, PacManX, PacManY)) {
             if (this.direction == Directions.UP) {
                 this.direction = Directions.RIGHT;
+                directionIter = 1;
             } else if (this.direction == Directions.RIGHT) {
                 this.direction = Directions.DOWN;
+                directionIter = 2;
             } else if (this.direction == Directions.DOWN) {
                 this.direction = Directions.LEFT;
+                directionIter = 3;
             } else if (this.direction == Directions.LEFT) {
                 this.direction = Directions.UP;
+                directionIter = 0;
             }
         }
     }
@@ -270,20 +274,28 @@ public class Ghost1 extends Ghost implements EventListener {
         if(this.x%50==0&&this.y%50==0) {
             if (this.lastSaw == 0) {
                 this.direction = Directions.UP;
+                directionIter = 0;
             } else if (this.lastSaw == 1) {
                 this.direction = Directions.RIGHT;
+                directionIter = 1;
             } else if (this.lastSaw == 2) {
                 this.direction = Directions.DOWN;
+                directionIter = 2;
             } else if (this.lastSaw == 3) {
                 this.direction = Directions.LEFT;
+                directionIter = 3;
             } else if (PacManY <= this.y) {
                 this.direction = Directions.UP;
+                directionIter = 0;
             } else if (PacManY >= this.y) {
                 this.direction = Directions.DOWN;
+                directionIter = 2;
             } else if (PacManX <= this.x) {
                 this.direction = Directions.LEFT;
+                directionIter = 3;
             } else if (PacManX >= this.x) {
                 this.direction = Directions.RIGHT;
+                directionIter = 1;
             }
             lastSaw = -1;
 
@@ -291,20 +303,24 @@ public class Ghost1 extends Ghost implements EventListener {
                 if (this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
                     if (PacManY < this.y) {
                         this.direction = Directions.UP;
+                        directionIter = 0;
                     } else if (PacManY > this.y) {
                         this.direction = Directions.DOWN;
+                        directionIter = 2;
                     } else {
-                        if (this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
-                        else if (this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
+                        if (this.direction == Directions.LEFT) {this.direction = Directions.RIGHT; directionIter = 1;}
+                        else if (this.direction == Directions.RIGHT) {this.direction = Directions.LEFT; directionIter = 3;}
                     }
                 } else if (this.direction == Directions.UP || this.direction == Directions.DOWN) {
                     if (PacManX < this.x) {
                         this.direction = Directions.LEFT;
+                        directionIter = 3;
                     } else if (PacManX > this.x) {
                         this.direction = Directions.RIGHT;
+                        directionIter = 1;
                     } else {
-                        if (this.direction == Directions.UP) this.direction = Directions.DOWN;
-                        else if (this.direction == Directions.DOWN) this.direction = Directions.UP;
+                        if (this.direction == Directions.UP) {this.direction = Directions.DOWN; directionIter = 2;}
+                        else if (this.direction == Directions.DOWN) {this.direction = Directions.UP; directionIter = 0;}
                     }
                 }
             }
