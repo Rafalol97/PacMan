@@ -14,13 +14,14 @@ import java.io.IOException;
 
 
 /**
- * Z neta
+ * Screen.java Klasa przechowuje tablice pikseli renderowana na ekran. Zawiera funkcje przetwarzajace wczesniej zapisane grafiki w obiektu klas Sprite i SpriteSheet.
+ *
  */
 public class Screen {
 
     private int width, height;
     public int[] pixels;
-    private String pathToBorder = "resources/textures/Board/board.bmp";
+    private String pathToBorder = "resources/textures/Board/boardKoncowy.bmp";
     private BufferedImage Border;
     public static final int ALPHA_COL = -16777216;
 
@@ -45,7 +46,9 @@ public class Screen {
         }
     }
 
-
+    /**
+     * Funkcja wczytujaca piksele z obrazu przedstawiajacego tlo gry i obramowanie do tablicy pixels
+     */
 
     public void renderBorder() {
         for (int y = 0; y < height; y++) {
@@ -55,6 +58,15 @@ public class Screen {
             }
         }
     }
+
+    /**
+     * Funkcja przepisujaca piksele z otrzymanych parametrow
+     * @param xp  wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param yp  wspolrzedna y miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param sprite obiekt klasy Sprite przechowywujacy grafike w pikselach i rozmiar
+     * @param flip  parametr decydujacy o kolejnosci wczytywania pikseli (umozliwia odbicia lustrzane w poziomie i pionie)
+     *  ALPHA_COL - parametr okreslajacy wartosc piksela nie przepisywanego z tablicy pikseli przechowywanego w obiekcie klasy Sprite
+     */
 
     public void renderMob(int xp, int yp, Sprite sprite, int flip) {
         for (int y = 0; y < sprite.SIZE; y++) {
@@ -73,7 +85,14 @@ public class Screen {
         }
     }
 
-    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {   ///TODO do zmiany
+    /**
+     *Funkcja przepisujaca piksele z otrzymanych parametrow
+     * @param xp wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param yp wspolrzedna y miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param sprite obiekt klasy Sprite przechowywujacy grafike w pikselach i rozmiar
+     *  ALPHA_COL - parametr okreslajacy wartosc piksela nie przepisywanego z tablicy pikseli przechowywanego w obiekcie klasy Sprite
+     */
+    public void renderSprite(int xp, int yp, Sprite sprite) {
         for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
             for (int x = 0; x < sprite.SIZE; x++) {
@@ -84,7 +103,13 @@ public class Screen {
             }
         }
     }
-
+    /**
+     * Funkcja przepisujaca piksele z otrzymanych parametrow
+     * @param xp  wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param yp  wspolrzedna y miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param sprite obiekt klasy Sprite przechowywujacy grafike w pikselach i rozmiar
+     * @param flip  parametr decydujacy o kolejnosci wczytywania pikseli (umozliwia odbicia lustrzane w poziomie i pionie)
+     */
     public void renderTile(int xp, int yp, Sprite sprite, int flip) {
         for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
@@ -100,6 +125,13 @@ public class Screen {
             }
         }
     }
+    /**
+     *Funkcja przepisujaca piksele z otrzymanych parametrow
+     * @param xp wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param yp wspolrzedna y miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param sprite obiekt klasy Sprite przechowywujacy grafike w pikselach i rozmiar
+
+     */
     public void renderLastNumber(int xp, int yp, Sprite sprite) {
         for (int y = 0; y < sprite.SIZE; y++) {
             int ya = y + yp;
@@ -111,17 +143,15 @@ public class Screen {
             }
         }
     }
-    public void renderColor(int xp, int yp,int width,int height, Color color) { ///TODO do zmiany
 
-        for (int y = 0; y < height; y++) {
-            int ya = y + yp;
-            for (int x = 0; x <width; x++) {
-                int xa = x + xp;
-                pixels[xa + ya * this.width] =color.getRGB();
-            }
-        }
-    }
-    public void renderSheet(int xp, int yp, SpriteSheet sheet, boolean fixed) {
+    /**
+     *Funkcja przepisujaca piksele z otrzymanych parametrow
+     * @param xp wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param yp wspolrzedna y miejsca rozpoczecia wczytywania na tablice pikseli
+     * @param sheet obiekt klasy Sprite przechowywujacy grafike w pikselach i rozmiar
+
+     */
+    public void renderSheet(int xp, int yp, SpriteSheet sheet) {
         int color;
 
         for (int y = 0; y < sheet.SPRITE_HEIGHT; y++) {

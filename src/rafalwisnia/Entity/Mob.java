@@ -3,12 +3,17 @@ package rafalwisnia.Entity;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
 
+/**
+ * Klasa dziedziczaca z klasy Entity, tworzaca podstawe do wszystkich poruszajacych sie obiektow
+ * Przechowuje zmienne i stany takich jak:
+ * predkosc, (etap) klatki, kierunek w ktorym sa obrocone
+ */
 public abstract class Mob extends Entity {
      boolean moving = false;
      boolean kierunekKlatek;
-     double speedTemp;
+     int speedTemp;
     private boolean alive;
-    protected double speed;
+    protected int speed;
     int klatka;
     int frameSpeed;
     int frameWait;
@@ -18,14 +23,25 @@ public abstract class Mob extends Entity {
         }
     Directions direction;
 
-    Mob(double speed) {
+    Mob(int speed) {
         this.speed=speed;
     }
 
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
+    public int getSpeedTemp() {
+        return speedTemp;
+    }
+
+    /** Metoda sprwadzajaca czy pacman moze zmienic kierunek
+     *
+     *
+     * @param direction - kierunek na ktory chcemy zmienic
+     * @param board - refernecja do obiektu Klasy board
+     * @return zwaraca wartosc logiczna prawda lub falsz
+     */
     boolean checkPossibleDirectionChange(Directions direction, Board board) {
         if (this.direction == Directions.UP && direction == Directions.DOWN) return true;
         else if (this.direction == Directions.DOWN && direction == Directions.UP) return true;
@@ -35,10 +51,24 @@ public abstract class Mob extends Entity {
         else if (this.direction==direction) return  true;
         else return false;
     }
+
+    /**
+     * Metoda sprawdzajaca czy duch moze zmienic kierunek
+     * @param direction- kierunek na ktory chcemy zmienic
+     * @param board  - refernecja do obiektu Klasy board
+     * @return zwaraca wartosc logiczna prawda lub falsz
+     */
     boolean checkPossibleDirectionChangeGhost(Directions direction, Board board) {
         return checkNeighbour(board, direction,1);
     }
 
+    /**Metoda sprawdzajaca czy mozemy isc w wybrana strone
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param direction podana kierunek typu Direction
+     * @param type typ obiektu ktory wywoluje metode 0-pacman 1-duch
+     * @return  zwaraca wartosc logiczna prawda lub falsz
+     */
      private boolean checkNeighbour(Board board, Directions direction,int type) {
         int boardTile[] = board.getTileWhereAmI(this.x, this.y);
         if (direction == Directions.UP) {
@@ -46,21 +76,26 @@ public abstract class Mob extends Entity {
             return (board.getTileAlias(boardTile[0] - 1, boardTile[1]) == 0)||(board.getTileAlias(boardTile[0] - 1, boardTile[1]) == -1);
         }
         if (direction == Directions.DOWN) {
-
             return (board.getTileAlias(boardTile[0]+ 1, boardTile[1] ) == 0)||(board.getTileAlias(boardTile[0]+ 1, boardTile[1] ) == -1);
         }
         if (direction == Directions.RIGHT) {
-
-
             return (board.getTileAlias(boardTile[0] , boardTile[1]+ 1) == 0)||(board.getTileAlias(boardTile[0] , boardTile[1]+ 1) == -1);
         }
         if (direction == Directions.LEFT) {
-
             return (board.getTileAlias(boardTile[0] , boardTile[1]- 1) == 0)||(board.getTileAlias(boardTile[0] , boardTile[1]- 1) == -1);
         }
         return false;
 
     }
+
+    /** Metoda sprwadza czy w strone w ktora idziemy jest przeszkoda
+     *  Metoda pozwala na przemiszczenie sie pacmanowi w tunelu z "teleportem"
+     *
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param type typ obiektu ktory wywoluje metode 0-pacman 1-duch
+     * @return zwaraca wartosc logiczna prawda lub falsz
+     */
     boolean chceckforObstacles(Board board, int type){
 
         if((this.x==300||(this.x>1200&&this.y==450))&&type==0) {
@@ -85,7 +120,15 @@ public abstract class Mob extends Entity {
         return false;
     }
 
-
+    /** Metoda sprawdza czy na drodze miedzy podanymi podanymi wspolrzednymi znajduje sie przeszkoda
+     *
+     * @param board  - refernecja do obiektu Klasy board
+     * @param GhostX - pozycja x  sprawdzanego ducha
+     * @param GhostY - pozycja y  sprawdzanego ducha
+     * @param PacX -
+     * @param PacY
+     * @return
+     */
     boolean checkforObstaclesByCherry(Board board, int GhostX, int GhostY, int PacX, int PacY) {
         int tabGhost[] = board.getTileWhereAmI(GhostX, GhostY);
         int tabPac[] = board.getTileWhereAmI(PacX, PacY);
@@ -144,6 +187,7 @@ public abstract class Mob extends Entity {
         }
         return true;
     }
+
     void move(){
         if(direction==Directions.UP){
             y-=1;

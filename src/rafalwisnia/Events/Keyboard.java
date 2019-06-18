@@ -3,6 +3,10 @@ package rafalwisnia.Events;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**  Keybord.java
+ *   Klasa obslugujaca nacisniecie klawiszy WASD, ESC oraz strzalek
+ *
+ */
 public class Keyboard implements KeyListener {
 
     public boolean[] keys = new boolean[210];

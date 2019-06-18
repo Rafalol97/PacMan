@@ -12,7 +12,7 @@ public class Coin extends Entity {
     }
 
     public void render(Screen screen){
-       screen.renderSprite(x,y,this.getSprite(),true);
+       screen.renderSprite(x,y,this.getSprite());
    }
 
     @Override

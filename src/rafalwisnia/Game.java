@@ -1,6 +1,6 @@
 package rafalwisnia;
 
-import rafalwisnia.Entity.Pacmann;
+import rafalwisnia.Entity.Pacman;
 import rafalwisnia.Events.Keyboard;
 
 import rafalwisnia.LevelUtilities.Level;
@@ -17,6 +17,16 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+/**
+ * Game.java - glowna klasa programu. Z jej pomoca:
+ * - przechowujemy i tworzymy okno w ktorym przechowujemy Canvas
+ * - Klasa ta implementuje interfejs Runnable ktory jest glownym watkiem naszej gry
+ * - Zarzadza odpowiednim przydzialem czasu dla update (aktualizowania logiki)
+ * - Zarzadza przydzielaniem czasu dla render (rysowanie i tworzenie okno gry)
+ * - Powstaje dwoch klas Edytor i Menu Startowe
+ * - Dodatkowo wszystkie przyciski powstaja w tej klasie dla wszystkich trzech okien
+ *
+ */
 public class Game extends Canvas implements Runnable {
     //private  static final long serialVersionUID = 1L;
 
@@ -50,7 +60,7 @@ public class Game extends Canvas implements Runnable {
         gameWindow = new JFrame(); //stworzenie nowego obiektu okienka javy
         key = new Keyboard();
         level = new Level();
-        level.add(new Pacmann(800,600,key,3));
+        level.add(new Pacman(800,600,key,3));
         addKeyListener(key);
 
 
@@ -71,7 +81,7 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    //RUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
     public void run() {
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
@@ -105,7 +115,6 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    //UPDATE TU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void update() {
         key.update();
         if(key.esc){
@@ -130,7 +139,6 @@ public class Game extends Canvas implements Runnable {
         level.update();
     }
 
-    //RENDEROWANIE !!!!!!!!!
     public void render() {
         BufferStrategy bs = getBufferStrategy(); //pobieramy ustawienia buffera z canvas'a
         if (bs == null) {
@@ -165,8 +173,18 @@ public class Game extends Canvas implements Runnable {
         bs.show(); //pokazanie buffera w celu jego wyczyszczenia
     }
 
+    public void renderEditor(Edytor edytor) {
+        edytor.repaint();
+    }
 
-
+    /**
+     * Tutaj tworzymy:
+     * - obiekt klasy Dame
+     * - obiekt klasy Menu
+     * - obiekt klasy Edytor
+     * i ustawiamy parametry ich okienek oraz funkcje klawiszy
+     * @param args parametry wejsciowe programu
+     */
     public static void main(String[] args) {
         final boolean[] Dont = {true};
 
@@ -192,13 +210,13 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.frame.add(edytorWindow);
         edytorWindow.frame.pack();
         edytorWindow.frame.setLocationRelativeTo(null);
-        edytorWindow.render();
+
 
 
         Game game = new Game();
         //ustawienia okienka
        // jPanel.setBackground(Color.white);
-        game.gameWindow.setResizable(false); //NIE MA MAKSYMALIZACJI
+        game.gameWindow.setResizable(false);
         game.gameWindow.setTitle(Game.title); //Tytuł okienka
 
         game.wznow.setBounds(725,335,150,50);
@@ -274,6 +292,8 @@ public class Game extends Canvas implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                  edytorWindow.frame.setVisible(true);
+                 game.renderEditor(edytorWindow);
+
             }
         });
 

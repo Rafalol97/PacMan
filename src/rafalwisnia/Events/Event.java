@@ -1,5 +1,9 @@
 package rafalwisnia.Events;
 
+/**
+ * Klasa reprezentujaca zdarzenia.
+ * Kazdy obiekt tej klasy ma odpowiedni typ, ktory jest identyfikowany przez inne obiekty i odpwowiednio interpretowany
+ */
 public class Event {
     public enum Type{
         CheckCoin,
@@ -11,7 +15,6 @@ public class Event {
         Dead
     }
     private Type type;
-    boolean handled;
     private int x;
     private int y;
     public Event(Type type,int x,int y){

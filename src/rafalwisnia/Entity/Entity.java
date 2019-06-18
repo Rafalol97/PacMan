@@ -7,6 +7,10 @@ import rafalwisnia.UI.Sprite;
 import rafalwisnia.LevelUtilities.Screen;
 
 
+/**
+ * Klasa z ktorej dziedzicza wsztskie pozostale obiekty inne od blokow
+ * Przechowuje wspolrzedne obiektow, ich obiekty klasy Sprite (jesli nie sa animowane) oraz stany removed oraz alive
+ */
 public abstract class Entity {
     protected int x,y;
     private Sprite sprite;
@@ -28,7 +32,7 @@ public abstract class Entity {
 
 
     public void render(Screen screen){
-        if(sprite != null) screen.renderSprite(x,y,sprite,true); ///TODO int x int y Sprite sprite fixed?
+        if(sprite != null) screen.renderSprite(x,y,sprite);
 
     }
 

@@ -7,6 +7,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+/**
+ * W tym miejscu  jest rozplanowywane okienko startowe oraz zamieszczane sa wszystkie grafiki w nim zawarte
+ * Dodatkowo, powyzej glownej klasy menu znajduja sie 4 klasy realizujace animacje glownego okienka oraz jedna klasa
+ * wypleniajaca miejsce miedzy przyciskami
+ *
+ * MenucanvasUP. Realizuje animacje gornej czesci okienka oraz zamieszcza grafike w okienku
+ *
+ * Gra w grze ~ Wisnia
+ */
 class MenucanvasUP extends JPanel {
     private int coSto = 0;
     public static boolean animacja = true;
@@ -89,6 +98,12 @@ class MenucanvasUP extends JPanel {
     }
 }
 
+
+/**
+ *
+ * MenucanvasDown. Realizuje animacje dolnej czesci okienka
+ *
+ */
 class MenucanvasDOWN extends JPanel {
     private int coSto = 0;
     public static boolean animacja = false;
@@ -165,6 +180,12 @@ class MenucanvasDOWN extends JPanel {
         }
     }
 }
+
+/**
+ * MenucanvasLeft. Realizuje animacje okienka w lewej czesci. W plynny sposob przedstawia przejscie ruchu
+ * pacmana i duszkow w poziomie na pionowy ruch.
+ * Jest to zrealizowane za pomoca trzech oddzielnych zagniezdzonych warunkow
+ */
 
 class MenucanvasLEFT extends JPanel {
     private int coSto = 0;
@@ -369,6 +390,12 @@ class MenucanvasLEFT extends JPanel {
     }
 }
 
+/**
+ * MenucanvasRight. Realizuje animacje okienka w prawej czesci. W plynny sposob przedstawia przejscie ruchu
+ * pacmana i duszkow w poziomie na pionowy ruch.
+ * Jest to zrealizowane za pomoca trzech oddzielnych zagniezdzonych warunkow
+ */
+
 class MenucanvasRIGHT extends JPanel {
     private int coSto = 0;
     private boolean etap1 = true, etap1duszka1 = true, etap1duszka2 = true, etap1duszka3 = true, etap1duszka4 = true;
@@ -572,6 +599,9 @@ class MenucanvasRIGHT extends JPanel {
     }
 }
 
+/**
+ * MenucanvasMiddle. Zapelnia przestrzen miedzy przyciskami grafika
+ */
 class MenucanvasMIDDLE extends JPanel {
     Image title = Toolkit.getDefaultToolkit().getImage("resources/textures/Board/miedzy.png");
     @Override
@@ -583,6 +613,9 @@ class MenucanvasMIDDLE extends JPanel {
     }
 }
 
+/**
+ *  Sa tutaj tworzone przyciski uzywane w Menu i sa wstawiane do nich grafiki
+ */
 public class Menu extends JPanel {
     public JFrame menuWindow;
     public JButton startButton;

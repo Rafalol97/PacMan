@@ -1,5 +1,12 @@
 package rafalwisnia.UI;
 
+/**
+ * Sprite.
+ * Przechowuje i umozliwia generowanie obrazu koncowego z poszczegolnych grafik pikselowych.
+ * Grafiki pacmana i obiektow terenu sa tworzone za pomoca wyciecia ich z obiektu klasu SpriteSheet.
+ * Wszystkie obiekty typu Sprite są tworzone z typem danych static, w celu prostego odwolania sie w innych klasach bez potrzeby
+ * tworzenia obiektu tej klasy
+ */
 public class Sprite {
     public final int SIZE;
     private int x,y;
@@ -30,7 +37,7 @@ public class Sprite {
     public static Sprite podloga = new Sprite(50,10,10,SpriteSheet.pacmann);
 
 
-    //Pacmann
+    //Pacman
     public static Sprite pacmann_prawo_0 = new Sprite(50,0,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_1 = new Sprite(50,1,0,SpriteSheet.pacmann);
     public static Sprite pacmann_prawo_2 = new Sprite(50,2,0,SpriteSheet.pacmann);

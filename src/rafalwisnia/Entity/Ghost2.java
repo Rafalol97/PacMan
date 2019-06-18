@@ -20,7 +20,7 @@ public class Ghost2 extends Ghost implements EventListener {
     private Sprite sprite;
     Random random = new Random();
     private int waitAfterDeath;
-    public Ghost2(int x, int y, Board board,Level parentLevel,double speed) {
+    public Ghost2(int x, int y, Board board,Level parentLevel,int speed) {
         super(x,y,speed);
         klatkiDuszekRight[0] = new AnimatedSprite(Sprite.ghost_2_1);
         klatkiDuszekRight[1] = new AnimatedSprite(Sprite.ghost_2_2);
@@ -71,16 +71,21 @@ public class Ghost2 extends Ghost implements EventListener {
         else if(dead){
             if(this.y<this.yStartowe){
                 this.direction=Directions.DOWN;
+                this.directionIter=1;
             }
             if(this.y>this.yStartowe){
                 this.direction=Directions.UP;
+                this.directionIter=2;
             }
             if(this.x<this.xStartowe){
                 this.direction=Directions.RIGHT;
+                this.directionIter=0;
             }
             if(this.x>this.xStartowe){
                 this.direction=Directions.LEFT;
+                this.directionIter=3;
             }
+
             move();
 
             if(this.x==this.xStartowe&&this.y==this.yStartowe){
@@ -88,7 +93,7 @@ public class Ghost2 extends Ghost implements EventListener {
                 dead=false;
                 resetToDefault();
                 frameAmountLeave=100;
-                this.speed=speedTemp;
+
 
             }
 
@@ -119,18 +124,18 @@ public class Ghost2 extends Ghost implements EventListener {
         if(event.getType()==Event.Type.Dead)
         {
             dead=true;
-            speedTemp=this.speed;
-            this.speed=2;
+
             scared=false;
             chase=false;
             lastSaw=-1;
-            waitAfterDeath= (int) (60*speed);
+            waitAfterDeath= (int) (60*speedTemp);
             System.out.println("I'm dead");
             direction=Directions.UP;
         }
         if(event.getType()==Event.Type.StartGhost2)
         {
             frameAmountLeave= (100);
+            directionIter=0;
         }
     }
     public void resetToDefault() {

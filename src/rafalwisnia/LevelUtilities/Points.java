@@ -4,13 +4,20 @@ import rafalwisnia.Events.Event;
 import rafalwisnia.Events.EventListener;
 import rafalwisnia.UI.Sprite;
 
-
+/**Points.java
+ * Klasa przechowujacy aktualny wynik i poziom gry
+ *
+ * Punkty sa dodawne do aktualnego wyniku i za pomoca przeksztalcen  matematycznych  wybierany jest odpowiedni sprite z
+ * tablicy reprezentujacy dany numer w postaci dziesietnej.
+ *
+ *
+ */
 
 public class Points implements EventListener {
-    private Sprite  cyferki[]= new Sprite[11];
+    private  static Sprite  cyferki[]= new Sprite[11];
     public static int poziom;
-    private int liczbaPunktow;
-    public Points() {
+    private static int liczbaPunktow;
+    static {
         cyferki[0] = Sprite.number_0;
         cyferki[1] = Sprite.number_1;
         cyferki[2] = Sprite.number_2;
@@ -22,6 +29,8 @@ public class Points implements EventListener {
         cyferki[8] = Sprite.number_8;
         cyferki[9] = Sprite.number_9;
         cyferki[10] = Sprite.number_10;
+    }
+    public Points() {
 
     }
 
@@ -29,40 +38,50 @@ public class Points implements EventListener {
     public void onEvent(Event event) {
 
     }
-    public void render(Screen screen){
-        if(liczbaPunktow>100000){
-            liczbaPunktow=99999;
-        }
-        if(liczbaPunktow>=10000) {
-            screen.renderTile(300, 22, cyferki[liczbaPunktow / 10000],0);
+
+    /**Render wykorzystuje funkcje klasy Screen przepisujace piksele z tablicy odpowiedniego obiektu klasy sprite do glownej tablicy
+     * przechowywanej w obiekcie klasy Screen.
+     *
+     * @param screen - referencja do obiektu klasy Screen
+     */
+    public static void render(Screen screen){
+        if(liczbaPunktow>=1000000)liczbaPunktow=999999;
+        if(liczbaPunktow>=100000) {
+            screen.renderTile(300, 22, cyferki[liczbaPunktow / 100000],0);
         }
         else {
             screen.renderTile(300, 22, cyferki[10],0);
         }
-
-        if(liczbaPunktow>=1000) {
-            screen.renderTile(330, 22, cyferki[(liczbaPunktow / 1000)%10],0);
+        if(liczbaPunktow>=10000) {
+            screen.renderTile(330, 22, cyferki[(liczbaPunktow / 10000)%10],0);
         }
         else {
             screen.renderTile(330, 22, cyferki[10],0);
         }
-        if(liczbaPunktow>=100) {
-            screen.renderTile(360,22,cyferki[(liczbaPunktow/100)%10],0);
+
+        if(liczbaPunktow>=1000) {
+            screen.renderTile(360, 22, cyferki[(liczbaPunktow / 1000)%10],0);
         }
         else {
             screen.renderTile(360, 22, cyferki[10],0);
         }
-        if(liczbaPunktow>=10) {
-            screen.renderTile(390,22,cyferki[(liczbaPunktow/10)%10],0);
+        if(liczbaPunktow>=100) {
+            screen.renderTile(390,22,cyferki[(liczbaPunktow/100)%10],0);
         }
         else {
             screen.renderTile(390, 22, cyferki[10],0);
         }
-        if(liczbaPunktow>0) {
-            screen.renderLastNumber(420,22,cyferki[liczbaPunktow%10]);
+        if(liczbaPunktow>=10) {
+            screen.renderTile(420,22,cyferki[(liczbaPunktow/10)%10],0);
         }
         else {
-            screen.renderLastNumber(420, 22, cyferki[10]);
+            screen.renderTile(420, 22, cyferki[10],0);
+        }
+        if(liczbaPunktow>0) {
+            screen.renderLastNumber(450,22,cyferki[liczbaPunktow%10]);
+        }
+        else {
+            screen.renderLastNumber(450, 22, cyferki[10]);
         }
         if(poziom>9){
             screen.renderTile(390,822,cyferki[poziom/10],0);
@@ -71,16 +90,18 @@ public class Points implements EventListener {
 
     }
 
-    public int getLiczbaPunktow() {
+    public static int getLiczbaPunktow() {
         return liczbaPunktow;
     }
 
-    public void add(int points){
-        this.liczbaPunktow+=points;
+    public static void add(int points){
+        liczbaPunktow+=points;
     }
 
-    public void addLevel(){this.poziom++;}
+    public static void  addLevel(){poziom++;}
 
-    public void resetLevel(){this.poziom=0;}
+    public static void resetLevel(){poziom=0;}
+
+    public static void resetPoints(){liczbaPunktow=0;}
 
 }

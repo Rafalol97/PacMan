@@ -1,13 +1,11 @@
 package rafalwisnia.Entity;
 
-import rafalwisnia.AstarSearchAlgorithm.PathFinder;
 import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.AnimatedSprite;
 import rafalwisnia.UI.Sprite;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public abstract class Ghost extends Mob {
@@ -27,6 +25,7 @@ public abstract class Ghost extends Mob {
     int lastSaw;
     int wrazieW = 0;
     int xStartowe,yStartowe;
+
 
     boolean kontrolna = false;
     int do4 = 0;
@@ -49,7 +48,7 @@ public abstract class Ghost extends Mob {
         this.dead = dead;
     }
 
-    Ghost(int xStartowe, int yStartowe,double speed) {
+    Ghost(int xStartowe, int yStartowe,int speed) {
         super(speed);
         oczyDuszkaPoSmierci[0]=Sprite.oczy_Prawo;
         oczyDuszkaPoSmierci[1]=Sprite.oczy_Dol;
@@ -59,7 +58,7 @@ public abstract class Ghost extends Mob {
         this.xStartowe=xStartowe;
         this.yStartowe=yStartowe;
         this.speed = speed;
-        speed=2;
+        speedTemp=2;
         leaveNest = false;
         klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
         klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
@@ -86,20 +85,7 @@ public abstract class Ghost extends Mob {
     @Override
     public abstract void update(Board board);
 
-    protected void changeDirectionTowardsNode(List<PathFinder.Node> nodes, int[] coordinates) {
-        if (nodes.get(0).x > coordinates[0]) {
-            direction = Directions.RIGHT;
-        }
-        if (nodes.get(0).x < coordinates[0]) {
-            direction = Directions.LEFT;
-        }
-        if (nodes.get(0).y > coordinates[1]) {
-            direction = Directions.DOWN;
-        }
-        if (nodes.get(0).y < coordinates[1]) {
-            direction = Directions.RIGHT;
-        }
-    }
+
 
     void changeToRandomDirection(Board board) {
         if (this.x % 50 == 0 && this.y % 50 == 0) {

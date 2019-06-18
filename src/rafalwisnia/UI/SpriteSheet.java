@@ -5,6 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *  SpriteSheet.java.
+ *  W tej klasie zamieniamy grafike png na jednowymiarowa tablice pikseli umozliwiajaca dalsza przetwarzanie tej grafiki.
+ *  Wszystkie obiekty typu SpriteSheet są tworzone z typem danych static, w celu prostego odwolania sie w innych klasach bez potrzeby
+ *  tworzenia obiektu tej klasy
+ */
  public class SpriteSheet {
     private String path;
     private final int SIZE;
