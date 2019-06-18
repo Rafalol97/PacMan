@@ -828,10 +828,9 @@ public class Game extends Canvas implements Runnable {
         game.edytor.setBorder(compound);
         game.edytor.setFocusPainted(false);
 
-
-        game.wznow.addMouseListener(new MouseListener() {
+        game.wznow.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 game.wznow.setVisible(false);
                 game.wylacz.setVisible(false);
                 game.edytor.setVisible(false);
@@ -839,29 +838,11 @@ public class Game extends Canvas implements Runnable {
                 game.requestFocus();
                 game.level.pauza=false;
             }
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
-        game.resetGry.addMouseListener(new MouseListener() {
+
+        game.resetGry.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 game.level.pauza=false;
                 game.wznow.setVisible(false);
                 game.wylacz.setVisible(false);
@@ -870,83 +851,21 @@ public class Game extends Canvas implements Runnable {
                 game.requestFocus();
                 game.level.clearLevel(false);
             }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
-        game.wylacz.addMouseListener(new MouseListener() {
+
+        game.wylacz.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 System.exit(1);
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
             }
         });
-        game.edytor.addMouseListener(new MouseListener() {
+
+        game.edytor.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 System.out.println("Mam cie");
             }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
-        JButton[] jButtons = new JButton[3];
-
-
 
         game.gameWindow.add(game); //Wypełniamy okno naszą "grą" dzięki canvas'owi
         //game.gameWindow.setUndecorated(true);  //Usuniecie paska na gorze
