@@ -189,6 +189,7 @@ public class Game extends Canvas implements Runnable {
 
         Edytor edytorWindow = new Edytor();
         edytorWindow.frame.setVisible(true);
+        edytorWindow.edytor.repaint();
 
         Game game = new Game();
         //ustawienia okienka
@@ -269,6 +270,7 @@ public class Game extends Canvas implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Mam cie");
+
             }
         });
 
