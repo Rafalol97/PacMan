@@ -1,0 +1,49 @@
+@Override
+    public void updateChase(Board board, int PacManX, int PacManY) {
+        if (this.lastSaw == 0) {
+            this.direction = Directions.UP;
+        }
+        else if (this.lastSaw == 1) {
+            this.direction = Directions.RIGHT;
+        }
+        else if (this.lastSaw == 2) {
+            this.direction = Directions.DOWN;
+        }
+        else if (this.lastSaw == 3) {
+            this.direction = Directions.LEFT;
+        }
+
+        if(chceckforObstacles(board, 1)) {
+            if(this.direction == Directions.LEFT || this.direction == Directions.RIGHT) {
+                if(PacManY < this.y) {
+                    System.out.println("UP od sciany");
+                    this.direction = Directions.UP;
+                }
+                else if(PacManY > this.y) {
+                    System.out.println("DOWN od sciany");
+                    this.direction = Directions.DOWN;
+                }
+                else {
+                    if(this.direction == Directions.LEFT) this.direction = Directions.RIGHT;
+                    if(this.direction == Directions.RIGHT) this.direction = Directions.LEFT;
+                }
+            }
+            else if(this.direction == Directions.UP || this.direction == Directions.DOWN) {
+                if(PacManX < this.x) {
+                    System.out.println("LEFT od sciany");
+                    this.direction = Directions.LEFT;
+                }
+                else if(PacManX > this.x) {
+                    System.out.println("RIGHT od sciany");
+                    this.direction = Directions.RIGHT;
+                }
+                else {
+                    if(this.direction == Directions.UP) this.direction = Directions.DOWN;
+                    if(this.direction == Directions.DOWN) this.direction = Directions.UP;
+                }
+            }
+        }
+
+        move();
+
+    }

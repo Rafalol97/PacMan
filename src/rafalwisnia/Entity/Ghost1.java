@@ -314,4 +314,6 @@ public class Ghost1 extends Ghost implements EventListener {
         }
         move();
     }
+
+
 }

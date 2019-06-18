@@ -113,7 +113,7 @@ public class Level implements EventListener {
         pacman.render(screen);
         points.render(screen);
         pacman.renderLives(screen);
-        if(!pacman.isAlive()&&Points.poziom>2) {
+        if(!pacman.isAlive()&&Points.poziom>3) {
             screen.renderSheet(550, 300, SpriteSheet.youdied, false);
         }
     }

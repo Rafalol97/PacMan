@@ -7,6 +7,7 @@ import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.Sprite;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -17,6 +18,7 @@ import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 class MenucanvasUP extends JPanel {
     private int coSto = 0;
@@ -722,8 +724,8 @@ public class Game extends Canvas implements Runnable {
 
     public static void main(String[] args) {
         final boolean[] Dont = {true};
-        JButton startButton = new JButton("New Game");
-        JButton exitButton = new JButton("Exit");
+        JButton startButton = new JButton();
+        JButton exitButton = new JButton();
 
         MenucanvasUP menucanvasUP = new MenucanvasUP();
         MenucanvasDOWN menucanvasDOWN = new MenucanvasDOWN();
@@ -748,6 +750,13 @@ public class Game extends Canvas implements Runnable {
 
         startButton.setBounds(80, 450, 440, 100);
         exitButton.setBounds(80, 600, 440, 100);
+
+        //startButton.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 20));
+        ImageIcon button = new ImageIcon("resources/textures/Board/newgamebutton.png");
+        ImageIcon button2 = new ImageIcon("resources/textures/Board/exitbutton.png");
+
+        startButton.setIcon(button);
+        exitButton.setIcon(button2);
 
         menuWindow.add(menucanvasUP);
         menuWindow.add(menucanvasDOWN);
@@ -825,6 +834,7 @@ public class Game extends Canvas implements Runnable {
             public void mouseClicked(MouseEvent e) {
                 game.wznow.setVisible(false);
                 game.wylacz.setVisible(false);
+                game.edytor.setVisible(false);
                 game.resetGry.setVisible(false);
                 game.requestFocus();
                 game.level.pauza=false;
@@ -855,6 +865,7 @@ public class Game extends Canvas implements Runnable {
                 game.level.pauza=false;
                 game.wznow.setVisible(false);
                 game.wylacz.setVisible(false);
+                game.edytor.setVisible(false);
                 game.resetGry.setVisible(false);
                 game.requestFocus();
                 game.level.clearLevel(false);
