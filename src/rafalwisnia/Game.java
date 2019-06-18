@@ -188,8 +188,13 @@ public class Game extends Canvas implements Runnable {
         });
 
         Edytor edytorWindow = new Edytor();
+        edytorWindow.frame.setResizable(false);
+        edytorWindow.frame.add(edytorWindow);
+        edytorWindow.frame.pack();
+        edytorWindow.frame.setLocationRelativeTo(null);
         edytorWindow.frame.setVisible(true);
-        edytorWindow.edytor.repaint();
+        edytorWindow.render();
+
 
         Game game = new Game();
         //ustawienia okienka
