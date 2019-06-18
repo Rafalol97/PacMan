@@ -28,6 +28,8 @@ public abstract class Ghost extends Mob {
     int wrazieW = 0;
     int xStartowe,yStartowe;
 
+    boolean kontrolna = false;
+    int do4 = 0;
 
     public boolean isScared() {
         return scared;
@@ -160,20 +162,17 @@ public abstract class Ghost extends Mob {
             return true;
         }
         else {
-            if (this.direction == Directions.UP && PacManY < this.y) {
-                this.wrazieW++;
-                return false;
-            } else if (this.direction == Directions.DOWN && PacManY > this.y) {
-                this.wrazieW++;
-                return false;
-            } else if (this.direction == Directions.RIGHT && PacManX > this.x) {
-                this.wrazieW++;
-                return false;
-            } else if (this.direction == Directions.LEFT && PacManX < this.x) {
-                this.wrazieW++;
-                return false;
-            } else {
+            if (this.direction == Directions.UP && PacManY > this.y) {
                 return true;
+            } else if (this.direction == Directions.DOWN && PacManY < this.y) {
+                return true;
+            } else if (this.direction == Directions.RIGHT && PacManX < this.x) {
+                return true;
+            } else if (this.direction == Directions.LEFT && PacManX > this.x) {
+                return true;
+            } else {
+                this.wrazieW++;
+                return false;
             }
         }
     }
@@ -193,27 +192,97 @@ public abstract class Ghost extends Mob {
         }
     }
 
+    public void chceckForErrorsGOOD(Board board, int PacManX, int PacManY) {
+        while(chceckforObstacles(board, 1)) {
+            if(do4 < 4) {
+                if (this.direction == Directions.UP) {
+                    if (this.x < PacManX && !kontrolna) {
+                        this.direction = Directions.LEFT;
+                        kontrolna = true;
+                    }
+                    if (this.x > PacManX && kontrolna) {
+                        this.direction = Directions.RIGHT;
+                        kontrolna = false;
+                    }
+                } else if (this.direction == Directions.RIGHT) {
+                    if (this.y < PacManY && kontrolna) {
+                        this.direction = Directions.UP;
+                        kontrolna = false;
+                    }
+                    if (this.y > PacManY && !kontrolna) {
+                        this.direction = Directions.DOWN;
+                        kontrolna = true;
+                    }
+                } else if (this.direction == Directions.DOWN) {
+                    if (this.x < PacManX && kontrolna) {
+                        this.direction = Directions.LEFT;
+                        kontrolna = false;
+                    }
+                    if (this.x > PacManX && !kontrolna) {
+                        this.direction = Directions.RIGHT;
+                        kontrolna = true;
+                    }
+                } else if (this.direction == Directions.LEFT) {
+                    if (this.y < PacManY && !kontrolna) {
+                        this.direction = Directions.UP;
+                        kontrolna = true;
+                    }
+                    if (this.y > PacManY && kontrolna) {
+                        this.direction = Directions.DOWN;
+                        kontrolna = false;
+                    }
+                }
+                do4++;
+            } else {
+                if (this.direction == Directions.UP) {
+                    this.direction = Directions.RIGHT;
+                    directionIter = 1;
+                } else if (this.direction == Directions.RIGHT) {
+                    this.direction = Directions.DOWN;
+                    directionIter = 2;
+                } else if (this.direction == Directions.DOWN) {
+                    this.direction = Directions.LEFT;
+                    directionIter = 3;
+                } else if (this.direction == Directions.LEFT) {
+                    this.direction = Directions.UP;
+                    directionIter = 0;
+                }
+            }
+        }
+    }
+
     public void updateScared(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {
-            if(Math.abs(this.x-PacManX) < 150 && Math.abs(this.y-PacManY) < 150) {
+            if(Math.abs(this.x-PacManX) < 200 && Math.abs(this.y-PacManY) < 200) {
                 if (PacManY < this.y) {
                     this.direction = Directions.DOWN;
+                    System.out.println("ide w dol bo pac man nademna");
                 } else if (PacManY > this.y) {
                     this.direction = Directions.UP;
+                    System.out.println("ide w gore bo pac man podemna");
                 } else if (PacManX < this.x) {
                     this.direction = Directions.RIGHT;
+                    System.out.println("ide w prawo bo pac man po lewo");
                 } else if (PacManX > this.x) {
                     this.direction = Directions.LEFT;
+                    System.out.println("ide w lewo bo pac man po prawo");
                 }
 
-                chceckForErrorsScared(board, PacManX, PacManY);
-                this.wrazieW = 0;
+                chceckForErrorsGOOD(board, PacManX, PacManY);
+                do4 = 0;
+                this.kontrolna = false;
                 move();
-                System.out.println("I run away to: "+this.direction);
+                //System.out.println("I run away to: "+this.direction);
             } else {
-                chceckForErrorsScared(board, PacManX, PacManY);
-                this.wrazieW=0;
-                move();
+                if (random.nextInt(4) == 0) {
+                    changeToRandomDirection(board);
+                }
+
+                if (chceckforObstacles(board, 1)) {
+                    changeToRandomDirection(board);
+                } else {
+                    move();
+                }
             }
         }
         else{

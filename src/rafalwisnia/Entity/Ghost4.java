@@ -213,6 +213,7 @@ public class Ghost4 extends Ghost implements EventListener {
                 this.direction = Directions.DOWN;
                 directionIter = 2;
             }
+            System.out.println("Jestem w petli gonienia");
         }
     }
 
