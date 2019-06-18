@@ -112,6 +112,17 @@ public class Screen {
             }
         }
     }
+    public void renderLastNumber(int xp, int yp, Sprite sprite) {
+        for (int y = 0; y < sprite.SIZE; y++) {
+            int ya = y + yp;
+            for (int x = 0; x < sprite.SIZE-20; x++) {
+                int xa = x + xp;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < 0) xa = 0;
+                pixels[xa + ya * width] =sprite.pixels[x + y * sprite.SIZE];
+            }
+        }
+    }
     public void renderColor(int xp, int yp,int width,int height, Color color) { ///TODO do zmiany
 
         for (int y = 0; y < height; y++) {

@@ -107,6 +107,7 @@ public class Ghost1 extends Ghost implements EventListener {
                 if (chceckforObstacles(board, 1)) {
                     changeToRandomDirection(board);
                 } else {
+                    System.out.println("i move");
                     move();
                 }
 
@@ -116,6 +117,7 @@ public class Ghost1 extends Ghost implements EventListener {
                 direction = Directions.UP;
                 frameAmountLeave--;
                 move();
+                System.out.println("i start");
                 if (frameAmountLeave == 0) {
                     started = true;
                 }

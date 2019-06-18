@@ -59,13 +59,13 @@ public class Points implements EventListener {
             screen.renderTile(390, 22, cyferki[10]);
         }
         if(liczbaPunktow>0) {
-            screen.renderTile(420,22,cyferki[liczbaPunktow%10]);
+            screen.renderLastNumber(420,22,cyferki[liczbaPunktow%10]);
         }
         else {
-            screen.renderTile(420, 22, cyferki[10]);
+            screen.renderLastNumber(420, 22, cyferki[10]);
         }
 
-        screen.renderTile(420,822,cyferki[poziom]);
+        screen.renderLastNumber(420,822,cyferki[poziom]);
 
     }
 

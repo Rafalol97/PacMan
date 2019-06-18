@@ -194,24 +194,28 @@ public abstract class Ghost extends Mob {
 
     public void updateScared(Board board, int PacManX, int PacManY) {
         if(this.x%50==0&&this.y%50==0) {
-            if(Math.abs(this.x%50-PacManX) < 3 || Math.abs(this.y%50-PacManY) < 3) {
-                if (PacManY <= this.y) {
+            if(Math.abs(this.x-PacManX) < 150 && Math.abs(this.y-PacManY) < 150) {
+                if (PacManY < this.y) {
                     this.direction = Directions.DOWN;
-                } else if (PacManY >= this.y) {
+                } else if (PacManY > this.y) {
                     this.direction = Directions.UP;
-                } else if (PacManX <= this.x) {
+                } else if (PacManX < this.x) {
                     this.direction = Directions.RIGHT;
-                } else if (PacManX >= this.x) {
+                } else if (PacManX > this.x) {
                     this.direction = Directions.LEFT;
                 }
 
                 chceckForErrorsScared(board, PacManX, PacManY);
                 this.wrazieW = 0;
                 move();
+                System.out.println("I run away to: "+this.direction);
             } else {
-                this.update(board);
+                move();
             }
         }
-        move();
+        else{
+            move();
+        }
+
     }
 }

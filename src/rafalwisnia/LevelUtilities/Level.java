@@ -159,14 +159,15 @@ public class Level implements EventListener {
 
             for (int i = 0; i < ghosts.size(); i++) {
                     for (int j = 0; j < ghosts.get(i).getSpeed(); j++) {
-                        if(ghosts.get(i).isScared()){
+                        if(ghosts.get(i).isScared()&&ghosts.get(i).isStarted()){
                             ghosts.get(i).updateScared(board, pacman.getX(), pacman.getY());
-                        } else if (!ghosts.get(i).chase) {
-                            ghosts.get(i).update(board);
-                        } else if (ghosts.get(i).chase) {
+                        } else if (ghosts.get(i).chase&&ghosts.get(i).isStarted()&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateChase(board, pacman.getX(), pacman.getY());
                         }
-                        if(!ghosts.get(i).isDead()) {
+                        else if(!ghosts.get(i).isScared()||!ghosts.get(i).isStarted()){
+                            ghosts.get(i).update(board);
+                        }
+                        if(!ghosts.get(i).isDead()&&!ghosts.get(i).chase&&!ghosts.get(i).isScared()) {
                             ghosts.get(i).updateAIbyCherry(board, pacman.getX(), pacman.getY());
                         }
                     }
@@ -257,6 +258,7 @@ public class Level implements EventListener {
 
     public void scareAllGhosts() {
         for (int i = 0; i < 4; i++) {
+            ghosts.get(i).chase=false;
             ghosts.get(i).setScared(true);
         }
     }
