@@ -3,6 +3,8 @@ package rafalwisnia.LevelUtilities;
 
 import rafalwisnia.UI.Sprite;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 
 /**
@@ -11,7 +13,7 @@ import java.io.*;
  */
 public class Board {
     public Board() {
-        readMatrixFromGame("level.txt");
+
     }
 
     // Oznacznik klockow z ktorych sie sklada mapa - 0 droga 1 - sciana 2- podłoga z coinem
@@ -94,27 +96,33 @@ public class Board {
         if(y<0||y>13|x<0||x>19)return 1;
         return tiles[y][x];
     }
-    public static void readMatrixFromGame(String filepath ){
+    public static void readMatrixFromGame() {
         String pobranaLinia;
-        String []czesci ;
-        try {
-            BufferedReader bufferedReader= new BufferedReader(new FileReader(filepath));
+        String[] czesci;
+        FileWriter fileWriter;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "pacjar");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
-                for(int i=0;i<14;i++){
-                    pobranaLinia = bufferedReader.readLine();
-                    czesci=pobranaLinia.split(",");
-                    for(int j=0;j<20;j++){
-                        Board.tiles[i][j]= Integer.parseInt(czesci[j]);
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(fileChooser.getSelectedFile().getAbsolutePath()));
+                try {
+                    for (int i = 0; i < 14; i++) {
+                        pobranaLinia = bufferedReader.readLine();
+                        czesci = pobranaLinia.split(",");
+                        for (int j = 0; j < 20; j++) {
+                            Board.tiles[i][j] = Integer.parseInt(czesci[j]);
+                        }
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
+
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
+
+
     }
-
-
 }

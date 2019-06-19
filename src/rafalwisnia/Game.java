@@ -215,7 +215,7 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               edytorWindow.writeMatrix("level.txt");
+               edytorWindow.writeMatrix();
             }
         });
 
@@ -230,7 +230,7 @@ public class Game extends Canvas implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("elo");
-                Board.readMatrixFromGame("level.txt");
+                Board.readMatrixFromGame();
                 Game.level.clearLevel(false);
             }
         });

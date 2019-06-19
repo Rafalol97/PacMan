@@ -5,6 +5,7 @@ import rafalwisnia.UI.Sprite;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -113,10 +114,10 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
                     aktualnyPacman[1] = (e.getY() -105)/ 50;
                 }
             }
-
             tilesInEditor[(e.getY() -105)/ 50 ][(e.getX()-323) / 50] = materialy[wybranyMaterial];
             System.out.println("Jestem na: x-" + ((e.getX()-323) / 50 ) + " y-" + ((e.getY()-105)/ 50 ));
             repaint();
+
         }
     }
 
@@ -361,18 +362,33 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         this.tilesInEditor = tilesInEditor;
     }
 
-    void writeMatrix(String filename) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+    void writeMatrix() {
+        FileWriter fileWriter;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "pacjar");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            try {
+                System.out.println(fileChooser.getSelectedFile().getAbsolutePath() + fileChooser.getSelectedFile().getName()+".pacjar");
+                fileWriter = new FileWriter(fileChooser.getSelectedFile().getAbsolutePath() + fileChooser.getSelectedFile().getName()+".pacjar");
 
-            for (int i = 0; i < tilesInEditor.length; i++) {
-                for (int j = 0; j < tilesInEditor[i].length; j++) {
-                    bw.write(tilesInEditor[i][j] + ((j == tilesInEditor[i].length-1) ? ""  : ","));
+                BufferedWriter bw = new BufferedWriter(fileWriter);
+
+                for (int i = 0; i < tilesInEditor.length; i++) {
+                    for (int j = 0; j < tilesInEditor[i].length; j++) {
+                        bw.write(tilesInEditor[i][j] + ((j == tilesInEditor[i].length - 1) ? "" : ","));
+                    }
+                    bw.newLine();
                 }
-                bw.newLine();
-            }
-            bw.flush();
-        } catch (IOException e) {}
+                bw.flush();
+
+
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     }
 
 }
