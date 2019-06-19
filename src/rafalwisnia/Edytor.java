@@ -1,5 +1,7 @@
 package rafalwisnia;
 
+import rafalwisnia.LevelUtilities.Board;
+import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.Sprite;
 
@@ -14,10 +16,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.File;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.*;
 import java.io.IOException;
 
 /**
@@ -409,7 +408,15 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         }
     }
 
-    void writeMatrix() {
+    public void readFromGame(int[][] tiles) {
+        for (int y = 0; y < 14; y++) {
+            for (int x = 0; x < 20; x++) {
+                tilesInEditor[y][x] = tiles[y][x];
+            }
+        }
+    }
+
+    public void writeMatrix() {
         FileWriter fileWriter;
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "pacjar");
@@ -433,9 +440,34 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
             } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
     }
 
+    public void readMatrixToEditor() {
+        String pobranaLinia;
+        String[] czesci;
+        FileWriter fileWriter;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "pacjar");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(fileChooser.getSelectedFile().getAbsolutePath()));
+                try {
+                    for (int i = 0; i < 14; i++) {
+                        pobranaLinia = bufferedReader.readLine();
+                        czesci = pobranaLinia.split(",");
+                        for (int j = 0; j < 20; j++) {
+                            tilesInEditor[i][j] = Integer.parseInt(czesci[j]);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

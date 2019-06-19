@@ -221,14 +221,15 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("elo");
+                edytorWindow.readMatrixToEditor();
+                edytorWindow.repaint();
             }
         });
 
         edytorWindow.loadToGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Board.readMatrixFromGame();
+                Board.readMatrixToGame();
                 Game.level.clearLevel(false);
             }
         });
@@ -236,7 +237,9 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.loadFromGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("elo");
+                System.out.println("Wczytano poziom z gry");
+                edytorWindow.readFromGame(Board.returnTitles());
+                edytorWindow.repaint();
             }
         });
 

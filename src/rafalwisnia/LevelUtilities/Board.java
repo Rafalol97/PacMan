@@ -96,7 +96,7 @@ public class Board {
         if(y<0||y>13|x<0||x>19)return 1;
         return tiles[y][x];
     }
-    public static void readMatrixFromGame() {
+    public static void readMatrixToGame() {
         String pobranaLinia;
         String[] czesci;
         FileWriter fileWriter;
@@ -129,7 +129,9 @@ public class Board {
                 e.printStackTrace();
             }
         }
+    }
 
-
+    public static int[][] returnTitles() {
+        return tiles;
     }
 }
