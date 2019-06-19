@@ -5,6 +5,10 @@ import rafalwisnia.UI.Sprite;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -164,6 +168,35 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         loadButton.setBounds(870, 815, 200, 50);
         loadToGameButton.setBounds(620, 815, 200, 50);
         loadFromGameButton.setBounds(370, 815, 200, 50);
+
+        javax.swing.border.Border line = new LineBorder(Color.BLACK);
+        Border margin = new EmptyBorder(5, 15, 5, 15);
+        Border compound = new CompoundBorder(line, margin);
+
+        loadToGameButton.setForeground(Color.BLACK);
+        loadToGameButton.setBackground(Color.WHITE);
+        loadToGameButton.setBorder(compound);
+        loadToGameButton.setFocusPainted(false);
+
+        loadFromGameButton.setForeground(Color.BLACK);
+        loadFromGameButton.setBackground(Color.WHITE);
+        loadFromGameButton.setBorder(compound);
+        loadFromGameButton.setFocusPainted(false);
+
+        loadButton.setForeground(Color.BLACK);
+        loadButton.setBackground(new Color(0x78BEAF0E));
+        loadButton.setBorder(compound);
+        loadButton.setFocusPainted(false);
+
+        reset.setForeground(Color.BLACK);
+        reset.setBackground(new Color(0x9B3B35));
+        reset.setBorder(compound);
+        reset.setFocusPainted(false);
+
+        saveButton.setForeground(Color.BLACK);
+        saveButton.setBackground(new Color(0x459B59));
+        saveButton.setBorder(compound);
+        saveButton.setFocusPainted(false);
 
         frame.add(reset);
         frame.add(saveButton);

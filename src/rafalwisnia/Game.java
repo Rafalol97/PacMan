@@ -210,7 +210,6 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.frame.add(edytorWindow);
         edytorWindow.frame.pack();
         edytorWindow.frame.setLocationRelativeTo(null);
-        edytorWindow.frame.setVisible(true);
 
         edytorWindow.saveButton.addActionListener(new ActionListener() {
             @Override
@@ -252,7 +251,6 @@ public class Game extends Canvas implements Runnable {
 
 
         Game game = new Game();
-        game.renderEditor(edytorWindow);
         //ustawienia okienka
        // jPanel.setBackground(Color.white);
         game.gameWindow.setResizable(false);
