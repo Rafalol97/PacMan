@@ -368,6 +368,14 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         this.tilesInEditor = tilesInEditor;
     }
 
+    public void resetBoard() {
+        for (int y = 0; y < 14; y++) {
+            for (int x = 0; x < 20; x++) {
+                tilesInEditor[y][x] = tilesClean[y][x];
+            }
+        }
+    }
+
     void writeMatrix() {
         FileWriter fileWriter;
         JFileChooser fileChooser = new JFileChooser();

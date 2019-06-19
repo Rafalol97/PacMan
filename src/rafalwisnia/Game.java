@@ -229,7 +229,6 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.loadToGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("elo");
                 Board.readMatrixFromGame();
                 Game.level.clearLevel(false);
             }
@@ -245,7 +244,9 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("elo");
+                System.out.println("Czyszcze plansze");
+                edytorWindow.resetBoard();
+                edytorWindow.repaint();
             }
         });
 
