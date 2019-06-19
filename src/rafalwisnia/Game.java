@@ -211,7 +211,40 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.frame.setLocationRelativeTo(null);
         edytorWindow.frame.setVisible(true);
 
+        edytorWindow.saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("elo");
+            }
+        });
 
+        edytorWindow.loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("elo");
+            }
+        });
+
+        edytorWindow.loadToGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("elo");
+            }
+        });
+
+        edytorWindow.loadFromGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("elo");
+            }
+        });
+
+        edytorWindow.reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("elo");
+            }
+        });
 
 
         Game game = new Game();
