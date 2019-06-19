@@ -30,7 +30,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     private int width = 1400, height = 900;
     private boolean flagaWybierania = true;
     private int[] materialy = {0, 99, -1, -2};
-    private int wybranyMaterial = 9;
+    private int wybranyMaterial = 0;
 
     public JButton saveButton;
     public JButton loadButton;
