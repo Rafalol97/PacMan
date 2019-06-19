@@ -57,7 +57,11 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
             wybranyMaterial = 2;
             System.out.println("Wybrany material: " + wybranyMaterial);
         }
-        if (e.getX() > 370 && e.getX() < 1270 && e.getY() > 150 && e.getY() < 750) {
+        if (e.getX() > 670 && e.getX() < 970 && e.getY() > 400 && e.getY() < 600) {
+            System.out.println("Jestem na: x-" + (e.getX()/50-6) + " y-" + (e.getY()/50-2));
+            System.out.println("Nie wolno zmieniac spawna duszkow!");
+        }
+        else if (e.getX() > 370 && e.getX() < 1270 && e.getY() > 150 && e.getY() < 750) {
             tiles[e.getY()/50-2][e.getX()/50-6] = materialy[wybranyMaterial];
             System.out.println("Jestem na: x-" + (e.getX()/50-6) + " y-" + (e.getY()/50-2));
             repaint();
@@ -101,6 +105,10 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     public void reorderBoard(){
         for (int y=0;y<14;y++){
             for(int x=0;x<20;x++) {
+                //wyjscie duszkow musi byc otwarte
+                if(tiles[5][9] >= 1) {tiles[5][9] = 0; System.out.println("Duszki musza miec mozliwosc wyjscia!");}
+                if(tiles[5][10] >= 1) {tiles[5][10] = 0; System.out.println("Duszki musza miec mozliwosc wyjscia!");}
+                //alg ukladajacy
                 if(x == 0 && y == 0) {}
                 else if (x == 19 && y == 0) {}
                 else if (x == 19 && y == 13) {}
@@ -135,8 +143,10 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
                     if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 13;}
                     if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 20;}
                 }
+                //sprawdzenie scian obok bramy aby zachowaly swoj ksztalt
                 if(tiles[5][8] >= 1) {tiles[6][8] = 6;} else {tiles[6][8] = 88;}
                 if(tiles[5][11] >= 1) {tiles[6][11] = 5;} else {tiles[6][11] = 8;}
+                //ponowne ustawienie bramy
                 tiles[6][9] = 17; tiles[6][10] = 17;
             }
         }
