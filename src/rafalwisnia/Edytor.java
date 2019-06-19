@@ -21,12 +21,16 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     private BufferedImage image = new BufferedImage(1400, 900, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
 
+    private boolean flagaWybierania = true;
+    private int[] materialy = {0, 99, -1};
+    private int wybranyMaterial = 0;
+
     private int tiles[][]={
             {1,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,2},
             {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
             {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
             {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
-            {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,3},
+            {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
             {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
             {3,0,0,0,0,0,0,1,88,17,17,8,2,0,0,0,0,0,0,3},
             {3,0,0,0,0,0,0,3,0,0,0,0,3,0,0,0,0,0,0,3},
@@ -40,7 +44,22 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(flagaWybierania) {
+            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
+                wybranyMaterial = 0;
 
+            }
+            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
+                wybranyMaterial = 1;
+
+            }
+            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
+                wybranyMaterial = 2;
+
+            }
+        } else {
+
+        }
     }
 
     @Override
@@ -71,7 +90,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
         frame = new JFrame();
         //frame.setLayout(null);
-
+        addMouseListener(this);
 
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -97,7 +116,22 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
                     if(tiles[y][x-1]>=1) {tiles[y][x] = 18;}
                 }
                 else {
-                    //if(tiles[y+1][x+1]>=1 && )
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]<1 && tiles[y+1][x]<1 && tiles[y][x-1]<1) {tiles[y][x] = 19;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]<1 && tiles[y+1][x]<1 && tiles[y][x-1]<1) {tiles[y][x] = 44;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]<1 && tiles[y][x-1]<1) {tiles[y][x] = 8;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]<1 && tiles[y][x-1]<1) {tiles[y][x] = 10;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]<1 && tiles[y+1][x]>=1 && tiles[y][x-1]<1) {tiles[y][x] = 4;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]<1 && tiles[y+1][x]>=1 && tiles[y][x-1]<1) {tiles[y][x] = 3;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]<1) {tiles[y][x] = 1;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]<1) {tiles[y][x] = 21;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]<1 && tiles[y+1][x]<1 && tiles[y][x-1]>=1) {tiles[y][x] = 88;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]<1 && tiles[y+1][x]<1 && tiles[y][x-1]>=1) {tiles[y][x] = 6;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]<1 && tiles[y][x-1]>=1) {tiles[y][x] = 11;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]<1 && tiles[y][x-1]>=1) {tiles[y][x] = 14;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]<1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 9;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]<1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 18;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 13;}
+                    if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 20;}
                 }
             }
         }
