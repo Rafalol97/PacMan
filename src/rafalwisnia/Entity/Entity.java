@@ -31,6 +31,14 @@ public abstract class Entity {
     //public abstract void update();
 
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void render(Screen screen){
         if(sprite != null) screen.renderSprite(x,y,sprite);
 

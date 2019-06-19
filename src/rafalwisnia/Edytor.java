@@ -376,7 +376,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
                 System.out.println(fileChooser.getSelectedFile().getAbsolutePath() + fileChooser.getSelectedFile().getName()+".pacjar");
-                fileWriter = new FileWriter(fileChooser.getSelectedFile().getAbsolutePath() + fileChooser.getSelectedFile().getName()+".pacjar");
+                fileWriter = new FileWriter(fileChooser.getSelectedFile().getAbsolutePath()+".pacjar");
 
                 BufferedWriter bw = new BufferedWriter(fileWriter);
 

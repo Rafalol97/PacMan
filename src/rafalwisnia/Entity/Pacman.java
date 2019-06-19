@@ -28,7 +28,8 @@ public class Pacman extends  Mob {
     private Directions directionTemp;
     private int klatkiSmierc;
     private boolean umiera=false;
-
+    private int deafultX;
+    private int deafultY;
     private Integer respawnTimeLeft;
     private EventListener eventListener;
 
@@ -69,7 +70,7 @@ public class Pacman extends  Mob {
         this.enraged = enraged;
     }
 
-    public Pacman(int x, int y, Keyboard input, int speed) {
+    public Pacman( Keyboard input, int speed) {
         super(speed);
         klatkiPacmannRight[0]= new AnimatedSprite(pacmann_prawo_0);
         klatkiPacmannRight[1]= new AnimatedSprite(pacmann_prawo_1);
@@ -110,8 +111,8 @@ public class Pacman extends  Mob {
 
         sprite=klatkiPacmannRight[0].getSprite();
         this.input = input;
-        this.x=x;
-        this.y=y;
+        this.x=0;
+        this.y=0;
         kierunekKlatek=true;
         klatka=0;
         klatkiSmierc=-1;
@@ -257,8 +258,8 @@ public class Pacman extends  Mob {
      *
      */
     public void resetPacman(){
-        this.x=800;
-        this.y=600;
+        this.x=deafultX;
+        this.y=deafultY;
         this.direction=Directions.UP;
         moving=false;
 
@@ -269,8 +270,8 @@ public class Pacman extends  Mob {
      * @param wygrana wartosc logiczna prawda lub falsz
      */
     public void resetPacmanToDefault(boolean wygrana){
-        this.x=800;
-        this.y=600;
+        this.x=deafultX;
+        this.y=deafultY;
         this.direction=Directions.UP;
         moving=false;
         if(!wygrana)this.setLives(3);
@@ -283,6 +284,19 @@ public class Pacman extends  Mob {
         this.moving=false;
     }
 
+    public int getDeafultX() {
+        return deafultX;
+    }
 
+    public void setDeafultX(int deafultX) {
+        this.deafultX = deafultX;
+    }
 
+    public int getDeafultY() {
+        return deafultY;
+    }
+
+    public void setDeafultY(int deafultY) {
+        this.deafultY = deafultY;
+    }
 }

@@ -31,12 +31,18 @@ public class Level implements EventListener {
     private boolean pokazYouWon=false;
     private boolean zresetujPoWygranej =false;
     public boolean pauza = false;
+    public static int PacX;
+    public static int PacY;
+
 
     public Level() {
         LinkedList<Integer> speeds = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             speeds.add(1);
         }
+        PacX=10*50+300;
+        PacY=10*50+100;
+
         createLevel(speeds);
 
     }
@@ -66,7 +72,7 @@ public class Level implements EventListener {
         ghosts.add(new Ghost4(800, 500, board,this,speeds.get(3)));
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 14; j++) {
-                if (board.getTileAlias(j, i) == 0 && !(i >= 7 && i <= 12 && j >= 5 && j <= 9)&&!(i==10&&j==10) ){
+                if (board.getTileAlias(j, i) == 0 && !(i >= 7 && i <= 12 && j >= 5 && j <= 9)&&!((PacX-300)%50==i&&(PacY-100)%50==j) ){
                     coinsTable[j][i]= new Coin(i,j,Sprite.smallCoin);
                     Coin.count++;
                 }
@@ -74,8 +80,10 @@ public class Level implements EventListener {
                     coinsTable[j][i]=new Coin(i,j,Sprite.bigCoin);
                     Coin.count++;
                 }
+
             }
         }
+
         pacmanSpeed = 3;
         timer = 0;
         showAllGhosts();
@@ -108,7 +116,8 @@ public class Level implements EventListener {
             Points.resetPoints();
         }
         Coin.count=0;
-
+        pacman.setDeafultX(PacX);
+        pacman.setDeafultY(PacY);
         pacman.resetPacmanToDefault(wygrana);
         createLevel(speeds);
         allGhostsOut = false;
@@ -163,6 +172,9 @@ public class Level implements EventListener {
         if (e instanceof Pacman) {
             ((Pacman) e).setEventListener(this);
             pacman = (Pacman) e;
+            pacman.setDeafultX(PacX);
+            pacman.setDeafultY(PacY);
+            pacman.resetPacman();
 
         } else {
             ghosts.add((Ghost) e);

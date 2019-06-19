@@ -111,7 +111,14 @@ public class Board {
                         pobranaLinia = bufferedReader.readLine();
                         czesci = pobranaLinia.split(",");
                         for (int j = 0; j < 20; j++) {
-                            Board.tiles[i][j] = Integer.parseInt(czesci[j]);
+                            if(Integer.parseInt(czesci[j])==-2){
+                                Level.PacX = j*50+300;
+                                Level.PacY =i*50+100;
+                                Board.tiles[i][j]=0;
+                            }
+                            else{
+                                Board.tiles[i][j] = Integer.parseInt(czesci[j]);
+                            }
                         }
                     }
                 } catch (IOException e) {
