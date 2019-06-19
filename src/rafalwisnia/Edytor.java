@@ -352,6 +352,12 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
             pixels[i] = screen.pixels[i];
         }
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+
+        saveButton.repaint();
+        loadFromGameButton.repaint();
+        loadToGameButton.repaint();
+        loadButton.repaint();
+        reset.repaint();
     }
 
     public int[][] getTilesInEditor() {
