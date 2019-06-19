@@ -125,6 +125,24 @@ public class Screen {
             }
         }
     }
+
+    public void renderTileBright(int xp, int yp, Sprite sprite, int flip) {
+        Color color ;
+        for (int y = 0; y < sprite.SIZE; y++) {
+            int ya = y + yp;
+            int ys = y;
+            if (flip == 2 || flip == 3) ys = sprite.SIZE - 1 - y;
+            for (int x = 0; x < sprite.SIZE; x++) {
+                int xa = x + xp;
+                int xs = x;
+                if (flip == 1 || flip == 3) xs = sprite.SIZE - 1 - x;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < 0) xa = 0;
+                color = new Color(sprite.pixels[xs + ys * sprite.SIZE]);
+                pixels[xa + ya * width] = color.brighter().brighter().brighter().getRGB();
+            }
+        }
+    }
     /**
      *Funkcja przepisujaca piksele z otrzymanych parametrow
      * @param xp wspolrzedna x miejsca rozpoczecia wczytywania na tablice pikseli

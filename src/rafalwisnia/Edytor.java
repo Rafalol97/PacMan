@@ -26,7 +26,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     private int width = 1400, height = 900;
     private boolean flagaWybierania = true;
     private int[] materialy = {0, 99, -1, -2};
-    private int wybranyMaterial = 0;
+    private int wybranyMaterial = 9;
 
     public JButton saveButton;
     public JButton loadButton;
@@ -77,19 +77,23 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
             wybranyMaterial = 0;
+            repaint();
             System.out.println("Wybrany material: " + wybranyMaterial);
 
         }
         if (e.getX() > 220 && e.getX() < 270 && e.getY() > 200 && e.getY() < 250) {
             wybranyMaterial = 1;
+            repaint();
             System.out.println("Wybrany material: " + wybranyMaterial);
         }
         if (e.getX() > 220 && e.getX() < 270 && e.getY() > 300 && e.getY() < 350) {
             wybranyMaterial = 2;
+            repaint();
             System.out.println("Wybrany material: " + wybranyMaterial);
         }
         if (e.getX() > 220 && e.getX() < 270 && e.getY() > 400 && e.getY() < 450) {
             wybranyMaterial = 3;
+            repaint();
             System.out.println("Wybrany material: " + wybranyMaterial);
         }
         if (e.getX() > 670 && e.getX() < 970 && e.getY() > 400 && e.getY() < 600) {
@@ -302,10 +306,26 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     }
 
     public void printPanel() {
-        screen.renderTile(220, 100, Sprite.podloga, 0);
-        screen.renderTile(220, 200, Sprite.brick_19, 0);
-        screen.renderTile(220, 300, Sprite.bigCoin, 0);
-        screen.renderTile(220, 400, Sprite.pacmann_lewo_0, 0);
+        if(wybranyMaterial == 0) {
+            screen.renderTileBright(220, 100, Sprite.podloga, 0);
+        } else {
+            screen.renderTile(220, 100, Sprite.podloga, 0);
+        }
+        if(wybranyMaterial == 1) {
+            screen.renderTileBright(220, 200, Sprite.brick_19, 0);
+        } else {
+            screen.renderTile(220, 200, Sprite.brick_19, 0);
+        }
+        if(wybranyMaterial == 2) {
+            screen.renderTileBright(220, 300, Sprite.bigCoin, 0);
+        } else {
+            screen.renderTile(220, 300, Sprite.bigCoin, 0);
+        }
+        if(wybranyMaterial == 3) {
+            screen.renderTileBright(220, 400, Sprite.pacmann_lewo_0, 0);
+        } else {
+            screen.renderTile(220, 400, Sprite.pacmann_lewo_0, 0);
+        }
     }
 
     @Override
