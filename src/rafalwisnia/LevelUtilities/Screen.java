@@ -164,6 +164,22 @@ public class Screen {
             }
         }
     }
+    public void dlaWisni(int xp, int yp, Color color) {
+
+        for (int y = 0; y < 50; y++) {
+            int ya = y + yp;
+            for (int x = 0; x < 50; x++) {
+                int xa = x + xp;
+                if (xa < -50 || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < 0) xa = 0;
+                if (!(x >=1 && x <= 48 && y >= 1 && y <= 48)) {
+                pixels[xa + ya * width] = color.getRGB();
+                   }
+
+
+            }
+        }
+    }
 }
 
 

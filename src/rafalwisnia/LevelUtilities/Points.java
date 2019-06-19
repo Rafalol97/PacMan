@@ -4,6 +4,8 @@ import rafalwisnia.Events.Event;
 import rafalwisnia.Events.EventListener;
 import rafalwisnia.UI.Sprite;
 
+import java.awt.*;
+
 /**Points.java
  * Klasa przechowujacy aktualny wynik i poziom gry
  *
@@ -87,6 +89,8 @@ public class Points implements EventListener {
             screen.renderTile(390,822,cyferki[poziom/10],0);
         }
         screen.renderLastNumber(420,822,cyferki[poziom%10]);
+
+
 
     }
 

@@ -159,8 +159,7 @@ public class Game extends Canvas implements Runnable {
             }
         }
         else{
-            for (int i = 0; i < pixels.length; i++) {
-                pixels[i] = screen.pixels[i];
+            for (int i = 0; i < pixels.length; i++) { pixels[i] = screen.pixels[i];
             }
         }
 
