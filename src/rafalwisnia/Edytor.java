@@ -30,7 +30,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     private int width = 1400, height = 900;
     private boolean flagaWybierania = true;
     private int[] materialy = {0, 99, -1, -2};
-    private int wybranyMaterial = 9;
+    private int wybranyMaterial = 0;
 
     public JButton saveButton;
     public JButton loadButton;
@@ -366,6 +366,14 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
     public void setTilesInEditor(int[][] tilesInEditor) {
         this.tilesInEditor = tilesInEditor;
+    }
+
+    public void resetBoard() {
+        for (int y = 0; y < 14; y++) {
+            for (int x = 0; x < 20; x++) {
+                tilesInEditor[y][x] = tilesClean[y][x];
+            }
+        }
     }
 
     void writeMatrix() {
