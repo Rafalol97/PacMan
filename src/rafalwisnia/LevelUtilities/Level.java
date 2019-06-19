@@ -33,6 +33,7 @@ public class Level implements EventListener {
     public boolean pauza = false;
     public static int PacX;
     public static int PacY;
+    public int licznikMrygania = 0;
 
 
     public Level() {
@@ -221,6 +222,17 @@ public class Level implements EventListener {
                 if (pacman.isEnraged()) {
                     if (timer > 0) {
                         timer--;
+                        if(timer < 60) {
+                            if(licznikMrygania == 5) {
+                                for (int i = 0; i < 4; i++) {
+                                    if(ghosts.get(i).przestraszonyNr == 0)
+                                        ghosts.get(i).przestraszonyNr = 1;
+                                    else
+                                        ghosts.get(i).przestraszonyNr = 0;
+                                }
+                                licznikMrygania = 0;
+                            } else licznikMrygania++;
+                        }
                     } else {
                         pacmanSpeed = 3;
                         pacman.setEnraged(false);

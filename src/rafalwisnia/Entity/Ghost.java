@@ -16,7 +16,8 @@ public abstract class Ghost extends Mob {
 
     Sprite[] oczyDuszkaPoSmierci = new Sprite[4];
 
-    AnimatedSprite klatkiDuszekPrzestraszony[] = new AnimatedSprite[2];
+    AnimatedSprite klatkiDuszekPrzestraszony[][] = new AnimatedSprite[2][2];
+    public int przestraszonyNr = 0;
     static Random random = new Random();
     int frameAmountLeave;
 
@@ -64,8 +65,10 @@ public abstract class Ghost extends Mob {
         this.speed = speed;
         speedTemp=2;
         leaveNest = false;
-        klatkiDuszekPrzestraszony[0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
-        klatkiDuszekPrzestraszony[1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
+        klatkiDuszekPrzestraszony[0][0] = new AnimatedSprite(Sprite.duszekPrzestraszony1);
+        klatkiDuszekPrzestraszony[0][1] = new AnimatedSprite(Sprite.duszekPrzestraszony2);
+        klatkiDuszekPrzestraszony[1][0] = new AnimatedSprite(Sprite.duszekPrzestraszony3);
+        klatkiDuszekPrzestraszony[1][1] = new AnimatedSprite(Sprite.duszekPrzestraszony4);
     }
 
     /**

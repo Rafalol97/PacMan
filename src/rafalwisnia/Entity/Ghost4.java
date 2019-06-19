@@ -64,7 +64,7 @@ public class Ghost4 extends Ghost implements EventListener {
             if (!isScared()) {
                 sprite = listaKlatek.get(directionIter)[klatka].getSprite();
             } else {
-                sprite = klatkiDuszekPrzestraszony[klatka].getSprite();
+                sprite = klatkiDuszekPrzestraszony[przestraszonyNr][klatka].getSprite();
             }
             screen.renderMob(x, y, sprite, 0);
         }

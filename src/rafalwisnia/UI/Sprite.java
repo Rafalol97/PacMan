@@ -131,6 +131,8 @@ public class Sprite {
 
     public static Sprite duszekPrzestraszony1 = new Sprite(50,2,6,SpriteSheet.pacmann);
     public static Sprite duszekPrzestraszony2 = new Sprite(50,3,6,SpriteSheet.pacmann);
+    public static Sprite duszekPrzestraszony3 = new Sprite(50,4,6,SpriteSheet.pacmann);
+    public static Sprite duszekPrzestraszony4 = new Sprite(50,4,6,SpriteSheet.pacmann);
 
     public static Sprite oczy_Prawo = new Sprite(50,0,7,SpriteSheet.pacmann);
     public static Sprite oczy_Dol = new Sprite(50,1,7,SpriteSheet.pacmann);

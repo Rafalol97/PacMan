@@ -18,7 +18,7 @@ import java.io.IOException;
     private  int width, height;
     public int pixels[];
 
-    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/texturyprawdziwe5.png", 1000);
+    public static SpriteSheet pacmann = new SpriteSheet("resources/textures/Pacman/texturyprawdziwe6.png", 1000);
     public static SpriteSheet youdied_darksouls = new SpriteSheet("resources/textures/Pacman/youdied.png",480,360);
      public static SpriteSheet youdied_generic = new SpriteSheet("resources/textures/Pacman/youlost.png",500,100);
      public static SpriteSheet youwon   = new SpriteSheet("resources/textures/Pacman/youwon.png",500,100);
