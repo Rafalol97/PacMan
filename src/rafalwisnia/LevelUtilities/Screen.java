@@ -139,7 +139,11 @@ public class Screen {
                 if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 color = new Color(sprite.pixels[xs + ys * sprite.SIZE]);
-                pixels[xa + ya * width] = color.brighter().brighter().brighter().getRGB();
+                if(color.getRGB() == 0xffffff) {
+                    pixels[xa + ya * width] = color.brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().getRGB();
+                } else {
+                    pixels[xa + ya * width] = color.brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().brighter().getRGB();
+                }
             }
         }
     }

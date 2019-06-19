@@ -158,11 +158,11 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         loadFromGameButton = new JButton("Load from game");
         reset = new JButton("Reset editor");
 
-        reset.setBounds(1120, 25, 200, 50);
-        saveButton.setBounds(1120, 825, 200, 50);
-        loadButton.setBounds(870, 825, 200, 50);
-        loadToGameButton.setBounds(620, 825, 200, 50);
-        loadFromGameButton.setBounds(370, 825, 200, 50);
+        reset.setBounds(1120, 35, 200, 50);
+        saveButton.setBounds(1120, 815, 200, 50);
+        loadButton.setBounds(870, 815, 200, 50);
+        loadToGameButton.setBounds(620, 815, 200, 50);
+        loadFromGameButton.setBounds(370, 815, 200, 50);
 
         frame.add(reset);
         frame.add(saveButton);
