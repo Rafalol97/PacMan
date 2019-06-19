@@ -36,6 +36,11 @@ public class Sprite {
     //Podloga
     public static Sprite podloga = new Sprite(50,10,10,SpriteSheet.pacmann);
 
+    //Do edytora
+    public static Sprite brick_18 = new Sprite(50,6,19,SpriteSheet.pacmann);
+    public static Sprite brick_19 = new Sprite(50,5,19,SpriteSheet.pacmann);
+    public static Sprite brick_20 = new Sprite(50,5,18,SpriteSheet.pacmann);
+
 
     //Pacman
     public static Sprite pacmann_prawo_0 = new Sprite(50,0,0,SpriteSheet.pacmann);
