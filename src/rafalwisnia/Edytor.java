@@ -44,21 +44,23 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(flagaWybierania) {
-            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
-                wybranyMaterial = 0;
+        if (e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
+            wybranyMaterial = 0;
+            System.out.println("Wybrany material: " + wybranyMaterial);
 
-            }
-            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
-                wybranyMaterial = 1;
-
-            }
-            if(e.getX() > 220 && e.getX() < 270 && e.getY() > 100 && e.getY() < 150) {
-                wybranyMaterial = 2;
-
-            }
-        } else {
-
+        }
+        if (e.getX() > 220 && e.getX() < 270 && e.getY() > 200 && e.getY() < 250) {
+            wybranyMaterial = 1;
+            System.out.println("Wybrany material: " + wybranyMaterial);
+        }
+        if (e.getX() > 220 && e.getX() < 270 && e.getY() > 300 && e.getY() < 350) {
+            wybranyMaterial = 2;
+            System.out.println("Wybrany material: " + wybranyMaterial);
+        }
+        if (e.getX() > 370 && e.getX() < 1270 && e.getY() > 150 && e.getY() < 750) {
+            tiles[e.getY()/50-2][e.getX()/50-6] = materialy[wybranyMaterial];
+            System.out.println("Jestem na: x-" + (e.getX()/50-6) + " y-" + (e.getY()/50-2));
+            repaint();
         }
     }
 
@@ -133,6 +135,9 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
                     if(tiles[y][x] >= 1 && tiles[y-1][x]<1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 13;}
                     if(tiles[y][x] >= 1 && tiles[y-1][x]>=1 && tiles[y][x+1]>=1 && tiles[y+1][x]>=1 && tiles[y][x-1]>=1) {tiles[y][x] = 20;}
                 }
+                if(tiles[5][8] >= 1) {tiles[6][8] = 6;} else {tiles[6][8] = 88;}
+                if(tiles[5][11] >= 1) {tiles[6][11] = 5;} else {tiles[6][11] = 8;}
+                tiles[6][9] = 17; tiles[6][10] = 17;
             }
         }
     }
