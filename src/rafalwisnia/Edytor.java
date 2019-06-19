@@ -3,11 +3,14 @@ package rafalwisnia;
 import rafalwisnia.LevelUtilities.Screen;
 import rafalwisnia.UI.Sprite;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Edytor.java Nieskonczana klasa ktora miala realizowac edytor poziomow dla uzytkownika
@@ -17,6 +20,7 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
     public JFrame frame;
     public Screen screen;
     private int[] aktualnyPacman = {-1, -1};
+    private BufferedImage Border;
     private BufferedImage image = new BufferedImage(1400, 900, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
     private int width = 1400, height = 900;
@@ -131,6 +135,13 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         screen = new Screen(1400, 900);
 
         frame = new JFrame();
+
+        try {
+            Border = ImageIO.read(new File("resources/textures/Board/edytortlo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         addMouseListener(this);
 
         saveButton = new JButton("Save to file");
@@ -303,20 +314,19 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
         screen.clear();
 
-        for (int i = 0; i < screen.pixels.length; i++) {
-            screen.pixels[i] = 0x2E8B57;
+        for (int y = 0; y < 900; y++) {
+            for (int x = 0; x < 1400; x++) {
+                pixels[x + y * 1400] = Border.getRGB(x, y);
+            }
         }
 
         reorderBoard();
 
         printBoard();
-
         printPanel();
-
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
         }
-
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 
