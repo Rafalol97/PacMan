@@ -11,6 +11,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Edytor.java Nieskonczana klasa ktora miala realizowac edytor poziomow dla uzytkownika
@@ -137,8 +140,9 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         frame = new JFrame();
 
         try {
-            Border = ImageIO.read(new File("resources/textures/Board/edytortlo.png"));
+            Border = ImageIO.read(new File("resources/textures/Board/edytortlo.bmp"));
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
@@ -316,12 +320,11 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
 
         for (int y = 0; y < 900; y++) {
             for (int x = 0; x < 1400; x++) {
-                pixels[x + y * 1400] = Border.getRGB(x, y);
+                screen.pixels[x + y * 1400] = Border.getRGB(x, y);
             }
         }
 
         reorderBoard();
-
         printBoard();
         printPanel();
         for (int i = 0; i < pixels.length; i++) {
@@ -330,5 +333,26 @@ public class Edytor extends JPanel implements java.awt.event.MouseListener {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 
+    public int[][] getTilesInEditor() {
+        return tilesInEditor;
+    }
+
+    public void setTilesInEditor(int[][] tilesInEditor) {
+        this.tilesInEditor = tilesInEditor;
+    }
+
+    void writeMatrix(String filename) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+
+            for (int i = 0; i < tilesInEditor.length; i++) {
+                for (int j = 0; j < tilesInEditor[i].length; j++) {
+                    bw.write(tilesInEditor[i][j] + ((j == tilesInEditor[i].length-1) ? ""  : ","));
+                }
+                bw.newLine();
+            }
+            bw.flush();
+        } catch (IOException e) {}
+    }
 
 }

@@ -3,6 +3,7 @@ package rafalwisnia;
 import rafalwisnia.Entity.Pacman;
 import rafalwisnia.Events.Keyboard;
 
+import rafalwisnia.LevelUtilities.Board;
 import rafalwisnia.LevelUtilities.Level;
 import rafalwisnia.LevelUtilities.Screen;
 
@@ -46,7 +47,7 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
 
     public static Screen screen;
-    private Level level;
+    private static Level level;
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //obraz w ktorym bedziemy modyfikowac pixele
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData(); //zmieniamy obiekt stworzony wyzej w tablice pixeli
 
@@ -214,7 +215,7 @@ public class Game extends Canvas implements Runnable {
         edytorWindow.saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("elo");
+               edytorWindow.writeMatrix("level.txt");
             }
         });
 
@@ -229,6 +230,8 @@ public class Game extends Canvas implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("elo");
+                Board.readMatrixFromGame("level.txt");
+                Game.level.clearLevel(false);
             }
         });
 
@@ -299,20 +302,20 @@ public class Game extends Canvas implements Runnable {
                 game.edytor.setVisible(false);
                 game.resetGry.setVisible(false);
                 game.requestFocus();
-                game.level.pauza=false;
+                Game.level.pauza=false;
             }
         });
 
         game.resetGry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.level.pauza=false;
+                Game.level.pauza=false;
                 game.wznow.setVisible(false);
                 game.wylacz.setVisible(false);
                 game.edytor.setVisible(false);
                 game.resetGry.setVisible(false);
                 game.requestFocus();
-                game.level.clearLevel(false);
+                Game.level.clearLevel(false);
             }
         });
 

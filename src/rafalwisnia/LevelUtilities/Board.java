@@ -3,13 +3,19 @@ package rafalwisnia.LevelUtilities;
 
 import rafalwisnia.UI.Sprite;
 
+import java.io.*;
+
 /**
  * Klasa przechowuje tablice reprezentujaca plansze gry na podstawie ktorej wczytywane sa odpowiednie tekstury przechowywane w obiekcie klasy Sprite
  *
  */
 public class Board {
+    public Board() {
+        readMatrixFromGame("level.txt");
+    }
+
     // Oznacznik klockow z ktorych sie sklada mapa - 0 droga 1 - sciana 2- podłoga z coinem
-    private int tiles[][]={
+    private static int tiles[][]={
             {1,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,2},
             {3,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,3},
             {3,0,8,11,11,11,2,0,8,13,16,88,0,7,11,11,11,88,0,3},
@@ -53,6 +59,11 @@ public class Board {
                 else if(tiles[y][x]==15) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,3);
                 else if(tiles[y][x]==16) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_13,4);
                 else if(tiles[y][x]==17) screen.renderTile((x*50)+300,(y*50)+100, Sprite.brick_17,0);
+
+                else if (tiles[y][x] == 18) screen.renderTile((x * 50) + 300, (y * 50) + 100, Sprite.brick_18, 0);
+                else if (tiles[y][x] == 19) screen.renderTile((x * 50) + 300, (y * 50) + 100, Sprite.brick_19, 0);
+                else if (tiles[y][x] == 20) screen.renderTile((x * 50) + 300, (y * 50) + 100, Sprite.brick_20, 0);
+                else if (tiles[y][x] == 21) screen.renderTile((x * 50) + 300, (y * 50) + 100, Sprite.brick_18, 1);
             }
         }
     }
@@ -83,7 +94,27 @@ public class Board {
         if(y<0||y>13|x<0||x>19)return 1;
         return tiles[y][x];
     }
+    public static void readMatrixFromGame(String filepath ){
+        String pobranaLinia;
+        String []czesci ;
+        try {
+            BufferedReader bufferedReader= new BufferedReader(new FileReader(filepath));
+            try {
+                for(int i=0;i<14;i++){
+                    pobranaLinia = bufferedReader.readLine();
+                    czesci=pobranaLinia.split(",");
+                    for(int j=0;j<20;j++){
+                        Board.tiles[i][j]= Integer.parseInt(czesci[j]);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
